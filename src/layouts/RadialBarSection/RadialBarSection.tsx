@@ -1,4 +1,3 @@
-import useRadialBarSectionStyles from './RadialBarSection.style'
 import React, {ReactChild, FC} from 'react'
 import {Box, Button, Divider, Grid, Paper, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
@@ -15,9 +14,6 @@ interface RadialBarSectionProps {
 }
 
 const RadialBarSection: FC<RadialBarSectionProps> = ({radialBarData}) => {
-    const theme = useTheme()
-    const Styles = useRadialBarSectionStyles(theme)
-
 
     return (
         <Grid height={'100%'} item xs={12} md={4}>

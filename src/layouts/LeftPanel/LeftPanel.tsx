@@ -1,4 +1,3 @@
-import useLeftPanelStyles from './LeftPanel.style'
 import {ReactChild, FC, useEffect, useState} from 'react'
 import {
     CssBaseline,
@@ -27,7 +26,6 @@ interface LeftPanelProps {
 
 const LeftPanel: FC<LeftPanelProps> = ({children}) => {
     const theme = useTheme()
-    const Styles = useLeftPanelStyles(theme)
 
     const [open, setOpen] = useState<boolean>(false);
 

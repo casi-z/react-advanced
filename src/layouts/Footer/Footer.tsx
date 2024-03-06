@@ -1,4 +1,3 @@
-import useFooterStyles from './Footer.style'
 import {ReactChild, FC} from 'react'
 
 import {Box, Button, Divider, IconButton, Input, Link, useTheme} from '@mui/material';
@@ -15,8 +14,6 @@ interface FooterProps {
 
 const Footer: FC<FooterProps> = ({children, className}) => {
 
-    const theme = useTheme()
-    const Styles = useFooterStyles(theme)
 
 
     return (

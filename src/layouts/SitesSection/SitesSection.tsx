@@ -1,4 +1,4 @@
-import useSitesSectionStyles from './SitesSection.style'
+
 import React, {ReactChild, FC, useState} from 'react'
 import {Box, Button, Grid, Paper, Tab, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
@@ -20,7 +20,6 @@ interface SitesSectionProps {
 const SitesSection: FC<SitesSectionProps> = ({children}) => {
 
     const theme = useTheme()
-    const Styles = useSitesSectionStyles(theme)
 
     const sites = useSelector((state: IState) => state.sites.sites)
 

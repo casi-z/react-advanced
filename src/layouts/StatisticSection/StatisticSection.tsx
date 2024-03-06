@@ -1,4 +1,3 @@
-import useStatisticSectionStyles from './StatisticSection.style'
 import React, { ReactChild, FC } from 'react'
 import {Box, Grid, useTheme} from '@mui/material'
 import StatisticCard from "@/components/StatisticCard/StatisticCard";
@@ -14,7 +13,6 @@ interface StatisticSectionProps {
 
 const StatisticSection: FC<StatisticSectionProps> = ({ data }) => {
 const theme = useTheme()
-const Styles = useStatisticSectionStyles(theme)
 
     return(
         <Grid container spacing={2} flexDirection={{md: 'row', xs: 'column'}}>

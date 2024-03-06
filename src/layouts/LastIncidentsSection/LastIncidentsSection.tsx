@@ -1,4 +1,4 @@
-import useLastIncidentsSectionStyles from './LastIncidentsSection.style'
+
 import React, {ReactChild, FC} from 'react'
 import {Box, Button, Divider, Grid, Paper, Typography, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
@@ -14,8 +14,7 @@ interface LastIncidentsSectionProps {
 }
 
 const LastIncidentsSection: FC<LastIncidentsSectionProps> = ({children}) => {
-    const theme = useTheme()
-    const Styles = useLastIncidentsSectionStyles(theme)
+
 
     return (
         <Grid container flexDirection={'column'} item xs={12} md={8}>

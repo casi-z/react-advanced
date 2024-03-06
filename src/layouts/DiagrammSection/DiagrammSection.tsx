@@ -1,5 +1,4 @@
 // @ts-nocheck
-import useDiagrammSectionStyles from './DiagrammSection.style'
 import React, {ReactChild, FC} from 'react'
 import {Box, Grid, Paper, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
@@ -17,7 +16,7 @@ interface DiagrammSectionProps {
 
 const DiagrammSection: FC<DiagrammSectionProps> = ({children}) => {
     const theme = useTheme()
-    const Styles = useDiagrammSectionStyles(theme)
+
     const {statistic} = useSelector((state: IState) => state)
     // @ts-ignore
     const diagram = {

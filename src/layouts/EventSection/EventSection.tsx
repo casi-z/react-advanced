@@ -1,4 +1,4 @@
-import useEventSectionStyles from './EventSection.style'
+
 import React, {ReactChild, FC} from 'react'
 import {Box, Button, Chip, Divider, Grid, Paper, Stack, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
@@ -11,8 +11,6 @@ interface EventSectionProps {
 }
 
 const EventSection: FC<EventSectionProps> = ({}) => {
-    const theme = useTheme()
-    const Styles = useEventSectionStyles(theme)
 
     return (
         <Grid minHeight={'100%'} mr={{md: 2, xs: 0}} item xs={12} md={5}>

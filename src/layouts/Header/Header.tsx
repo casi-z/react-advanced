@@ -1,6 +1,5 @@
 import React, {ReactChild, FC, useState, MouseEventHandler, useContext, useEffect, useRef} from 'react'
 import {Avatar, Box, Button, Container, Grid, Menu, MenuItem, Paper, useTheme,} from '@mui/material';
-import useHeaderStyles from './Header.style'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const {log} = console
@@ -14,8 +13,6 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({children}) => {
 
-    const theme = useTheme()
-    const Styles = useHeaderStyles(theme)
     const anchorEl = useRef<HTMLButtonElement | null>(null);
 
     const [open, setOpen] = useState<boolean>(false);
@@ -30,14 +27,15 @@ const Header: FC<HeaderProps> = ({children}) => {
         <Paper elevation={0}>
             <Grid
                 container
-                className='Header'
-                component={Styles}
                 justifyContent={'flex-end'}
 
             >
 
                 <Button
-                    className={'Header__account-button'}
+                    sx={{
+                        color: 'text.primary',
+                        borderLeft: '1px solid #eaeaea',
+                    }}
                     endIcon={<KeyboardArrowDownIcon/>}
                     size={'large'}
                     ref={anchorEl}

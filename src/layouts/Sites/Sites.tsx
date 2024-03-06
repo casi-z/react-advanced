@@ -1,4 +1,3 @@
-import useSitesStyles from './Sites.style'
 import React, {ReactChild, FC, useState, useEffect} from 'react'
 import {Box, useTheme} from '@mui/material'
 import ItemCard from "@/components/ItemCard/ItemCard";
@@ -15,7 +14,6 @@ interface SitesProps {
 
 const Sites: FC<SitesProps> = ({get, data}) => {
     const theme = useTheme()
-    const Styles = useSitesStyles(theme)
 
 
     const [filteredSites, setFilteredSites] = useState<ISite[] | IProgram[]>([]);

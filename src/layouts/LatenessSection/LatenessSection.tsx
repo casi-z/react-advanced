@@ -1,4 +1,4 @@
-import useLatenessSectionStyles from './LatenessSection.style'
+
 import React, {ReactChild, FC} from 'react'
 import {Box, Button, Divider, Grid, Paper, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
@@ -15,7 +15,6 @@ interface LatenessSectionProps {
 
 const LatenessSection: FC<LatenessSectionProps> = ({children}) => {
     const theme = useTheme()
-    const Styles = useLatenessSectionStyles(theme)
 
     const latecomePersons = persons.filter(person => person.lateness.length !== 0)
 

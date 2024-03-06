@@ -1,4 +1,3 @@
-import useProgramSectionStyles from './ProgramSection.style'
 import React, {ReactChild, FC, useState} from 'react'
 import {Box, Button, Divider, Grid, Paper, Tab, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
@@ -18,7 +17,6 @@ interface ProgramSectionProps {
 
 const ProgramSection: FC<ProgramSectionProps> = ({children}) => {
     const theme = useTheme()
-    const Styles = useProgramSectionStyles(theme)
 
     const [selectedTab, setSelectedTab] = useState('1');
     const handleChange = (event: React.SyntheticEvent, newSelectedTab: string) => {

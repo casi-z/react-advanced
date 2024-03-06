@@ -13,17 +13,13 @@ interface MainTabsProps {
 
 const MainTabs: FC<MainTabsProps> = ({ children }) => {
 
-const theme = useTheme()
 
-const Styles = styled.div`
 
-    //Write your styles here
 
-`
     return(
-       <Styles className="MainTabs">
+       <>
           
-       </Styles>
+       </>
     )
 }
 export default MainTabs
