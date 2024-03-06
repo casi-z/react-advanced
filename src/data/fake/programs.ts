@@ -48,7 +48,7 @@ const programs = [
         },
     },
     {
-        name: "Adobe Illustrator",
+        name: "Adobe PDF Reader",
         legal: false,
         time: {
 

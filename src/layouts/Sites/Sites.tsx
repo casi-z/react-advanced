@@ -55,7 +55,7 @@ const Sites: FC<SitesProps> = ({get, data}) => {
         } else {
             setFilteredSites(data)
         }
-    }, [])
+    }, [data])
 
     return (
         <>

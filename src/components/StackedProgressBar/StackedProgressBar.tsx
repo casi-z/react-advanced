@@ -41,10 +41,9 @@ const StackedProgressBar: FC<StackedProgressBarProps> = ({data}) => {
                         borderBottomRightRadius: index === data.length - 1 ? 10 : 0,
                         height: '100%',
                     }}
+                    key={index}
+                />
 
-                >
-
-                </Box>
             )}
 
         </Box>

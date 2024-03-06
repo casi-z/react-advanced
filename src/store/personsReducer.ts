@@ -11,7 +11,7 @@ const SET_PERSONS = 'SET_PERSONS'
 const SELECT_PERSON = 'SELECT_PERSON'
 
 export default function personsReducer (
-    state: {persons: IPerson[], selected: IPerson | null} = defaultState,
+    state = defaultState,
     action: { type: string, payload: IPerson | IPerson[] | null}
 ) {
 

@@ -23,8 +23,6 @@ import {setProgramsAction} from "@/store/programsReducer";
 function App() {
 
     const dispatch = useDispatch()
-    const persons = useSelector((state: IState) => state.persons)
-    const statistic = useSelector((state: IState) => state.statistic.statistic)
 
     function fakeFetching() {
         dispatch(setPersonsAction(fakePersons))
@@ -45,10 +43,7 @@ function App() {
 
     }, []);
 
-    useEffect(() => {
-        console.log(persons)
-        console.log(statistic)
-    }, [persons, statistic]);
+
 
     return (
         <BrowserRouter>
@@ -58,7 +53,7 @@ function App() {
 
                 <Route path="statistic">
                     {leftPanelItems.statistic.map((item, index) =>
-                        <Route path={item.href} element={item.page}/>
+                        <Route key={index} path={item.href} element={item.page}/>
                     )}
                 </Route>
 

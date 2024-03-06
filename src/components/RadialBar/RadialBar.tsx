@@ -35,12 +35,7 @@ const RadialBar: FC<RadialBarProps> = ({data}) => {
 
     };
 
-    const Styles = styled.div`
 
-        //Write your styles here
-
-    `
-    log(diagram)
 
     return (
         // @ts-ignore

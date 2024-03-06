@@ -1,4 +1,4 @@
-import React, {ReactChild, FC, useState} from 'react'
+import React, {ReactChild, FC, useState, useEffect} from 'react'
 import {
     Box,
     Chip,
@@ -50,6 +50,10 @@ const ProgramsPage: FC<ProgramsPageProps> = ({children}) => {
     const statistic = useSelector((state: IState) => state.statistic.statistic)
     const programs = useSelector((state: IState) => state.programs.programs)
 
+
+    useEffect(() => {
+        log(statistic)
+    }, [statistic]);
     const statisticCardsData = [
         {
             name: 'Отработано',

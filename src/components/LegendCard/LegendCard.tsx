@@ -25,28 +25,9 @@ interface LegendCardProps extends IRadialBarDataItem{
 
 const LegendCard: FC<LegendCardProps> = ({name, time, procents, color}) => {
 
-    const theme = useTheme()
 
-    const Styles = styled.div`
-        .LegendCard__name {
-            position: relative;
-        }
-
-        .tumb {
-            border-radius: 50%;
-            background: ${color};
-            width: 8px;
-            height: 8px;
-            position: absolute;
-            top: 50%;
-            transform: translate(-200%, -50%);
-
-
-        }
-
-    `
     return (<>
-        <Paper elevation={0} component={Styles}>
+        <Paper elevation={0} >
 
             <Grid
                 container
@@ -60,8 +41,18 @@ const LegendCard: FC<LegendCardProps> = ({name, time, procents, color}) => {
 
             >
 
-                <Typography className={'LegendCard__name'} variant="h6">
-                    <Box className={'tumb'} component={'div'}></Box>
+                <Typography sx={{position: 'relative'}} variant="h6">
+                    <Box
+                        sx={{
+                            borderRadius: '100%',
+                            background: color,
+                            width: 8,
+                            height: 8,
+                            position: 'absolute',
+                            top: '50%',
+                            transform: 'translate(-200%, -50%)',
+                        }}
+                    />
                     {name}
 
                 </Typography>

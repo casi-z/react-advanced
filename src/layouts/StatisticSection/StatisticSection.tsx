@@ -17,8 +17,8 @@ const theme = useTheme()
     return(
         <Grid container spacing={2} flexDirection={{md: 'row', xs: 'column'}}>
 
-            {data.map(item =>
-                <Grid container item md={12 / data.length} flexDirection={"column"}>
+            {data.map((item, index) =>
+                <Grid key={index} container item md={12 / data.length} flexDirection={"column"}>
                     <StatisticCard
                         data={item}
                     />
