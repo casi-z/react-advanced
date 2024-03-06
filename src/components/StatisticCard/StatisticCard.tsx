@@ -17,11 +17,7 @@ const StatisticCard: FC<StatisticCardProps> = ({data}) => {
 
     const theme = useTheme()
 
-    const Styles = styled.div`
 
-        //Write your styles here
-
-    `
     return (
         <Paper elevation={0}>
             <Grid item xs={12} pl={2} pr={2} pt={2} pb={2}>

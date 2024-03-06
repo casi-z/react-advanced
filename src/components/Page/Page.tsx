@@ -1,9 +1,7 @@
-import usePageStyles from './Page.style'
+
 import {ReactChild, ReactNode, FC, useEffect} from 'react'
 import Header from '../../layouts/Header/Header'
 import Footer from '../../layouts/Footer/Footer'
-import Wrapper from "../Wrapper/Wrapper";
-import Cursor from "../Cursor/Cursor";
 import {Box, Grid, useTheme} from '@mui/material';
 import LeftPanel from "@/layouts/LeftPanel/LeftPanel";
 import PersonModal from "@/layouts/PersonModal/PersonModal";
@@ -28,12 +26,10 @@ const Page: FC<PageProps> = ({children, title}) => {
 
     }, [])
 
-    const theme = useTheme()
-    const Styles = usePageStyles(theme)
 
 
     return (
-        <Box component={Styles} className="Page page">
+        <>
             <PersonModal/>
             <Header/>
 
@@ -49,7 +45,7 @@ const Page: FC<PageProps> = ({children, title}) => {
 
             <Footer/>
 
-        </Box>
+        </>
     )
 }
 export default Page

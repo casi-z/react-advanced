@@ -17,7 +17,6 @@ interface RadialBarProps {
 
 const RadialBar: FC<RadialBarProps> = ({data}) => {
 
-    const theme = useTheme()
 
     const diagram = {
         options: {

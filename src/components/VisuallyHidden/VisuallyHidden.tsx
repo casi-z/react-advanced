@@ -1,8 +1,8 @@
-import { ReactChild, FC } from 'react'
-import { Box, useTheme } from '@mui/material'
+import {ReactChild, FC} from 'react'
+import {Box, useTheme} from '@mui/material'
 import styled from 'styled-components'
 
-const { log } = console
+const {log} = console
 
 interface VisuallyHiddenProps {
 
@@ -11,19 +11,20 @@ interface VisuallyHiddenProps {
 }
 
 
-const VisuallyHidden: FC<VisuallyHiddenProps> = ({ children }) => {
+const VisuallyHidden: FC<VisuallyHiddenProps> = ({children}) => {
 
     const theme = useTheme()
-    const Styles = styled.span`
-      visibility: hidden;
-      opacity: 0;
 
-
-    `
 
     return (
 
-        <Box component={Styles} className="VisuallyHidden">
+        <Box
+            component={'span'}
+            sx={{
+                visibility: 'hidden',
+                opacity: 0
+            }}
+        >
             {children}
         </Box>
     )

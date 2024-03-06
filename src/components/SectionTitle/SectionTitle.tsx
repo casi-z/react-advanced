@@ -14,13 +14,6 @@ interface SectionTitleProps {
 
 const SectionTitle: FC<SectionTitleProps> = ({children, tabs}) => {
 
-    const theme = useTheme()
-
-    const Styles = styled.div`
-
-        //Write your styles here
-
-    `
     return (<>
         <Grid
             container

@@ -1,4 +1,4 @@
-import useTimeTrackingPageStyles from './TimeTrackingPage.style'
+
 import React, {ReactChild, FC, useState} from 'react'
 import {
     Box, Chip,
@@ -34,8 +34,7 @@ interface TimeTrackingPageProps {
 
 const TimeTrackingPage: FC<TimeTrackingPageProps> = ({children}) => {
 
-    const theme = useTheme()
-    const Styles = useTimeTrackingPageStyles(theme)
+
 
     const [value, setValue] = useState<number>(0);
 

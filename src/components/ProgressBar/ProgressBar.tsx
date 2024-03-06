@@ -1,4 +1,4 @@
-import useProgressBarStyles from './ProgressBar.style'
+
 import {ReactChild, FC} from 'react'
 import {Box, useTheme} from '@mui/material'
 
@@ -12,12 +12,27 @@ interface ProgressBarProps {
 }
 
 const ProgressBar: FC<ProgressBarProps> = ({progress, color}) => {
-    const theme = useTheme()
-    const Styles = useProgressBarStyles(theme)
 
     return (
-        <Box component={Styles} className="ProgressBar">
-            <Box sx={{background: color, width: `${progress}%`}} className={'ProgressBar__body'}></Box>
+        <Box
+            className="ProgressBar"
+            sx={{
+                width: '100%',
+                minWidth: 200,
+                height: 10,
+                display: 'flex',
+                borderRadius: 10,
+                overflow: 'hidden',
+                background: '#ebeff2'
+            }}
+        >
+            <Box
+                sx={{
+                    background: color,
+                    width: `${progress}%`,
+                    height: '100%',
+                    borderRadius: 20
+            }}/>
         </Box>
     )
 }

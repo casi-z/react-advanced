@@ -22,8 +22,6 @@ const StackedProgressBar: FC<StackedProgressBarProps> = ({data}) => {
 
     return (
         <Box
-
-            className="StackedProgressBar"
             sx={{
                 width: '100%',
                 minWidth: 200,

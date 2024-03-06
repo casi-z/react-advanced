@@ -16,11 +16,7 @@ const ItemCard: FC<ItemCardProps> = ({title, info}) => {
 
     const theme = useTheme()
 
-    const Styles = styled.div`
 
-        //Write your styles here
-
-    `
     return (<>
         <Grid
             container
