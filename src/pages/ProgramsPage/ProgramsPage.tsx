@@ -1,4 +1,3 @@
-import useProgramsPageStyles from './ProgramsPage.style'
 import React, {ReactChild, FC, useState} from 'react'
 import {
     Box,
@@ -8,7 +7,7 @@ import {
     Tab,
     Table,
     TableBody,
-    TableCell,
+    TableCell, TableContainer,
     TableHead,
     TableRow,
     Tabs, Typography,
@@ -17,12 +16,11 @@ import {
 import Page from "@/components/Page/Page";
 import StatisticSection from "@/layouts/StatisticSection/StatisticSection";
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
-import persons, {allAgreedWorkTime} from "@/data/fake/persons";
-import PersonCard from "@/components/PersonCard/PersonCard";
-import programs from "@/data/fake/programs";
 import StackedProgressBar from "@/components/StackedProgressBar/StackedProgressBar";
 import Sites from "@/layouts/Sites/Sites";
 import Calc from "@/utils/calcUtil";
+import {useSelector} from "react-redux";
+import {IState} from "@/types/types";
 
 const {log} = console
 
@@ -33,8 +31,7 @@ interface ProgramsPageProps {
 }
 
 const ProgramsPage: FC<ProgramsPageProps> = ({children}) => {
-    const theme = useTheme()
-    const Styles = useProgramsPageStyles(theme)
+
 
     const [value, setValue] = useState<number>(0);
 
@@ -50,30 +47,33 @@ const ProgramsPage: FC<ProgramsPageProps> = ({children}) => {
         };
     }
 
-    const statistic = [
+    const statistic = useSelector((state: IState) => state.statistic.statistic)
+    const programs = useSelector((state: IState) => state.programs.programs)
+
+    const statisticCardsData = [
         {
             name: 'Отработано',
-            procents: 87.81,
+            procents: Calc.procentsByTime(statistic.workTime, statistic.agreedWorkTime),
             color: 'rgb(240, 183, 52)',
-            time: '70 ч. 15 мин. 0 сек',
-        },
-        {
-            name: 'Продуктивных часов',
-            procents: 25.58,
-            color: 'rgb(15, 232, 175)',
-            time: '9 ч. 21 мин. 0 сек',
+            time: `${statistic.workTime.hours} ч. ${statistic.workTime.minutes} мин. ${statistic.workTime.seconds} сек.`,
         },
         {
             name: 'Простой',
-            procents: 13.31,
-            color: 'rgb(210, 210, 210)',
-            time: '17 ч. 58 мин. 0 сек',
+            color: 'rgba(190,190,190,0.85)',
+            procents: Calc.procentsByTime(statistic.idleTime, statistic.workTime),
+            time: `${statistic.idleTime.hours} ч. ${statistic.idleTime.minutes} мин. ${statistic.idleTime.seconds} сек.`,
+        },
+        {
+            name: 'Продуктивно',
+            procents: Calc.procentsByTime(statistic.productiveTime, statistic.workTime),
+            color: 'rgb(15, 232, 175)',
+            time: `${statistic.productiveTime.hours} ч. ${statistic.productiveTime.minutes} мин. ${statistic.productiveTime.seconds} сек.`,
         },
         {
             name: 'Отвлечения',
-            procents: 70.08,
+            procents: Calc.procentsByTime(statistic.distractionTime, statistic.workTime),
             color: 'rgb(253, 133, 138)',
-            time: '49 ч. 14 мин. 0 сек',
+            time: `${statistic.distractionTime.hours} ч. ${statistic.distractionTime.minutes} мин. ${statistic.distractionTime.seconds} сек.`,
         },
 
     ]
@@ -89,18 +89,40 @@ const ProgramsPage: FC<ProgramsPageProps> = ({children}) => {
                 <Tab label="Год" {...a11yProps(5)}/>
 
             </Tabs>
-            <StatisticSection data={statistic}/>
+            <StatisticSection data={statisticCardsData}/>
 
-            <Grid mt={1} spacing={2} container item xs={12}>
+            <Grid
+                flexDirection={{
+                    md: 'row',
+                    xs: 'column'
+                }}
+                mt={1}
+                spacing={2}
+                container
+                item
+                xs={12}
+            >
 
-                <Grid container item xs={9}>
+                <Grid container item xs={12} md={9}>
 
-                    <Paper>
-                        <Grid container item xs={12}>
+                    <Paper elevation={0} sx={{width: '100%', overflow: 'hidden'}}>
 
-                            <SectionTitle>Статистика приложений</SectionTitle>
 
-                            <Table sx={{tableLayout: 'fixed'}} aria-label="simple table">
+                        <SectionTitle>Статистика приложений</SectionTitle>
+
+                        <TableContainer>
+
+                            <Table
+                                sx={{
+                                    tableLayout: {
+                                        md: 'fixed',
+                                        xs: 'auto'
+                                    }
+                                }}
+                                stickyHeader
+
+
+                            >
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Приложение</TableCell>
@@ -115,17 +137,17 @@ const ProgramsPage: FC<ProgramsPageProps> = ({children}) => {
 
                                         const stackedProgressBarData = [
                                             {
-                                                progress: Calc.procentsByTime(row.time.distraction, allAgreedWorkTime),
+                                                progress: Calc.procentsByTime(row.time.distraction, statistic.agreedWorkTime),
                                                 color: 'rgb(253, 133, 138)',
                                             },
                                             {
-                                                progress: Calc.procentsByTime(row.time.productive, allAgreedWorkTime),
+                                                progress: Calc.procentsByTime(row.time.productive, statistic.agreedWorkTime),
                                                 color: 'rgb(15, 232, 175)',
                                             },
                                         ]
 
 
-                                        return(
+                                        return (
                                             <TableRow
                                                 className={'table-row'}
                                                 key={row.name}
@@ -139,25 +161,32 @@ const ProgramsPage: FC<ProgramsPageProps> = ({children}) => {
 
                                                 </TableCell>
 
-                                                <TableCell align="right">{row.time.all.hours} ч.</TableCell>
-                                                <TableCell align="right"><StackedProgressBar data={stackedProgressBarData}/></TableCell>
-                                                <TableCell align="right">{Calc.procentsByTime(row.time.all, allAgreedWorkTime).toFixed(2)}%</TableCell>
+                                                <TableCell align="right">{row.time.all?.hours} ч.</TableCell>
+
+                                                <TableCell align="right">
+                                                    <StackedProgressBar data={stackedProgressBarData}/>
+                                                </TableCell>
+
+                                                <TableCell
+                                                    //@ts-ignore
+                                                    align="right">{Calc.procentsByTime(row.time.all, statistic.agreedWorkTime).toFixed(2)}%</TableCell>
 
                                             </TableRow>
                                         )
                                     })}
                                 </TableBody>
                             </Table>
-                        </Grid>
+                        </TableContainer>
+
 
                     </Paper>
                 </Grid>
 
-                <Grid container item xs={3} flexDirection={'column'} flexWrap={'nowrap'} spacing={2}>
+                <Grid container item xs={12} md={3} flexDirection={'column'} flexWrap={'nowrap'} spacing={2}>
 
-                    <Grid item>
+                    <Grid item xs={12}>
 
-                        <Paper>
+                        <Paper elevation={0}>
 
                             <Grid container item height={'50%'} xs={12}>
 
@@ -170,15 +199,19 @@ const ProgramsPage: FC<ProgramsPageProps> = ({children}) => {
 
                     </Grid>
 
-                    <Grid item>
-                        <Paper>
+                    <Grid item xs={12}>
+
+                        <Paper elevation={0}>
+
                             <Grid container item height={'50%'} xs={12}>
 
                                 <SectionTitle>Запрещённые</SectionTitle>
                                 <Sites data={programs} get={"illegal"}/>
 
                             </Grid>
+
                         </Paper>
+
                     </Grid>
 
                 </Grid>

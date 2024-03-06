@@ -1,14 +1,20 @@
-const persons = [
+import {IPerson, IProgram, ITime} from "@/types/types";
+
+export const persons = calcAllHours([
     {
         id: 1,
         name: 'Фролов Василий Сергеевич',
         avatar: '',
         job: 'Маркетолог / Отдел маркетинга',
-        workTime: {hours: 7, minutes: 4, seconds: 5},
+        workTime: {
+            productive: {hours: 4, minutes: 3, seconds: 2},
+            idle: {hours: 3, minutes: 3, seconds: 2},
+            distraction: {hours: 1, minutes: 3, seconds: 2},
+        },
         agreedWorkTime: {hours: 8, minutes: 0, seconds: 0},
         state: {
             type: 'idle',
-            time: {hours: 0, minutes: 2}
+            time: {hours: 0, minutes: 2, seconds: 0}
 
         },
         lateness: [],
@@ -26,11 +32,16 @@ const persons = [
         name: 'Кобзева Екатерина Александровна',
         avatar: '',
         job: 'Дизайнер / Отдел дизайна',
-        workTime: {hours: 8, minutes: 6, seconds: 2},
+        workTime: {
+            productive: {hours: 4, minutes: 3, seconds: 2},
+            idle: {hours: 3, minutes: 3, seconds: 2},
+            distraction: {hours: 1, minutes: 3, seconds: 2},
+        },
         agreedWorkTime: {hours: 8, minutes: 0, seconds: 0},
         state: {
             type: 'site',
-            name: 'AmoCRM'
+            name: 'AmoCRM',
+            time: {hours: 0, minutes: 2, seconds: 0}
 
         },
         lateness: [
@@ -50,11 +61,16 @@ const persons = [
         name: 'Коновалов Владимир Дмитриевич',
         avatar: '',
         job: 'Разработчик / Отдел разработки',
-        workTime: {hours: 1, minutes: 5, seconds: 1},
+        workTime: {
+            productive: {hours: 4, minutes: 3, seconds: 2},
+            idle: {hours: 3, minutes: 3, seconds: 2},
+            distraction: {hours: 1, minutes: 3, seconds: 2},
+        },
         agreedWorkTime: {hours: 8, minutes: 0, seconds: 0},
         state: {
             type: 'program',
-            name: 'Adobe Illustrator'
+            name: 'Adobe Illustrator',
+            time: {hours: 0, minutes: 3, seconds: 2}
 
         },
         lateness: [
@@ -74,11 +90,16 @@ const persons = [
         name: 'Кравченко Евгений Викторович',
         avatar: '',
         job: 'Менеджер по продажам / Отдел продаж',
-        workTime: {hours: 5, minutes: 5, seconds: 23},
+        workTime: {
+            productive: {hours: 4, minutes: 3, seconds: 2},
+            idle: {hours: 3, minutes: 3, seconds: 2},
+            distraction: {hours: 1, minutes: 3, seconds: 2},
+        },
         agreedWorkTime: {hours: 8, minutes: 0, seconds: 0},
         state: {
             type: 'site',
-            name: 'nalog.ru'
+            name: 'nalog.ru',
+            time: {hours: 0, minutes: 2, seconds: 0}
 
         },
         lateness: [],
@@ -96,11 +117,16 @@ const persons = [
         name: 'Кудрявцева Евгения Викторовна',
         avatar: '',
         job: 'Бухгалтер / Бухгалтерия',
-        workTime: {hours: 2, minutes: 6, seconds: 2},
+        workTime: {
+            productive: {hours: 4, minutes: 3, seconds: 2},
+            idle: {hours: 3, minutes: 3, seconds: 2},
+            distraction: {hours: 1, minutes: 3, seconds: 2},
+        },
         agreedWorkTime: {hours: 8, minutes: 0, seconds: 0},
         state: {
             type: 'site',
-            name: 'pornhub.com'
+            name: 'pornhub.com',
+            time: {hours: 0, minutes: 2, seconds: 0}
 
         },
         lateness: [
@@ -120,11 +146,15 @@ const persons = [
         name: 'Мулатов Константин Евгеньевич',
         avatar: '',
         job: 'Начальник отдела кадров / Отдел персонала',
-        workTime: {hours: 5, minutes: 3, seconds: 0},
+        workTime: {
+            productive: {hours: 4, minutes: 3, seconds: 2},
+            idle: {hours: 3, minutes: 3, seconds: 2},
+            distraction: {hours: 1, minutes: 3, seconds: 2},
+        },
         agreedWorkTime: {hours: 8, minutes: 0, seconds: 0},
         state: {
             type: 'idle',
-            time: {hours: 0, minutes: 2}
+            time: {hours: 0, minutes: 2, seconds: 0}
 
         },
         lateness: [],
@@ -141,11 +171,15 @@ const persons = [
         name: 'Поляков Виктор Дмитриевич',
         avatar: '',
         job: 'Разработчик / Отдел разработки',
-        workTime: {hours: 8, minutes: 0, seconds: 0},
+        workTime: {
+            productive: {hours: 4, minutes: 3, seconds: 2},
+            idle: {hours: 3, minutes: 3, seconds: 2},
+            distraction: {hours: 1, minutes: 3, seconds: 2},
+        },
         agreedWorkTime: {hours: 8, minutes: 0, seconds: 0},
         state: {
             type: 'idle',
-            time: {hours: 0, minutes: 2}
+            time: {hours: 0, minutes: 2, seconds: 0}
 
         },
         lateness: [],
@@ -162,11 +196,15 @@ const persons = [
         name: 'Фролов Василий Сергеевич',
         avatar: '',
         job: 'SEO-специалист / Отдел продвижения',
-        workTime: {hours: 1, minutes: 0, seconds: 0},
+        workTime: {
+            productive: {hours: 4, minutes: 3, seconds: 2},
+            idle: {hours: 3, minutes: 3, seconds: 2},
+            distraction: {hours: 1, minutes: 3, seconds: 2},
+        },
         agreedWorkTime: {hours: 8, minutes: 0, seconds: 0},
         state: {
             type: 'idle',
-            time: {hours: 0, minutes: 2}
+            time: {hours: 0, minutes: 2, seconds: 0}
 
         },
         lateness: [],
@@ -183,11 +221,15 @@ const persons = [
         name: 'Фрязев Виталий Сергеевич',
         avatar: '',
         job: 'Менеджер по продажам / Отдел маркетинга',
-        workTime: {hours: 4, minutes: 0, seconds: 0},
+        workTime: {
+            productive: {hours: 4, minutes: 3, seconds: 2},
+            idle: {hours: 3, minutes: 3, seconds: 2},
+            distraction: {hours: 1, minutes: 3, seconds: 2},
+        },
         agreedWorkTime: {hours: 8, minutes: 0, seconds: 0},
         state: {
             type: 'idle',
-            time: {hours: 0, minutes: 2}
+            time: {hours: 0, minutes: 2, seconds: 0}
 
         },
         lateness: [],
@@ -206,11 +248,15 @@ const persons = [
         name: 'Шалина Светлана Викторовна',
         avatar: '',
         job: 'Дизайнер / Отдел дизайна',
-        workTime: {hours: 3, minutes: 0, seconds: 0},
+        workTime: {
+            productive: {hours: 4, minutes: 0, seconds: 0},
+            idle: {hours: 3, minutes: 0, seconds: 0},
+            distraction: {hours: 1, minutes: 0, seconds: 0},
+        },
         agreedWorkTime: {hours: 8, minutes: 0, seconds: 0},
         state: {
             type: 'idle',
-            time: {hours: 0, minutes: 2}
+            time: {hours: 0, minutes: 2, seconds: 0}
 
         },
         lateness: [],
@@ -224,22 +270,66 @@ const persons = [
     },
 
 
-]
-export const allAgreedWorkTime = {hours: 0, minutes: 0, seconds: 0};
+])
+export const allAgreedWorkTime: ITime = {hours: 0, minutes: 0, seconds: 0};
 
-export const allWorkTime = {hours: 0, minutes: 0, seconds: 0}
+export const allWorkTime: ITime = {hours: 0, minutes: 0, seconds: 0}
+export const allProductiveTime: ITime = {hours: 0, minutes: 0, seconds: 0}
+export const allIdleTime: ITime = {hours: 0, minutes: 0, seconds: 0}
+export const allDistractionTime: ITime = {hours: 0, minutes: 0, seconds: 0}
 
-persons.forEach(person => {
-    allWorkTime.hours += person.workTime.hours
-    allWorkTime.minutes += person.workTime.minutes
-    allWorkTime.seconds += person.workTime.seconds
+function calcAllHours(array: IPerson[]) {
+
+    return array.map(element => {
+
+        const productiveTime = element.workTime.productive
+        const distractionTime = element.workTime.distraction
+        const idleTime = element.workTime.idle
+
+
+        return {
+            ...element, workTime: {
+                ...element.workTime,
+                all: {
+                    hours: productiveTime.hours + distractionTime.hours + idleTime.hours,
+                    // @ts-ignore
+                    minutes: productiveTime.minutes + distractionTime.minutes + idleTime.minutes,
+                    // @ts-ignore
+                    seconds: productiveTime.seconds + distractionTime.seconds + idleTime.seconds,
+                }
+            }
+        }
+
+    })
+
+}
+
+//@ts-ignore
+persons.forEach((person: IPerson) => {
+    //@ts-ignore
+    allWorkTime.hours += person.workTime.all.hours
+    //@ts-ignore
+    allWorkTime.minutes += person.workTime.all.minutes
+    //@ts-ignore
+    allWorkTime.seconds += person.workTime.all.seconds
+
+
+    allProductiveTime.hours += person.workTime.productive.hours
+    allProductiveTime.minutes += person.workTime.productive.minutes
+    allProductiveTime.seconds += person.workTime.productive.seconds
+
+    allIdleTime.hours += person.workTime.idle.hours
+    allIdleTime.minutes += person.workTime.idle.minutes
+    allIdleTime.seconds += person.workTime.idle.seconds
+
+    allDistractionTime.hours += person.workTime.distraction.hours
+    allDistractionTime.minutes += person.workTime.distraction.minutes
+    allDistractionTime.seconds += person.workTime.distraction.seconds
+
 
     allAgreedWorkTime.hours += person.agreedWorkTime.hours
     allAgreedWorkTime.minutes += person.agreedWorkTime.minutes
     allAgreedWorkTime.seconds += person.agreedWorkTime.seconds
+
 })
 
-
-
-console.log(allWorkTime)
-export default persons

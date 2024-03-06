@@ -3,7 +3,7 @@ import React, {ReactChild, FC} from 'react'
 import {Box, Button, Divider, Grid, Paper, Typography, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import PersonCard from "@/components/PersonCard/PersonCard";
-import persons from "@/data/fake/persons";
+import {persons} from "@/data/fake/persons";
 
 const {log} = console
 
@@ -18,7 +18,7 @@ const LastIncidentsSection: FC<LastIncidentsSectionProps> = ({children}) => {
     const Styles = useLastIncidentsSectionStyles(theme)
 
     return (
-        <Grid container flexDirection={'column'} item xs={8}>
+        <Grid container flexDirection={'column'} item xs={12} md={8}>
 
             <Paper elevation={0}>
 

@@ -1,4 +1,6 @@
 import React, {SetStateAction} from "react";
+import {allAgreedWorkTime, allProductiveTime} from "@/data/fake/persons";
+
 
 export interface IMenuItem {
     name: string,
@@ -24,10 +26,43 @@ export interface ILeftPanelItem {
 
 }
 export interface IRadialBarDataItem{
-    label: string,
+    name: string,
     color: string,
-    progress: number,
+    procents: number,
     time: string
+}
+
+export interface IPerson {
+
+    id: number,
+    name: string,
+    avatar: string,
+    job: string,
+
+    workTime: {
+        all?: ITime,
+        productive: ITime,
+        idle: ITime,
+        distraction: ITime,
+    },
+
+    agreedWorkTime: ITime,
+
+    //Чем сотрудник занимается сейчас (сайт/приложение/простой)
+    state: {
+        type: 'idle' | 'site' | 'program',
+        name?: string,
+        time: ITime,
+    },
+
+    lateness: number[] | [],
+
+    absenteeism: number[] | [],
+
+    earlyLeaving: number[] | [],
+
+    incidents: number,
+
 }
 
 export interface ITime{
@@ -55,4 +90,27 @@ export interface IStatisticItem {
     procents: number,
     color: string
     time: string,
+}
+
+export interface IStatistic {
+    workTime: ITime,
+    agreedWorkTime: ITime,
+    productiveTime: ITime,
+    idleTime: ITime,
+    distractionTime: ITime,
+}
+export interface IState {
+    persons:{
+        persons: IPerson[] | [],
+        selected: IPerson | null,
+    }
+    programs: {
+        programs: IProgram[] | [],
+    }
+    sites: {
+        sites: ISite[] | [],
+    }
+    statistic: {
+        statistic: IStatistic
+    }
 }

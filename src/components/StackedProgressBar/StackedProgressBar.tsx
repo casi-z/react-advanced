@@ -1,4 +1,3 @@
-import useStackedProgressBarStyles from './StackedProgressBar.style'
 import {ReactChild, FC} from 'react'
 import {Box, useTheme} from '@mui/material'
 
@@ -18,19 +17,33 @@ interface StackedProgressBarProps {
 }
 
 const StackedProgressBar: FC<StackedProgressBarProps> = ({data}) => {
-    const theme = useTheme()
-    const Styles = useStackedProgressBarStyles(theme)
+
+
 
     return (
-        <Box component={Styles} className="StackedProgressBar">
+        <Box
+
+            className="StackedProgressBar"
+            sx={{
+                width: '100%',
+                minWidth: 200,
+                height: 10,
+                display: 'flex',
+                borderRadius: 10,
+                overflow: 'hidden',
+                background: '#ebeff2'
+            }}
+        >
             {data.map((item, index) =>
                 <Box
                     sx={{
                         background: item.color,
                         width: `${item.progress}%`,
-                        borderRadius: index === data.length - 1 ? 10 : 0
+                        borderTopRightRadius: index === data.length - 1 ? 10 : 0,
+                        borderBottomRightRadius: index === data.length - 1 ? 10 : 0,
+                        height: '100%',
                     }}
-                    className={'StackedProgressBar__body'}
+
                 >
 
                 </Box>

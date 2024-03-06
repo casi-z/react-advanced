@@ -5,7 +5,9 @@ import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import ItemCard from "@/components/ItemCard/ItemCard";
 import Sites from "@/layouts/Sites/Sites";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
-import sites from "@/data/fake/sites";
+import {useSelector} from "react-redux";
+import {IState} from "@/types/types";
+
 
 const {log} = console
 
@@ -20,6 +22,8 @@ const SitesSection: FC<SitesSectionProps> = ({children}) => {
     const theme = useTheme()
     const Styles = useSitesSectionStyles(theme)
 
+    const sites = useSelector((state: IState) => state.sites.sites)
+
     const [selectedTab, setSelectedTab] = useState('1');
     const handleChange = (event: React.SyntheticEvent, newSelectedTab: string) => {
         setSelectedTab(newSelectedTab);
@@ -27,7 +31,7 @@ const SitesSection: FC<SitesSectionProps> = ({children}) => {
     return (
         <Grid sx={{overflowY: 'scroll'}} container height={'50%'}>
 
-            <Paper>
+            <Paper elevation={0}>
 
                 <Grid container>
 

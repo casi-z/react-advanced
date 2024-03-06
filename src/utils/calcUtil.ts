@@ -8,7 +8,7 @@ class Calc {
         const timeSeconds = this.timeToSeconds(time)
         const agreeTimeSeconds = this.timeToSeconds(agreeTime)
 
-        return ((timeSeconds / agreeTimeSeconds) * 100)
+        return Number(((timeSeconds / agreeTimeSeconds) * 100).toFixed(2))
 
     }
 }

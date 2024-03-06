@@ -1,5 +1,5 @@
 {
-    "path": "components",
+    "path": "layouts",
     "onPrefix": {
         "default": {
             "files": [

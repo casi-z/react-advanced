@@ -1,4 +1,3 @@
-import useScreenshotsPageStyles from './ScreenshotsPage.style'
 import { ReactChild, FC } from 'react'
 import { Box, useTheme } from '@mui/material'
 import Page from "@/components/Page/Page";
@@ -13,10 +12,9 @@ interface ScreenshotsPageProps {
 
 const ScreenshotsPage: FC<ScreenshotsPageProps> = ({ children }) => {
 const theme = useTheme()
-const Styles = useScreenshotsPageStyles(theme)
 
     return(
-      <Box component={Styles} className="ScreenshotsPage">
+      <Box className="ScreenshotsPage">
           <Page>
 
           </Page>

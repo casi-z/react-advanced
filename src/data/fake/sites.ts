@@ -1,6 +1,6 @@
-import {IProgram} from "@/types/types";
+import {IProgram, ISite} from "@/types/types";
 
-const sites = [
+const sites: ISite[] = [
     {
         name: "Google",
         url: "google.com",
@@ -70,7 +70,7 @@ const sites = [
 
 function calcAllHours(array: IProgram[]) {
 
-    const result = array.map(element => {
+    return array.map(element => {
 
         const productiveTime = element.time.productive
         const distractionTime = element.time.distraction
@@ -90,8 +90,6 @@ function calcAllHours(array: IProgram[]) {
         }
 
     })
-
-    return result
 
 }
 export default calcAllHours(sites)

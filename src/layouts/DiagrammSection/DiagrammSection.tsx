@@ -4,6 +4,8 @@ import React, {ReactChild, FC} from 'react'
 import {Box, Grid, Paper, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import Chart from "react-apexcharts";
+import {useSelector} from "react-redux";
+import {IState} from "@/types/types";
 
 const {log} = console
 
@@ -16,6 +18,7 @@ interface DiagrammSectionProps {
 const DiagrammSection: FC<DiagrammSectionProps> = ({children}) => {
     const theme = useTheme()
     const Styles = useDiagrammSectionStyles(theme)
+    const {statistic} = useSelector((state: IState) => state)
     // @ts-ignore
     const diagram = {
         options: {

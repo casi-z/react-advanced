@@ -3,7 +3,7 @@ import React, {ReactChild, FC} from 'react'
 import {Box, Button, Divider, Grid, Paper, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import PersonCard from "@/components/PersonCard/PersonCard";
-import persons from "@/data/fake/persons";
+import {persons} from "@/data/fake/persons";
 
 const {log} = console
 
@@ -21,7 +21,7 @@ const LatenessSection: FC<LatenessSectionProps> = ({children}) => {
 
     return (
 
-        <Grid container item xs={7}>
+        <Grid container item xs={12} md={7}>
 
             <Paper elevation={0}>
                 <SectionTitle>Опоздания</SectionTitle>

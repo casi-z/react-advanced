@@ -6,6 +6,7 @@ import Wrapper from "../Wrapper/Wrapper";
 import Cursor from "../Cursor/Cursor";
 import {Box, Grid, useTheme} from '@mui/material';
 import LeftPanel from "@/layouts/LeftPanel/LeftPanel";
+import PersonModal from "@/layouts/PersonModal/PersonModal";
 
 
 const {log} = console
@@ -33,13 +34,13 @@ const Page: FC<PageProps> = ({children, title}) => {
 
     return (
         <Box component={Styles} className="Page page">
-
+            <PersonModal/>
             <Header/>
 
             <Grid container justifyContent={'flex-end'}>
                 <LeftPanel/>
 
-                <Grid maxHeight={'none'} overflow={'hidden'} className={'Page__wrapper'} item xs={10}>
+                <Grid maxHeight={'none'} overflow={'hidden'} className={'Page__wrapper'} item md={10} xs={12}>
                     {children}
                 </Grid>
 

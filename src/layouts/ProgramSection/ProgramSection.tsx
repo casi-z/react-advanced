@@ -2,10 +2,11 @@ import useProgramSectionStyles from './ProgramSection.style'
 import React, {ReactChild, FC, useState} from 'react'
 import {Box, Button, Divider, Grid, Paper, Tab, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
-import programs from "@/data/fake/programs";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
 import Sites from "@/layouts/Sites/Sites";
-import sites from "@/data/fake/sites";
+import {useSelector} from "react-redux";
+import {IState} from "@/types/types";
+
 
 const {log} = console
 
@@ -23,10 +24,13 @@ const ProgramSection: FC<ProgramSectionProps> = ({children}) => {
     const handleChange = (event: React.SyntheticEvent, newSelectedTab: string) => {
         setSelectedTab(newSelectedTab);
     };
+
+    const programs = useSelector((state: IState) => state.programs.programs)
+
     return (
         <Grid mb={2} sx={{overflowY: 'scroll', height: '50%'}} flexGrow={0} container item>
 
-            <Paper>
+            <Paper elevation={0}>
 
                 <Grid container>
 
@@ -65,7 +69,7 @@ const ProgramSection: FC<ProgramSectionProps> = ({children}) => {
 
                                 <Grid height={'100%'} container item xs={12}>
 
-                                    <Sites data={sites} get={"illegal"}/>
+                                    <Sites data={programs} get={"illegal"}/>
 
                                 </Grid>
 

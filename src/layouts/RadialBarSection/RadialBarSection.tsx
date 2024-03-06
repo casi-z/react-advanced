@@ -20,7 +20,7 @@ const RadialBarSection: FC<RadialBarSectionProps> = ({radialBarData}) => {
 
 
     return (
-        <Grid height={'100%'} item xs={4}>
+        <Grid height={'100%'} item xs={12} md={4}>
 
             <Paper elevation={0}>
 
@@ -33,10 +33,10 @@ const RadialBarSection: FC<RadialBarSectionProps> = ({radialBarData}) => {
                 {radialBarData.map(element => (<>
 
                     <LegendCard
-                        tumbColor={element.color}
-                        name={element.label}
+                        color={element.color}
+                        name={element.name}
                         time={element.time}
-                        procents={element.progress}
+                        procents={element.procents}
                     />
                     <Divider/>
                 </>))}

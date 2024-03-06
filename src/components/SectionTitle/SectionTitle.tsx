@@ -26,7 +26,7 @@ const SectionTitle: FC<SectionTitleProps> = ({children, tabs}) => {
             container
             pt={2}
             pb={2}
-            pl={2}
+            pl={4}
             flexWrap={"nowrap"}
             alignItems={'center'}
         >

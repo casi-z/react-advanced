@@ -15,7 +15,7 @@ const EventSection: FC<EventSectionProps> = ({}) => {
     const Styles = useEventSectionStyles(theme)
 
     return (
-        <Grid minHeight={'100%'} mr={2} item xs={5}>
+        <Grid minHeight={'100%'} mr={{md: 2, xs: 0}} item xs={12} md={5}>
 
             <Paper elevation={0}>
 

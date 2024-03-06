@@ -2,18 +2,15 @@ import React, {ReactChild, FC} from 'react'
 import {Box, useTheme} from '@mui/material'
 import styled from 'styled-components'
 import Chart from "react-apexcharts";
+import {IRadialBarDataItem} from "@/types/types";
 
 const {log} = console
 
-interface IData {
-    label: string,
-    progress: number,
-    color: string,
-}
+
 
 interface RadialBarProps {
 
-    data: IData[]
+    data: IRadialBarDataItem[]
 
 }
 
@@ -24,7 +21,7 @@ const RadialBar: FC<RadialBarProps> = ({data}) => {
 
     const diagram = {
         options: {
-            labels: data.map(dataItem => dataItem.label),
+            labels: data.map(dataItem => dataItem.name),
             colors: data.map(dataItem => dataItem.color),
             dataLabels: {
                 enabled: true,
@@ -34,7 +31,7 @@ const RadialBar: FC<RadialBarProps> = ({data}) => {
             },
 
         },
-        series: data.map(dataItem => dataItem.progress),
+        series: data.map(dataItem => dataItem.procents),
 
 
     };

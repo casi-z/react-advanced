@@ -27,7 +27,7 @@ const Header: FC<HeaderProps> = ({children}) => {
     };
 
     return (
-        <Paper>
+        <Paper elevation={0}>
             <Grid
                 container
                 className='Header'

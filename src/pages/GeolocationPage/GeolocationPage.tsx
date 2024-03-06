@@ -1,4 +1,4 @@
-import useGeolocationPageStyles from './GeolocationPage.style'
+
 import { ReactChild, FC } from 'react'
 import { Box, useTheme } from '@mui/material'
 import Page from "@/components/Page/Page";
@@ -12,11 +12,11 @@ interface GeolocationPageProps {
 }
 
 const GeolocationPage: FC<GeolocationPageProps> = ({ children }) => {
-const theme = useTheme()
-const Styles = useGeolocationPageStyles(theme)
+
+
 
     return(
-      <Box component={Styles} className="GeolocationPage">
+      <Box className="GeolocationPage">
           <Page>
 
           </Page>

@@ -1,28 +1,73 @@
-import { GlobalContext } from "./context";
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import {GlobalContext} from "./context";
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import Main from "./pages/Main/Main";
 import leftPanelItems from "@/data/LeftPanelItems";
+import {useDispatch, useSelector} from "react-redux";
+import {IState} from "@/types/types";
+import {useEffect} from "react";
+import {
+    allAgreedWorkTime, allDistractionTime,
+    allIdleTime,
+    allProductiveTime,
+    allWorkTime,
+    persons as fakePersons,
+} from "@/data/fake/persons";
+import sites from "@/data/fake/sites";
+import programs from "@/data/fake/programs";
+import {setPersonsAction} from "@/store/personsReducer";
+import {setStatisticAction} from "@/store/statisticReducer";
+import {setSitesAction} from "@/store/sitesReducer";
+import {setProgramsAction} from "@/store/programsReducer";
 
 
 function App() {
 
+    const dispatch = useDispatch()
+    const persons = useSelector((state: IState) => state.persons)
+    const statistic = useSelector((state: IState) => state.statistic.statistic)
+
+    function fakeFetching() {
+        dispatch(setPersonsAction(fakePersons))
+        dispatch(setProgramsAction(programs))
+        //@ts-ignore
+        dispatch(setSitesAction(sites))
+        dispatch(setStatisticAction({
+            workTime: allWorkTime,
+            agreedWorkTime: allAgreedWorkTime,
+            productiveTime: allProductiveTime,
+            idleTime: allIdleTime,
+            distractionTime: allDistractionTime,
+        }))
+    }
+
+    useEffect(() => {
+        fakeFetching()
+
+    }, []);
+
+    useEffect(() => {
+        console.log(persons)
+        console.log(statistic)
+    }, [persons, statistic]);
+
     return (
-        <GlobalContext.Provider value={{}}>
-            <BrowserRouter>
-                <Routes>
-                    <Route index element={<Navigate to="/statistic/main" />} />
-                    <Route path="statistic">
-                        {leftPanelItems.statistic.map((item, index) =>
-                            <Route path={item.href} element={item.page} />
-                        )}
-                    </Route>
+        <BrowserRouter>
+            <Routes>
+
+                <Route index element={<Navigate to="/statistic/main"/>}/>
+
+                <Route path="statistic">
+                    {leftPanelItems.statistic.map((item, index) =>
+                        <Route path={item.href} element={item.page}/>
+                    )}
+                </Route>
 
 
-                    {/* Перекидываю на ошибку 404 при неправильном url */}
-                    <Route path="*" element={<Navigate to="/error?code=404" />} />
-                </Routes>
-            </BrowserRouter>
-        </GlobalContext.Provider>
+                {/* Перекидываю на ошибку 404 при неправильном url */}
+                <Route path="*" element={<Navigate to="/error?code=404"/>}/>
+
+            </Routes>
+        </BrowserRouter>
     )
 }
 

@@ -7,7 +7,7 @@ import {
     Tab,
     Table,
     TableBody,
-    TableCell,
+    TableCell, TableContainer,
     TableHead,
     TableRow,
     Tabs,
@@ -18,8 +18,11 @@ import Page from "@/components/Page/Page";
 import StatisticSection from "@/layouts/StatisticSection/StatisticSection";
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import sites from "@/data/fake/sites";
-import persons from "@/data/fake/persons";
+
 import PersonCard from "@/components/PersonCard/PersonCard";
+import Calc from "@/utils/calcUtil";
+import {useSelector} from "react-redux";
+import {IState} from "@/types/types";
 
 const {log} = console
 
@@ -30,10 +33,14 @@ interface TimeTrackingPageProps {
 }
 
 const TimeTrackingPage: FC<TimeTrackingPageProps> = ({children}) => {
+
     const theme = useTheme()
     const Styles = useTimeTrackingPageStyles(theme)
 
     const [value, setValue] = useState<number>(0);
+
+    const persons = useSelector((state: IState) => state.persons.persons)
+    const statistic = useSelector((state: IState) => state.statistic.statistic)
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -47,24 +54,24 @@ const TimeTrackingPage: FC<TimeTrackingPageProps> = ({children}) => {
         };
     }
 
-    const statistic = [
+    const statisticCardsData = [
         {
             name: 'Отработано',
-            procents: 87.81,
+            procents: Calc.procentsByTime(statistic.workTime, statistic.agreedWorkTime),
             color: 'rgb(240, 183, 52)',
-            time: '70 ч. 15 мин. 0 сек',
+            time: `${statistic.workTime.hours} ч. ${statistic.workTime.minutes} мин. ${statistic.workTime.seconds} сек.`,
         },
         {
             name: 'Продуктивных часов',
-            procents: 25.58,
+            procents: Calc.procentsByTime(statistic.productiveTime, statistic.workTime),
             color: 'rgb(15, 232, 175)',
-            time: '9 ч. 21 мин. 0 сек',
+            time: `${statistic.productiveTime.hours} ч. ${statistic.productiveTime.minutes} мин. ${statistic.productiveTime.seconds} сек.`,
         },
         {
             name: 'Отвлечения',
-            procents: 70.08,
+            procents: Calc.procentsByTime(statistic.distractionTime, statistic.workTime),
             color: 'rgb(253, 133, 138)',
-            time: '49 ч. 14 мин. 0 сек',
+            time: `${statistic.distractionTime.hours} ч. ${statistic.distractionTime.minutes} мин. ${statistic.distractionTime.seconds} сек.`,
         },
 
     ]
@@ -82,17 +89,17 @@ const TimeTrackingPage: FC<TimeTrackingPageProps> = ({children}) => {
 
             </Tabs>
 
-            <StatisticSection data={statistic}/>
+            <StatisticSection data={statisticCardsData}/>
 
             <Grid mt={1} container item xs={12}>
 
-                <Paper>
+                <Paper elevation={0} sx={{width: '100%', overflow: 'hidden'}}>
 
-                    <Grid container item xs={12}>
+                    <SectionTitle>Статистика сотрудников</SectionTitle>
 
-                        <SectionTitle>Статистика сотрудников</SectionTitle>
+                    <TableContainer>
 
-                        <Table aria-label="simple table">
+                        <Table stickyHeader>
                             <TableHead>
                                 <TableRow>
                                     <TableCell>
@@ -151,7 +158,8 @@ const TimeTrackingPage: FC<TimeTrackingPageProps> = ({children}) => {
                                 {persons.map(row => {
 
                                     // @ts-ignore
-                                    const sumOfLateness = row.lateness.length > 0 ?  row.lateness.reduce((acc, number) => acc + number, 0) : 0
+                                    const sumOfLateness = row.lateness.length > 0 ? row.lateness.reduce((acc, number) => acc + number, 0) : 0
+                                    // @ts-ignore
                                     const sumOfEarlyLeaving = row.earlyLeaving.length > 0 ? row.earlyLeaving.reduce((acc, number) => acc + number, 0) : 0
                                     // @ts-ignore
                                     const sumOfAbsenteeism = row.absenteeism.length > 0 ? row.absenteeism.reduce((acc, number) => acc + number, 0) : 0
@@ -178,9 +186,9 @@ const TimeTrackingPage: FC<TimeTrackingPageProps> = ({children}) => {
                                             <TableCell align="center">
 
                                                 <Chip
-                                                    label={`${row.workTime.hours}:${row.workTime.minutes}:0`}
-
-                                                    color={row.workTime.hours >= row.agreedWorkTime.hours ? 'success' : "error"}
+                                                    label={`${row.workTime.all?.hours}:${row.workTime.all?.minutes}:0`}
+                                                    //@ts-ignore
+                                                    color={row.workTime?.all?.hours >= row.agreedWorkTime.hours ? 'success' : "error"}
                                                     variant="filled"
                                                     size={'medium'}
                                                 />
@@ -192,7 +200,8 @@ const TimeTrackingPage: FC<TimeTrackingPageProps> = ({children}) => {
                                 })}
                             </TableBody>
                         </Table>
-                    </Grid>
+
+                    </TableContainer>
 
                 </Paper>
 

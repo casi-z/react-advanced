@@ -1,4 +1,4 @@
-import usePersonsPageStyles from './PersonsPage.style'
+
 import React, {ReactChild, FC, useState} from 'react'
 import {
     Avatar,
@@ -17,9 +17,11 @@ import {
 import Page from "@/components/Page/Page";
 import StatisticSection from "@/layouts/StatisticSection/StatisticSection";
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
-import persons, {allAgreedWorkTime, allWorkTime} from "@/data/fake/persons";
 import PersonCard from "@/components/PersonCard/PersonCard";
 import Calc from "@/utils/calcUtil";
+import {IPerson, IState} from "@/types/types";
+import {useSelector} from "react-redux";
+import StackedProgressBar from "@/components/StackedProgressBar/StackedProgressBar";
 
 const {log} = console
 
@@ -32,7 +34,6 @@ interface PersonsPageProps {
 const PersonsPage: FC<PersonsPageProps> = ({children}) => {
 
     const theme = useTheme()
-    const Styles = usePersonsPageStyles(theme)
 
 
     const [value, setValue] = useState<number>(0);
@@ -49,30 +50,33 @@ const PersonsPage: FC<PersonsPageProps> = ({children}) => {
         };
     }
 
-    const statistic = [
+    const persons = useSelector((state: IState) => state.persons.persons)
+    const statistic = useSelector((state: IState) => state.statistic.statistic)
+
+    const statisticCardsData = [
         {
             name: 'Отработано',
-            procents: Calc.procentsByTime(allWorkTime, allAgreedWorkTime),
+            procents: Calc.procentsByTime(statistic.workTime, statistic.agreedWorkTime),
             color: 'rgb(240, 183, 52)',
-            time: `${allWorkTime.hours} ч. ${allWorkTime.minutes} мин. ${allWorkTime.seconds} сек.`,
-        },
-        {
-            name: 'Продуктивных часов',
-            procents: 25.58,
-            color: 'rgb(15, 232, 175)',
-            time: '9 ч. 21 мин. 0 сек',
+            time: `${statistic.workTime.hours} ч. ${statistic.workTime.minutes} мин. ${statistic.workTime.seconds} сек.`,
         },
         {
             name: 'Простой',
-            procents: 13.31,
-            color: 'rgb(210, 210, 210)',
-            time: '17 ч. 58 мин. 0 сек',
+            color: 'rgba(190,190,190,0.85)',
+            procents: Calc.procentsByTime(statistic.idleTime, statistic.workTime),
+            time: `${statistic.idleTime.hours} ч. ${statistic.idleTime.minutes} мин. ${statistic.idleTime.seconds} сек.`,
+        },
+        {
+            name: 'Продуктивно',
+            procents: Calc.procentsByTime(statistic.productiveTime, statistic.workTime),
+            color: 'rgb(15, 232, 175)',
+            time: `${statistic.productiveTime.hours} ч. ${statistic.productiveTime.minutes} мин. ${statistic.productiveTime.seconds} сек.`,
         },
         {
             name: 'Отвлечения',
-            procents: 70.08,
+            procents: Calc.procentsByTime(statistic.distractionTime, statistic.workTime),
             color: 'rgb(253, 133, 138)',
-            time: '49 ч. 14 мин. 0 сек',
+            time: `${statistic.distractionTime.hours} ч. ${statistic.distractionTime.minutes} мин. ${statistic.distractionTime.seconds} сек.`,
         },
 
     ]
@@ -89,22 +93,30 @@ const PersonsPage: FC<PersonsPageProps> = ({children}) => {
                 <Tab label="Год" {...a11yProps(5)}/>
 
             </Tabs>
-            <StatisticSection data={statistic}/>
-
-            <Grid component={Styles} mt={2} container spacing={2} item xs={12}>
+            <StatisticSection data={statisticCardsData}/>
 
 
-                <Paper>
+            <Grid container mt={2}>
+                <Paper sx={{width: '100%', overflow: 'hidden'}}>
 
-                    <Grid container item xs={12}>
+                    <SectionTitle>Статистика сотрудников</SectionTitle>
 
-                        <SectionTitle>Статистика сотрудников</SectionTitle>
-
-                        <Table sx={{tableLayout: 'fixed'}} aria-label="simple table">
+                    <TableContainer>
+                        <Table
+                            sx={{
+                                tableLayout: {
+                                    md: 'fixed',
+                                    xs: 'auto'
+                                }
+                            }}
+                            stickyHeader
+                            aria-label="simple table"
+                        >
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Сотрудник</TableCell>
                                     <TableCell align="right">Статистика</TableCell>
+                                    <TableCell align="right"></TableCell>
                                     <TableCell align="right">Опоздания</TableCell>
                                     <TableCell align="right">Прогулы</TableCell>
                                     <TableCell align="right">Ранний уход</TableCell>
@@ -112,13 +124,25 @@ const PersonsPage: FC<PersonsPageProps> = ({children}) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {persons.map(row => {
+                                {persons.map((row: IPerson) => {
 
                                     // @ts-ignore
-                                    const sumOfLateness = row.lateness.length > 0 ?  row.lateness.reduce((acc, number) => acc + number, 0) : 0
+                                    const sumOfLateness = row.lateness.length > 0 ? row.lateness.reduce((acc, number) => acc + number, 0) : 0
+                                    // @ts-ignore
                                     const sumOfEarlyLeaving = row.earlyLeaving.length > 0 ? row.earlyLeaving.reduce((acc, number) => acc + number, 0) : 0
                                     // @ts-ignore
                                     const sumOfAbsenteeism = row.absenteeism.length > 0 ? row.absenteeism.reduce((acc, number) => acc + number, 0) : 0
+
+                                    const stackedProgressBarData = [
+                                        {
+                                            progress: Calc.procentsByTime(row.workTime.distraction, statistic.agreedWorkTime),
+                                            color: 'rgb(253, 133, 138)',
+                                        },
+                                        {
+                                            progress: Calc.procentsByTime(row.workTime.productive, statistic.agreedWorkTime),
+                                            color: 'rgb(15, 232, 175)',
+                                        },
+                                    ]
 
                                     return (
 
@@ -136,7 +160,12 @@ const PersonsPage: FC<PersonsPageProps> = ({children}) => {
                                             <TableCell
                                                 align="right"
                                             >
-                                                {row.workTime.hours} ч. {row.workTime.minutes} мин
+                                                {row.workTime.all?.hours} ч. {row.workTime.all?.minutes} мин
+
+                                            </TableCell>
+
+                                            <TableCell align={"center"}>
+                                                <StackedProgressBar data={stackedProgressBarData}/>
                                             </TableCell>
 
                                             <TableCell align="right">{sumOfLateness} мин</TableCell>
@@ -162,11 +191,10 @@ const PersonsPage: FC<PersonsPageProps> = ({children}) => {
 
                             </TableBody>
                         </Table>
-                    </Grid>
+                    </TableContainer>
                 </Paper>
-
-
             </Grid>
+
 
         </Page>
     )

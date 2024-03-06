@@ -1,4 +1,4 @@
-import useErrorPageStyles from './ErrorPage.style'
+
 import { ReactChild, FC, useEffect } from 'react'
 import { Box, Link, useTheme } from '@mui/material'
 import Page from '@/components/Page/Page'
@@ -12,8 +12,7 @@ interface ErrorPageProps {
 }
 
 const ErrorPage: FC<ErrorPageProps> = ({ children }) => {
-  const theme = useTheme() 
- const Styles = useErrorPageStyles(theme)
+
 
   const errorsData = {
     '404': 'Запрошенный ресурс не найден',
@@ -35,7 +34,7 @@ const ErrorPage: FC<ErrorPageProps> = ({ children }) => {
   return (
 
 
-    <Box component={Styles} className="ErrorPage error">
+    <Box className="ErrorPage error">
       <Box className='error__data'>
         <Box component={'h1'}>
           {code}

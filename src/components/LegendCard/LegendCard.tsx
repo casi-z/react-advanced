@@ -12,21 +12,18 @@ import {
     useTheme
 } from '@mui/material'
 import styled from 'styled-components'
+import {IRadialBarDataItem} from "@/types/types";
 
 const {log} = console
 
-interface LegendCardProps {
+interface LegendCardProps extends IRadialBarDataItem{
 
-    tumbColor: string,
-    name: string,
-    time: string,
-    procents: number,
 
 
 }
 
 
-const LegendCard: FC<LegendCardProps> = ({name, time, procents, tumbColor}) => {
+const LegendCard: FC<LegendCardProps> = ({name, time, procents, color}) => {
 
     const theme = useTheme()
 
@@ -37,7 +34,7 @@ const LegendCard: FC<LegendCardProps> = ({name, time, procents, tumbColor}) => {
 
         .tumb {
             border-radius: 50%;
-            background: ${tumbColor};
+            background: ${color};
             width: 8px;
             height: 8px;
             position: absolute;

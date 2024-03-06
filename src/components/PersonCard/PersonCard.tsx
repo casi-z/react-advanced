@@ -1,6 +1,9 @@
 import usePersonCardStyles from './PersonCard.style'
-import React, {ReactChild, FC} from 'react'
+import React, {ReactChild, FC, useEffect} from 'react'
 import {Avatar, Box, Chip, Divider, Grid, Typography, useTheme} from '@mui/material'
+import {useDispatch, useSelector} from "react-redux";
+import {selectPersonAction} from "@/store/personsReducer";
+import {IState} from "@/types/types";
 
 const {log} = console
 
@@ -16,12 +19,26 @@ interface PersonCardProps {
 }
 
 const PersonCard: FC<PersonCardProps> = ({name, job, avatar, lateness, disablePadding}) => {
+
     const theme = useTheme()
     const Styles = usePersonCardStyles(theme)
+    const dispatch = useDispatch()
+    const persons = useSelector((state: IState )=> state.persons.persons)
+    const reduxSelectedPerson = useSelector((state: IState )=> state.persons.selected)
+
+    function handleClick(){
+
+        const selectedPerson = persons.filter(person => person.name === name)[0]
+
+        dispatch(selectPersonAction(selectedPerson))
+    }
+
 
     return (
         <Grid
+            onClick={handleClick}
             container
+            sx={{cursor: 'pointer'}}
             item xs={12}
             flexWrap={"nowrap"}
             alignItems={"center"}

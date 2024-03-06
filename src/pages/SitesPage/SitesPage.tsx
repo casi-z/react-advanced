@@ -1,4 +1,3 @@
-import useSitesPageStyles from './SitesPage.style'
 import React, {ReactChild, FC, useState} from 'react'
 import {
     Box,
@@ -7,7 +6,7 @@ import {
     Tab,
     Table,
     TableBody,
-    TableCell,
+    TableCell, TableContainer,
     TableHead,
     TableRow,
     Tabs,
@@ -17,11 +16,10 @@ import {
 import Page from "@/components/Page/Page";
 import StatisticSection from "@/layouts/StatisticSection/StatisticSection";
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
-import programs from "@/data/fake/programs";
-import sites from "@/data/fake/sites";
 import StackedProgressBar from "@/components/StackedProgressBar/StackedProgressBar";
 import Calc from "@/utils/calcUtil";
-import {allAgreedWorkTime} from "@/data/fake/persons";
+import {useSelector} from "react-redux";
+import {IState} from "@/types/types";
 
 const {log} = console
 
@@ -33,7 +31,7 @@ interface SitesPageProps {
 
 const SitesPage: FC<SitesPageProps> = ({children}) => {
     const theme = useTheme()
-    const Styles = useSitesPageStyles(theme)
+
 
     const [value, setValue] = useState<number>(0);
 
@@ -49,24 +47,27 @@ const SitesPage: FC<SitesPageProps> = ({children}) => {
         };
     }
 
-    const statistic = [
+    const statistic = useSelector((state: IState) => state.statistic.statistic)
+    const sites = useSelector((state: IState) => state.sites.sites)
+
+    const statisticCardsData = [
         {
             name: 'Отработано',
-            procents: 87.81,
+            procents: Calc.procentsByTime(statistic.workTime, statistic.agreedWorkTime),
             color: 'rgb(240, 183, 52)',
-            time: '70 ч. 15 мин. 0 сек',
+            time: `${statistic.workTime.hours} ч. ${statistic.workTime.minutes} мин. ${statistic.workTime.seconds} сек.`,
         },
         {
-            name: 'Продуктивных часов',
-            procents: 25.58,
+            name: 'Продуктивно',
+            procents: Calc.procentsByTime(statistic.productiveTime, statistic.workTime),
             color: 'rgb(15, 232, 175)',
-            time: '9 ч. 21 мин. 0 сек',
+            time: `${statistic.productiveTime.hours} ч. ${statistic.productiveTime.minutes} мин. ${statistic.productiveTime.seconds} сек.`,
         },
         {
             name: 'Отвлечения',
-            procents: 70.08,
+            procents: Calc.procentsByTime(statistic.distractionTime, statistic.workTime),
             color: 'rgb(253, 133, 138)',
-            time: '49 ч. 14 мин. 0 сек',
+            time: `${statistic.distractionTime.hours} ч. ${statistic.distractionTime.minutes} мин. ${statistic.distractionTime.seconds} сек.`,
         },
 
     ]
@@ -84,17 +85,26 @@ const SitesPage: FC<SitesPageProps> = ({children}) => {
 
             </Tabs>
 
-            <StatisticSection data={statistic}/>
+            <StatisticSection data={statisticCardsData}/>
 
             <Grid mt={1} container item xs={12}>
 
-                <Paper>
+                <Paper elevation={0} sx={{width: '100%', overflow: 'hidden'}}>
 
-                    <Grid container item xs={12}>
 
-                        <SectionTitle>Статистика сайтов</SectionTitle>
+                    <SectionTitle>Статистика сайтов</SectionTitle>
 
-                        <Table sx={{tableLayout: 'fixed'}} aria-label="simple table">
+                    <TableContainer>
+                        <Table
+                            sx={{
+                                tableLayout: {
+                                    md: 'fixed',
+                                    xs: 'auto'
+                                }
+                            }}
+                            stickyHeader
+                            aria-label="simple table"
+                        >
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Наименование</TableCell>
@@ -109,11 +119,11 @@ const SitesPage: FC<SitesPageProps> = ({children}) => {
                                 {sites.map(row => {
                                     const stackedProgressBarData = [
                                         {
-                                            progress: Calc.procentsByTime(row.time.distraction, allAgreedWorkTime),
+                                            progress: Calc.procentsByTime(row.time.distraction, statistic.agreedWorkTime),
                                             color: 'rgb(253, 133, 138)',
                                         },
                                         {
-                                            progress: Calc.procentsByTime(row.time.productive, allAgreedWorkTime),
+                                            progress: Calc.procentsByTime(row.time.productive, statistic.agreedWorkTime),
                                             color: 'rgb(15, 232, 175)',
                                         },
                                     ]
@@ -132,18 +142,28 @@ const SitesPage: FC<SitesPageProps> = ({children}) => {
 
                                             </TableCell>
 
-                                            <TableCell align="right">{row.time.all.hours} ч.</TableCell>
-                                            <TableCell align="right"><StackedProgressBar
-                                                data={stackedProgressBarData}/></TableCell>
+                                            <TableCell align="right">{row.time.all?.hours} ч.</TableCell>
+
+                                            <TableCell align="right">
+
+                                                <StackedProgressBar data={stackedProgressBarData}/>
+
+                                            </TableCell>
+
                                             <TableCell
-                                                align="right">{Calc.procentsByTime(row.time.all, allAgreedWorkTime).toFixed(2)}%</TableCell>
+                                                align="right"
+                                            >
+                                                {/*@ts-ignore*/}
+                                                {Calc.procentsByTime(row.time.all, statistic.agreedWorkTime).toFixed(2)}%
+                                            </TableCell>
 
                                         </TableRow>
                                     )
                                 })}
                             </TableBody>
                         </Table>
-                    </Grid>
+                    </TableContainer>
+
 
                 </Paper>
 
