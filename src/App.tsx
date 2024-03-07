@@ -57,6 +57,11 @@ function App() {
                     )}
                 </Route>
 
+                <Route path="settings">
+                    {leftPanelItems.settings.map((item, index) =>
+                        <Route key={index} path={item.href} element={item.page}/>
+                    )}
+                </Route>
 
                 {/* Перекидываю на ошибку 404 при неправильном url */}
                 <Route path="*" element={<Navigate to="/error?code=404"/>}/>

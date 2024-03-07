@@ -103,14 +103,17 @@ export interface IState {
     persons:{
         persons: IPerson[] | [],
         selected: IPerson | null,
-    }
+    },
     programs: {
         programs: IProgram[] | [],
-    }
+    },
     sites: {
         sites: ISite[] | [],
-    }
+    },
     statistic: {
         statistic: IStatistic
-    }
+    },
+    modal:{
+        open: string
+    },
 }

@@ -18,6 +18,7 @@ import TimeTrackingPage from "@/pages/TimeTrackingPage/TimeTrackingPage";
 import GeolocationPage from "@/pages/GeolocationPage/GeolocationPage";
 import ScreenshotsPage from "@/pages/ScreenshotsPage/ScreenshotsPage";
 import PersonsPage from "@/pages/PersonsPage/PersonsPage";
+import PersonsSettingsPage from "@/pages/PersonsSettingsPage/PersonsSettingsPage";
 
 const leftPanelItems = {
     statistic: [
@@ -85,44 +86,12 @@ const leftPanelItems = {
     settings: [
         {
             text: 'сотрудники',
-            icon: <PersonIcon/>
+            href: 'persons',
+            icon: <PersonIcon/>,
+            page: <PersonsSettingsPage/>
+
         },
-        {
-            text: 'отделы',
-            icon: <PersonIcon/>
-        },
-        {
-            text: 'должности',
-            icon: <PersonIcon/>
-        },
-        {
-            text: 'программы',
-            icon: <PersonIcon/>
-        },
-        {
-            text: 'группы программ',
-            icon: <PersonIcon/>
-        },
-        {
-            text: 'отвлечения',
-            icon: <PersonIcon/>
-        },
-        {
-            text: 'расписание',
-            icon: <PersonIcon/>
-        },
-        {
-            text: 'хранилище',
-            icon: <PersonIcon/>
-        },
-        {
-            text: 'ключи',
-            icon: <PersonIcon/>
-        },
-        {
-            text: 'агенты',
-            icon: <PersonIcon/>
-        },
+
 
 
     ]

@@ -3,6 +3,7 @@ import {Avatar, Box, Chip, Divider, Grid, Typography, useTheme} from '@mui/mater
 import {useDispatch, useSelector} from "react-redux";
 import {selectPersonAction} from "@/store/personsReducer";
 import {IState} from "@/types/types";
+import {setModalNameAction} from "@/store/modalReducer";
 
 const {log} = console
 
@@ -13,11 +14,12 @@ interface PersonCardProps {
     avatar: string,
     lateness?: number,
     disablePadding?: boolean,
+    noClickable?: boolean,
 
 
 }
 
-const PersonCard: FC<PersonCardProps> = ({name, job, avatar, lateness, disablePadding}) => {
+const PersonCard: FC<PersonCardProps> = ({name, job, avatar, lateness, disablePadding, noClickable}) => {
 
     const theme = useTheme()
     const dispatch = useDispatch()
@@ -26,9 +28,13 @@ const PersonCard: FC<PersonCardProps> = ({name, job, avatar, lateness, disablePa
 
     function handleClick(){
 
-        const selectedPerson = persons.filter(person => person.name === name)[0]
+        if(!noClickable){
+            const selectedPerson = persons.filter(person => person.name === name)[0]
 
-        dispatch(selectPersonAction(selectedPerson))
+            dispatch(selectPersonAction(selectedPerson))
+            dispatch(setModalNameAction('person'))
+        }
+
     }
 
 

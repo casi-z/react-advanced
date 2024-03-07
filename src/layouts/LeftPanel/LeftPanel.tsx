@@ -88,7 +88,7 @@ const LeftPanel: FC<LeftPanelProps> = ({children}) => {
                                 {item.icon}
                             </ListItemIcon>
 
-                            <ListItemText className={'list-item__text'} sx={{textTransform: 'capitalize'}} primary={item.text}/>
+                            <ListItemText sx={{textTransform: 'capitalize'}} primary={item.text}/>
 
                         </ListItemButton>
 
@@ -101,22 +101,22 @@ const LeftPanel: FC<LeftPanelProps> = ({children}) => {
                     Настройка
                 </ListSubheader>
 
-                {/*{leftPanelItems.settings.map((item: ILeftPanelItem) => (*/}
+                {leftPanelItems.settings.map((item: ILeftPanelItem, index) => (
 
-                {/*    <ListItem className={'list-item'} disablePadding>*/}
+                    <ListItem key={index} className={'list-item'} disablePadding>
 
-                {/*        <ListItemButton href={`statistic/${item.href}`}>*/}
+                        <ListItemButton href={`/settings/${item.href}`}>
 
-                {/*            <ListItemIcon>*/}
-                {/*                {item.icon}*/}
-                {/*            </ListItemIcon>*/}
+                            <ListItemIcon>
+                                {item.icon}
+                            </ListItemIcon>
 
-                {/*            <ListItemText className={'list-item__text'} primary={item.text}/>*/}
+                            <ListItemText sx={{textTransform: 'capitalize'}} primary={item.text}/>
 
-                {/*        </ListItemButton>*/}
+                        </ListItemButton>
 
-                {/*    </ListItem>*/}
-                {/*))}*/}
+                    </ListItem>
+                ))}
             </List>
         </Paper>
     )
