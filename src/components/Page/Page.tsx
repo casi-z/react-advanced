@@ -3,9 +3,12 @@ import {ReactChild, ReactNode, FC, useEffect} from 'react'
 import Header from '../../layouts/Header/Header'
 import Footer from '../../layouts/Footer/Footer'
 import {Box, Grid, useTheme} from '@mui/material';
-import LeftPanel from "@/layouts/LeftPanel/LeftPanel";
+import MainMenu from "@/layouts/MainMenu/MainMenu";
 import PersonModal from "@/layouts/PersonModal/PersonModal";
 import PersonAddModal from "@/layouts/PersonAddModal/PersonAddModal";
+import DepartmentAddModal from "@/layouts/DepartmentAddModal/DepartmentAddModal";
+import JobAddModal from "@/layouts/JobAddModal/JobAddModal";
+import ScheduleAddModal from "@/layouts/ScheduleAddModal/ScheduleAddModal";
 
 
 const {log} = console
@@ -34,11 +37,14 @@ const Page: FC<PageProps> = ({children, title}) => {
             <PersonModal/>
 
             <PersonAddModal/>
+            <DepartmentAddModal/>
+            <JobAddModal/>
+            <ScheduleAddModal/>
 
             <Header/>
 
             <Grid container justifyContent={'flex-end'}>
-                <LeftPanel/>
+                <MainMenu/>
 
                 <Grid maxHeight={'none'} overflow={'hidden'}  item md={10} mt={2} xs={12}>
                     {children}

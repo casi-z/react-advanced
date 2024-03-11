@@ -11,20 +11,21 @@ import {
     useTheme
 } from '@mui/material'
 import URLUtil from "@/utils/URLutil";
-import leftPanelItems from "@/data/LeftPanelItems";
-import {ILeftPanelItem} from "@/types/types";
+import mainMenuItems from "@/data/MainMenuItems";
+import {IMainMenuItem, IState} from "@/types/types";
 import {grey} from "@mui/material/colors";
 import Global from "@mui/styled-engine-sc/GlobalStyles";
+import {useSelector} from "react-redux";
 
 const {log} = console
 
-interface LeftPanelProps {
+interface MainMenuProps {
 
     children?: ReactChild,
 
 }
 
-const LeftPanel: FC<LeftPanelProps> = ({children}) => {
+const MainMenu: FC<MainMenuProps> = ({children}) => {
     const theme = useTheme()
 
     const [open, setOpen] = useState<boolean>(false);
@@ -57,15 +58,10 @@ const LeftPanel: FC<LeftPanelProps> = ({children}) => {
     };
 
     const mobileVersion = useMediaQuery(theme.breakpoints.down('md'));
+    const isModalOpen = useSelector((state: IState) => state.modal.open !== '')
 
-    const LeftPanelBody = (
-        <Paper
-            sx={{
-                overflow: 'scroll'
-            }}
-            className={'LeftPanel__body'}
-            elevation={2}
-        >
+    const MainMenuBody = (
+
 
             <List
 
@@ -77,10 +73,18 @@ const LeftPanel: FC<LeftPanelProps> = ({children}) => {
                 }
 
             >
-                {leftPanelItems.statistic.map((item, index) => (
+                {mainMenuItems.statistic.map((item, index) => (
 
-                    <ListItem className={`list-item current-${URLUtil.path(1) === item.href}`} key={index}
-                              disablePadding>
+                    <ListItem
+                        sx={{
+                            background: URLUtil.path(1) === item.href ? '#f4faff' : '',
+                            borderLeft: '4px solid transparent',
+                            borderColor: URLUtil.path(1) === item.href ? theme.palette.primary.main : '',
+
+                        }}
+                        key={index}
+                        disablePadding
+                    >
 
                         <ListItemButton href={`/statistic/${item.href}`}>
 
@@ -101,32 +105,46 @@ const LeftPanel: FC<LeftPanelProps> = ({children}) => {
                     Настройка
                 </ListSubheader>
 
-                {leftPanelItems.settings.map((item: ILeftPanelItem, index) => (
+                {mainMenuItems.settings.map((item: IMainMenuItem, index) => (
 
-                    <ListItem key={index} className={'list-item'} disablePadding>
+                    <ListItem
+                        sx={{
+                            background: URLUtil.path(1) === item.href ? '#f4faff' : '',
+                            borderLeft: '4px solid transparent',
+                            borderColor: URLUtil.path(1) === item.href ? theme.palette.primary.main : '',
+
+                        }}
+                        key={index}
+                        disablePadding
+                    >
 
                         <ListItemButton href={`/settings/${item.href}`}>
 
-                            <ListItemIcon>
+                            <ListItemIcon color={URLUtil.path(1) === item.href ? theme.palette.primary.main : 'inherit'}>
                                 {item.icon}
                             </ListItemIcon>
 
-                            <ListItemText sx={{textTransform: 'capitalize'}} primary={item.text}/>
+                            <ListItemText
+                                sx={{
+                                    textTransform: 'capitalize',
+                                    color: URLUtil.path(1) === item.href ? theme.palette.primary.main : 'inherit',
+                            }}
+                                primary={item.text}
+                            />
 
                         </ListItemButton>
 
                     </ListItem>
                 ))}
             </List>
-        </Paper>
+
     )
 
-    if(mobileVersion){
+    if(mobileVersion && !isModalOpen){
 
         return (
 
             <Root>
-
 
                 <SwipeableDrawer
                     anchor="bottom"
@@ -146,6 +164,7 @@ const LeftPanel: FC<LeftPanelProps> = ({children}) => {
                         keepMounted: true,
                     }}
                 >
+
                     <StyledBox
                         elevation={2}
                         sx={{
@@ -164,21 +183,28 @@ const LeftPanel: FC<LeftPanelProps> = ({children}) => {
 
                     </StyledBox>
 
-                    {LeftPanelBody}
+
+                    {MainMenuBody}
 
                 </SwipeableDrawer>
+
             </Root>
         )
 
-    } else {
+    } else if(!mobileVersion) {
 
         return (
             <Drawer variant="permanent">
-                {LeftPanelBody}
+                <Typography sx={{p: 1.5, color: 'text.secondary'}} fontSize={30} textAlign={'center'} component={'h1'}>
+                    SAG Visor
+                </Typography>
+                <Divider/>
+                {MainMenuBody}
             </Drawer>
-
         )
 
     }
+
+    return <></>
 }
-export default LeftPanel
+export default MainMenu

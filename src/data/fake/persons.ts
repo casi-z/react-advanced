@@ -3,9 +3,12 @@ import {IPerson, IProgram, ITime} from "@/types/types";
 export const persons = calcAllHours([
     {
         id: 1,
-        name: 'Фролов Василий Сергеевич',
+        surname: 'Фролов',
+        name: 'Василий',
+        lastname: 'Сергеевич',
         avatar: '',
-        job: 'Маркетолог / Отдел маркетинга',
+        job: 'Маркетолог',
+        department: 'Отдел маркетинга',
         workTime: {
             productive: {hours: 4, minutes: 3, seconds: 2},
             idle: {hours: 3, minutes: 3, seconds: 2},
@@ -29,9 +32,12 @@ export const persons = calcAllHours([
 
     {
         id: 2,
-        name: 'Кобзева Екатерина Александровна',
+        surname: 'Кобзева',
+        name: 'Екатерина',
+        lastname: 'Александровна',
         avatar: '',
-        job: 'Дизайнер / Отдел дизайна',
+        job: 'Дизайнер',
+        department: 'Отдел дизайна',
         workTime: {
             productive: {hours: 4, minutes: 3, seconds: 2},
             idle: {hours: 3, minutes: 3, seconds: 2},
@@ -58,9 +64,12 @@ export const persons = calcAllHours([
 
     {
         id: 3,
-        name: 'Коновалов Владимир Дмитриевич',
+        surname: 'Коновалов',
+        name: 'Владимир',
+        lastname: 'Дмитриевич',
         avatar: '',
-        job: 'Разработчик / Отдел разработки',
+        job: 'Разработчик',
+        department: 'Отдел разработки',
         workTime: {
             productive: {hours: 4, minutes: 3, seconds: 2},
             idle: {hours: 3, minutes: 3, seconds: 2},
@@ -87,9 +96,12 @@ export const persons = calcAllHours([
 
     {
         id: 4,
-        name: 'Кравченко Евгений Викторович',
+        surname: 'Кравченко',
+        name: 'Евгений',
+        lastname: 'Викторович',
         avatar: '',
-        job: 'Менеджер по продажам / Отдел продаж',
+        job: 'Менеджер по продажам',
+        department: 'Отдел продаж',
         workTime: {
             productive: {hours: 4, minutes: 3, seconds: 2},
             idle: {hours: 3, minutes: 3, seconds: 2},
@@ -114,9 +126,12 @@ export const persons = calcAllHours([
 
     {
         id: 5,
-        name: 'Кудрявцева Евгения Викторовна',
+        surname: 'Кудрявцева',
+        name: 'Евгения',
+        lastname: 'Викторовна',
         avatar: '',
-        job: 'Бухгалтер / Бухгалтерия',
+        job: 'Бухгалтер',
+        department: 'Бухгалтерия',
         workTime: {
             productive: {hours: 4, minutes: 3, seconds: 2},
             idle: {hours: 3, minutes: 3, seconds: 2},
@@ -143,9 +158,12 @@ export const persons = calcAllHours([
 
     {
         id: 6,
-        name: 'Мулатов Константин Евгеньевич',
+        surname: 'Мулатов',
+        name: 'Константин',
+        lastname: 'Евгеньевич',
         avatar: '',
-        job: 'Начальник отдела кадров / Отдел персонала',
+        job: 'Начальник отдела кадров',
+        department: 'Отдел персонала',
         workTime: {
             productive: {hours: 4, minutes: 3, seconds: 2},
             idle: {hours: 3, minutes: 3, seconds: 2},
@@ -168,9 +186,12 @@ export const persons = calcAllHours([
     },
     {
         id: 7,
-        name: 'Поляков Виктор Дмитриевич',
+        surname: 'Поляков',
+        name: 'Виктор',
+        lastname: 'Дмитриевич',
         avatar: '',
-        job: 'Разработчик / Отдел разработки',
+        job: 'Разработчик',
+        department: 'Отдел разработки',
         workTime: {
             productive: {hours: 4, minutes: 3, seconds: 2},
             idle: {hours: 3, minutes: 3, seconds: 2},
@@ -193,9 +214,12 @@ export const persons = calcAllHours([
     },
     {
         id: 8,
-        name: 'Фролов Василий Сергеевич',
+        surname: 'Фролов',
+        name: 'Василий',
+        lastname: 'Сергеевич',
         avatar: '',
-        job: 'SEO-специалист / Отдел продвижения',
+        job: 'SEO-специалист',
+        department: 'Отдел продвижения',
         workTime: {
             productive: {hours: 4, minutes: 3, seconds: 2},
             idle: {hours: 3, minutes: 3, seconds: 2},
@@ -218,9 +242,12 @@ export const persons = calcAllHours([
     },
     {
         id: 9,
-        name: 'Фрязев Виталий Сергеевич',
+        surname: 'Фрязев',
+        name: 'Виталий',
+        lastname: 'Сергеевич',
         avatar: '',
-        job: 'Менеджер по продажам / Отдел маркетинга',
+        job: 'Менеджер по продажам',
+        department: 'Отдел маркетинга',
         workTime: {
             productive: {hours: 4, minutes: 3, seconds: 2},
             idle: {hours: 3, minutes: 3, seconds: 2},
@@ -245,9 +272,12 @@ export const persons = calcAllHours([
     },
     {
         id: 10,
-        name: 'Шалина Светлана Викторовна',
+        surname: 'Шалина',
+        name: 'Светлана',
+        lastname: 'Викторовна',
         avatar: '',
-        job: 'Дизайнер / Отдел дизайна',
+        job: 'Дизайнер',
+        department: 'Отдел дизайна',
         workTime: {
             productive: {hours: 4, minutes: 0, seconds: 0},
             idle: {hours: 3, minutes: 0, seconds: 0},

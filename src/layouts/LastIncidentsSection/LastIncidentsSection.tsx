@@ -57,7 +57,7 @@ const LastIncidentsSection: FC<LastIncidentsSectionProps> = ({children}) => {
                                     </Typography>
                                 </Grid>
 
-                                <PersonCard name={person.name} job={person.job} avatar={''}/>
+                                <PersonCard data={person}/>
 
 
 

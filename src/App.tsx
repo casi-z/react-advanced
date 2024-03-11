@@ -1,7 +1,7 @@
 import {GlobalContext} from "./context";
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import Main from "./pages/Main/Main";
-import leftPanelItems from "@/data/LeftPanelItems";
+import mainMenuItems from "@/data/MainMenuItems";
 import {useDispatch, useSelector} from "react-redux";
 import {IState} from "@/types/types";
 import {useEffect} from "react";
@@ -18,6 +18,12 @@ import {setPersonsAction} from "@/store/personsReducer";
 import {setStatisticAction} from "@/store/statisticReducer";
 import {setSitesAction} from "@/store/sitesReducer";
 import {setProgramsAction} from "@/store/programsReducer";
+import {setDepartmentsAction} from "@/store/departmentsReducer";
+import departments from "@/data/fake/department";
+import {setJobsAction} from "@/store/jobsReducer";
+import jobs from "@/data/fake/jobs";
+import {setSchedulesAction} from "@/store/schedulesReducer";
+import schedules from "@/data/fake/schedules";
 
 
 function App() {
@@ -29,6 +35,9 @@ function App() {
         dispatch(setProgramsAction(programs))
         //@ts-ignore
         dispatch(setSitesAction(sites))
+        dispatch(setDepartmentsAction(departments))
+        dispatch(setJobsAction(jobs))
+        dispatch(setSchedulesAction(schedules))
         dispatch(setStatisticAction({
             workTime: allWorkTime,
             agreedWorkTime: allAgreedWorkTime,
@@ -52,13 +61,13 @@ function App() {
                 <Route index element={<Navigate to="/statistic/main"/>}/>
 
                 <Route path="statistic">
-                    {leftPanelItems.statistic.map((item, index) =>
+                    {mainMenuItems.statistic.map((item, index) =>
                         <Route key={index} path={item.href} element={item.page}/>
                     )}
                 </Route>
 
                 <Route path="settings">
-                    {leftPanelItems.settings.map((item, index) =>
+                    {mainMenuItems.settings.map((item, index) =>
                         <Route key={index} path={item.href} element={item.page}/>
                     )}
                 </Route>

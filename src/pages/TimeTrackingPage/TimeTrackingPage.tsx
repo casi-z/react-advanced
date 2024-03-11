@@ -171,8 +171,7 @@ const TimeTrackingPage: FC<TimeTrackingPageProps> = ({children}) => {
                                         >
                                             <TableCell component="th" scope="row">
 
-                                                <PersonCard disablePadding name={row.name} job={row.job}
-                                                            avatar={row.avatar}/>
+                                                <PersonCard data={row} disablePadding />
 
                                             </TableCell>
 

@@ -4,6 +4,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import TabIcon from "@mui/icons-material/Tab";
 import LanguageIcon from "@mui/icons-material/Language";
 import TableViewIcon from "@mui/icons-material/TableView";
+import WorkIcon from '@mui/icons-material/Work';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import TimerIcon from "@mui/icons-material/Timer";
@@ -19,8 +21,12 @@ import GeolocationPage from "@/pages/GeolocationPage/GeolocationPage";
 import ScreenshotsPage from "@/pages/ScreenshotsPage/ScreenshotsPage";
 import PersonsPage from "@/pages/PersonsPage/PersonsPage";
 import PersonsSettingsPage from "@/pages/PersonsSettingsPage/PersonsSettingsPage";
+import GroupsIcon from '@mui/icons-material/Groups';
+import DepartmentsSettingsPage from "@/pages/DepartmentsSettingsPage/DepartmentsSettingsPage";
+import JobsSettingsPage from "@/pages/JobsSettingsPage/JobsSettingsPage";
+import SchedulesSettingsPage from "@/pages/SchedulesSettingsPage/SchedulesSettingsPage";
 
-const leftPanelItems = {
+const MainMenuItems = {
     statistic: [
         {
             text: 'главная',
@@ -91,9 +97,31 @@ const leftPanelItems = {
             page: <PersonsSettingsPage/>
 
         },
+        {
+            text: 'отделы',
+            href: 'departments',
+            icon: <GroupsIcon/>,
+            page: <DepartmentsSettingsPage/>
+
+        },
+        {
+            text: 'должности',
+            href: 'jobs',
+            icon: <WorkIcon/>,
+            page: <JobsSettingsPage/>
+
+        },
+        {
+            text: 'расписание',
+            href: 'schedule',
+            icon: <ScheduleIcon/>,
+            page: <SchedulesSettingsPage/>
+
+        },
+
 
 
 
     ]
 }
-export default leftPanelItems
+export default MainMenuItems

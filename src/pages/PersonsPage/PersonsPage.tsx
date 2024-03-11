@@ -153,7 +153,7 @@ const PersonsPage: FC<PersonsPageProps> = ({children}) => {
                                         >
                                             <TableCell component="th" scope="row">
 
-                                                <PersonCard name={row.name} job={row.job} avatar={row.avatar}/>
+                                                <PersonCard data={row}/>
 
                                             </TableCell>
 

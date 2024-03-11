@@ -20,10 +20,15 @@ const LatenessSection: FC<LatenessSectionProps> = ({children}) => {
 
     return (
 
-        <Grid container item xs={12} md={7}>
+        <Grid height={'100%'} item xs={12} md={7}>
 
             <Paper elevation={0}>
                 <SectionTitle>Опоздания</SectionTitle>
+                <Divider/>
+            </Paper>
+
+            <Paper elevation={0} sx={{maxHeight: '100%'}}>
+
 
                 <Grid
                     container
@@ -34,10 +39,7 @@ const LatenessSection: FC<LatenessSectionProps> = ({children}) => {
                     {latecomePersons.map(person => (<>
 
                         <PersonCard
-                            name={person.name}
-                            job={person.job}
-                            avatar={person.avatar}
-                            lateness={person.lateness[0]}
+                            data={person}
                         />
                         <Divider/>
 
@@ -47,10 +49,17 @@ const LatenessSection: FC<LatenessSectionProps> = ({children}) => {
 
                 <Divider/>
 
-                <Button fullWidth>
-                    Подробная статистика
-                </Button>
 
+
+            </Paper>
+
+            <Paper elevation={0}>
+
+                <Grid item xs={12}>
+                    <Button fullWidth>
+                        Подробная статистика
+                    </Button>
+                </Grid>
             </Paper>
 
         </Grid>

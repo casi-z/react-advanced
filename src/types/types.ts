@@ -1,24 +1,19 @@
 import React, {SetStateAction} from "react";
 import {allAgreedWorkTime, allProductiveTime} from "@/data/fake/persons";
 
-
 export interface IMenuItem {
     name: string,
     href: string,
 }
-
-
 export interface IGlobalContext {
 
 }
-
 export interface IHTTPError {
     message: string
     status: number,
     errors: any[]
 }
-
-export interface ILeftPanelItem {
+export interface IMainMenuItem {
     text: string,
     href: string,
     icon: React.ReactChild,
@@ -31,13 +26,15 @@ export interface IRadialBarDataItem{
     procents: number,
     time: string
 }
-
 export interface IPerson {
 
     id: number,
+    surname: string,
     name: string,
+    lastname: string,
     avatar: string,
     job: string,
+    department: string,
 
     workTime: {
         all?: ITime,
@@ -64,6 +61,19 @@ export interface IPerson {
     incidents: number,
 
 }
+export interface IDepartment {
+    id: number,
+    name: string,
+}
+export interface IJob {
+    id: number,
+    name: string,
+}
+export interface ISchedule {
+    id: number,
+    name: string,
+}
+
 
 export interface ITime{
     hours: number,
@@ -84,14 +94,12 @@ export interface ISite extends IProgram{
     url: string,
 
 }
-
 export interface IStatisticItem {
     name: string
     procents: number,
     color: string
     time: string,
 }
-
 export interface IStatistic {
     workTime: ITime,
     agreedWorkTime: ITime,
@@ -110,6 +118,18 @@ export interface IState {
     sites: {
         sites: ISite[] | [],
     },
+    departments: {
+        departments: IDepartment[],
+        selected: IDepartment,
+    }
+    jobs: {
+        jobs: IJob[],
+        selected: IJob | null,
+    },
+    schedules: {
+        schedules: ISchedule[],
+        selected: ISchedule | null,
+    }
     statistic: {
         statistic: IStatistic
     },
