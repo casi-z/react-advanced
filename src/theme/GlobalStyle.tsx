@@ -1,7 +1,5 @@
 import { GlobalStyles as MUIGlobalStyles, Theme, useTheme } from '@mui/material'
-import Background from '../img/background.png'
 
-export const sitePadding = '0 12vw'
 
 const GlobalStyle = () => {
 

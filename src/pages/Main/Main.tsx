@@ -70,7 +70,12 @@ const Main: FC<MainProps> = ({children}) => {
     return (
         <Page>
 
-            <Tabs value={value} onChange={handleChange}>
+            <Tabs
+                value={value}
+                onChange={handleChange}
+                variant="scrollable"
+                scrollButtons="auto"
+            >
 
                 <Tab label="День" {...a11yProps(1)}/>
                 <Tab label="Неделя" {...a11yProps(2)}/>

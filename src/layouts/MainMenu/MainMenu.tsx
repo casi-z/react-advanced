@@ -64,8 +64,7 @@ const MainMenu: FC<MainMenuProps> = ({children}) => {
 
 
             <List
-
-                className={'list'}
+                sx={{overflowY: 'auto'}}
                 subheader={
                     <ListSubheader component="div">
                         Статистика

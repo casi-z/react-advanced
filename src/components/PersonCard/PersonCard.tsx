@@ -5,6 +5,7 @@ import {selectPersonAction} from "@/store/personsReducer";
 import {IPerson, IState} from "@/types/types";
 import {setModalNameAction} from "@/store/modalReducer";
 import stringToColor from "@/utils/stringToColor";
+import {PERSON_MODAL} from "@/data/modalNames";
 
 const {log} = console
 
@@ -36,7 +37,7 @@ const PersonCard: FC<PersonCardProps> = (
             const selectedPerson = persons.filter(person => person.name === data.name)[0]
 
             dispatch(selectPersonAction(selectedPerson))
-            dispatch(setModalNameAction('person'))
+            dispatch(setModalNameAction(PERSON_MODAL))
         }
 
     }

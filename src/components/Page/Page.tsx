@@ -46,14 +46,13 @@ const Page: FC<PageProps> = ({children, title}) => {
             <Grid container justifyContent={'flex-end'}>
                 <MainMenu/>
 
-                <Grid maxHeight={'none'} overflow={'hidden'}  item md={10} mt={2} xs={12}>
+                <Grid maxHeight={'none'} overflow={'hidden'} item pb={{md: 2,  xs: 10}} md={10} mt={2} xs={12}>
                     {children}
                 </Grid>
 
             </Grid>
 
 
-            <Footer/>
 
         </>
     )
