@@ -1,30 +1,27 @@
-
-import React, {ReactChild, FC, useState} from 'react'
+import React, {FC, ReactChild, useState} from 'react'
 import {
-    Box, Chip,
+    Chip,
     Grid,
     Paper,
     Tab,
     Table,
     TableBody,
-    TableCell, TableContainer,
+    TableCell,
+    TableContainer,
     TableHead,
     TableRow,
     Tabs,
-    Typography,
-    useTheme
+    Typography
 } from '@mui/material'
 import Page from "@/components/Page/Page";
 import StatisticSection from "@/layouts/StatisticSection/StatisticSection";
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
-import sites from "@/data/fake/sites";
 
 import PersonCard from "@/components/PersonCard/PersonCard";
 import Calc from "@/utils/calcUtil";
 import {useSelector} from "react-redux";
 import {IState} from "@/types/types";
 
-const {log} = console
 
 interface TimeTrackingPageProps {
 
@@ -35,7 +32,6 @@ interface TimeTrackingPageProps {
 const TimeTrackingPage: FC<TimeTrackingPageProps> = ({children}) => {
 
 
-
     const [value, setValue] = useState<number>(0);
 
     const persons = useSelector((state: IState) => state.persons.persons)
@@ -43,10 +39,9 @@ const TimeTrackingPage: FC<TimeTrackingPageProps> = ({children}) => {
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
-        log(value)
     };
 
-    function a11yProps(index: number) {
+    function tabProps(index: number) {
         return {
             id: `simple-tab-${index}`,
             'aria-controls': `simple-tabpanel-${index}`,
@@ -80,11 +75,11 @@ const TimeTrackingPage: FC<TimeTrackingPageProps> = ({children}) => {
 
             <Tabs value={value} onChange={handleChange}>
 
-                <Tab label="День" {...a11yProps(1)}/>
-                <Tab label="Неделя" {...a11yProps(2)}/>
-                <Tab label="Месяц"{...a11yProps(3)} />
-                <Tab label="Квартал" {...a11yProps(4)}/>
-                <Tab label="Год" {...a11yProps(5)}/>
+                <Tab label="День" {...tabProps(1)}/>
+                <Tab label="Неделя" {...tabProps(2)}/>
+                <Tab label="Месяц"{...tabProps(3)} />
+                <Tab label="Квартал" {...tabProps(4)}/>
+                <Tab label="Год" {...tabProps(5)}/>
 
             </Tabs>
 
@@ -171,7 +166,7 @@ const TimeTrackingPage: FC<TimeTrackingPageProps> = ({children}) => {
                                         >
                                             <TableCell component="th" scope="row">
 
-                                                <PersonCard data={row} disablePadding />
+                                                <PersonCard data={row} disablePadding/>
 
                                             </TableCell>
 

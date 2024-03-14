@@ -10,10 +10,10 @@ class TextUtil {
 
     }
 
-    public static createArticle(text: string | undefined){
+    public static createArticle(text: string | undefined) {
         //@ts-ignore
         return text.replaceAll('\n', '<br/>')
-        
+
     }
 
 }

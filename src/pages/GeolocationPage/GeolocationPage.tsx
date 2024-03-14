@@ -1,26 +1,23 @@
-
-import { ReactChild, FC } from 'react'
-import { Box, useTheme } from '@mui/material'
+import {FC, ReactChild} from 'react'
+import {Box} from '@mui/material'
 import Page from "@/components/Page/Page";
 
-const { log } = console
 
 interface GeolocationPageProps {
-   
-   children?: ReactChild,
-   
+
+    children?: ReactChild,
+
 }
 
-const GeolocationPage: FC<GeolocationPageProps> = ({ children }) => {
+const GeolocationPage: FC<GeolocationPageProps> = ({children}) => {
 
 
+    return (
+        <Box className="GeolocationPage">
+            <Page>
 
-    return(
-      <Box className="GeolocationPage">
-          <Page>
-
-          </Page>
-      </Box>
+            </Page>
+        </Box>
     )
 }
 export default GeolocationPage

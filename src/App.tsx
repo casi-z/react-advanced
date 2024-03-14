@@ -1,22 +1,11 @@
-import {GlobalContext} from "./context";
-import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
-import Main from "./pages/Main/Main";
+import {HashRouter, Navigate, Route, Routes} from 'react-router-dom'
 import mainMenuItems from "@/data/MainMenuItems";
-import {useDispatch, useSelector} from "react-redux";
-import {IState} from "@/types/types";
+import {useDispatch} from "react-redux";
 import {useEffect} from "react";
-import {
-    allAgreedWorkTime, allDistractionTime,
-    allIdleTime,
-    allProductiveTime,
-    allWorkTime,
-    persons as fakePersons,
-} from "@/data/fake/persons";
-import sites from "@/data/fake/sites";
+import {persons as fakePersons,} from "@/data/fake/persons";
 import programs from "@/data/fake/programs";
 import {setPersonsAction} from "@/store/personsReducer";
 import {setStatisticAction} from "@/store/statisticReducer";
-import {setSitesAction} from "@/store/sitesReducer";
 import {setProgramsAction} from "@/store/programsReducer";
 import {setDepartmentsAction} from "@/store/departmentsReducer";
 import departments from "@/data/fake/department";
@@ -24,38 +13,46 @@ import {setJobsAction} from "@/store/jobsReducer";
 import jobs from "@/data/fake/jobs";
 import {setSchedulesAction} from "@/store/schedulesReducer";
 import schedules from "@/data/fake/schedules";
+import Person from "@/ux/Person";
+import Statistic from "@/ux/Statistic";
+import Program from "@/ux/Program";
+import programGroups from "@/data/fake/programGroups";
+import {setProgramGroupsAction} from "@/store/programGroupsReducer";
+import {useTheme} from '@mui/material'
 
 
 function App() {
 
+    const theme = useTheme()
     const dispatch = useDispatch()
 
     function fakeFetching() {
-        dispatch(setPersonsAction(fakePersons))
-        dispatch(setProgramsAction(programs))
-        //@ts-ignore
-        dispatch(setSitesAction(sites))
+        const persons = fakePersons.map(personData => new Person(personData))
+
+        dispatch(setPersonsAction(persons))
+
+        dispatch(setProgramsAction(programs.map(program => new Program(program))))
+
+        dispatch(setProgramGroupsAction(programGroups))
+
         dispatch(setDepartmentsAction(departments))
+
         dispatch(setJobsAction(jobs))
+
         dispatch(setSchedulesAction(schedules))
-        dispatch(setStatisticAction({
-            workTime: allWorkTime,
-            agreedWorkTime: allAgreedWorkTime,
-            productiveTime: allProductiveTime,
-            idleTime: allIdleTime,
-            distractionTime: allDistractionTime,
-        }))
+
+        dispatch(setStatisticAction(new Statistic(persons)))
     }
 
     useEffect(() => {
+
         fakeFetching()
 
     }, []);
 
 
-
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Routes>
 
                 <Route index element={<Navigate to="/statistic/main"/>}/>
@@ -73,10 +70,10 @@ function App() {
                 </Route>
 
                 {/* Перекидываю на ошибку 404 при неправильном url */}
-                <Route path="*" element={<Navigate to="/error?code=404"/>}/>
+                {/*<Route path="*" element={<Navigate to="/error?code=404"/>}/>*/}
 
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 

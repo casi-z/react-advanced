@@ -1,18 +1,18 @@
-import { GlobalStyles as MUIGlobalStyles, Theme, useTheme } from '@mui/material'
+import {GlobalStyles as MUIGlobalStyles, useTheme} from '@mui/material'
 
 
 const GlobalStyle = () => {
 
-   
+
     const theme = useTheme()
-    
+
     return (
 
         <MUIGlobalStyles styles={{
             '*': {
                 boxSizing: 'border-box',
                 overflow: 'visible',
-                
+
             },
 
 
@@ -23,14 +23,12 @@ const GlobalStyle = () => {
                 minHeight: '100%',
                 background: theme.palette.secondary.main
             },
-            'body':{
-
-            },
-            '#root':{
+            'body': {},
+            '#root': {
                 overflowX: 'hidden',
             }
 
-        }} />
+        }}/>
 
     )
 }

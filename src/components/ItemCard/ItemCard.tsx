@@ -1,8 +1,6 @@
-import {ReactChild, FC} from 'react'
-import {Box, Divider, Grid, Typography, useTheme} from '@mui/material'
-import styled from 'styled-components'
+import {FC} from 'react'
+import {Divider, Grid, Typography, useTheme} from '@mui/material'
 
-const {log} = console
 
 interface ItemCardProps {
 

@@ -1,8 +1,9 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useMemo} from 'react';
 import {CssBaseline} from "@mui/material"
-import {ThemeProvider as MUIThemeProvider, createTheme, StyledEngineProvider} from '@mui/material/styles'
-import {useMemo} from "react"
+import {createTheme, StyledEngineProvider, ThemeProvider as MUIThemeProvider} from '@mui/material/styles'
 import GlobalStyle from "./GlobalStyle"
+import {useSelector} from "react-redux";
+import {IState} from "@/types/types";
 
 interface ThemeProviderProps {
     children: React.ReactNode
@@ -10,36 +11,60 @@ interface ThemeProviderProps {
 
 const ThemeProvider: FC<ThemeProviderProps> = ({children}) => {
 
+    const themeMode = useSelector((state: IState) => state.theme.mode)
 
     //Создаю тему
-
-    const theme = useMemo(
-        () => createTheme({
+    const theme = useMemo(() => createTheme({
 
             //Цвета для всего сайта
             palette: {
-                primary: {
-                    main: '#49b7f9'
-                },
-                text: {
-                    primary: '#000',
-                    secondary: '#49b7f9',
-                    disabled: 'rgba(255, 255, 255, 0.81)',
-                    //disabledOpacity: '#fff',
-                },
-                secondary: {
-                    light: '#F49137',
-                    main: 'rgb(245, 246, 248)',
-                    dark: '#5B41F5',
+                mode: themeMode,
+                ...themeMode === 'light'
+                    ?{
+                        //Цвета для светлой темы
+                        primary: {
+                            main: '#49b7f9',
+                            light: '#f4faff'
+                        },
+                        text: {
+                            primary: '#000',
+                            secondary: '#49b7f9',
+                            disabled: 'rgba(255, 255, 255, 0.81)',
+                        },
+                        secondary: {
+                            light: '#F49137',
+                            main: 'rgb(245, 246, 248)',
 
 
-                },
+                        },
+
+                    }
+                    : {
+                        //Цвета для тёмной темы
+                        primary: {
+                            main: '#49b7f9'
+                        },
+                        text: {
+                            primary: '#f5f5f5',
+                            secondary: '#49b7f9',
+                            disabled: 'rgba(255, 255, 255, 0.81)',
+                        },
+                        secondary: {
+                            light: '#F49137',
+                            main: 'rgb(43, 45, 48)',
+
+
+                        },
+
+                    },
+
+
 
             },
             //Кастомизация компонента Typography
             typography: {
                 h2: {
-                    color: 'rgb(77, 77, 77)',
+                    color: themeMode === 'light' ? 'rgb(77, 77, 77)' : '#f5f5f5',
                     fontSize: '18px',
                     fontWeight: 400,
                     fontStyle: "normal",
@@ -48,7 +73,7 @@ const ThemeProvider: FC<ThemeProviderProps> = ({children}) => {
                 },
 
                 h6: {
-                    color: 'rgb(77, 77, 77)',
+                    color: themeMode === 'light' ? 'rgb(77, 77, 77)' : '#f5f5f5',
                     fontSize: '14px',
                     fontWeight: 600,
                     letterSpacing: '0.14px',
@@ -58,7 +83,7 @@ const ThemeProvider: FC<ThemeProviderProps> = ({children}) => {
                 },
 
                 body1: {
-                    color: 'rgb(77, 77, 77)',
+                    color: themeMode === 'light' ? 'rgb(77, 77, 77)' : '#f5f5f5',
                     fontSize: '14px',
                     fontWeight: 400,
                     letterSpacing: '0.14px',
@@ -67,9 +92,13 @@ const ThemeProvider: FC<ThemeProviderProps> = ({children}) => {
                     fontFamily: 'Montserrat, "sans-serif"'
                 },
 
+                body2: {
+                    color: themeMode === 'light' ? '#000' : '#fff',
+                }
+
             }
 
-        }), []
+        }), [themeMode]
     )
 
 

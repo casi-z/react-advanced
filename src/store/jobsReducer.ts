@@ -1,4 +1,4 @@
-import {IJob, IState} from "@/types/types";
+import {IJob} from "@/types/types";
 
 const defaultState = {
 
@@ -14,9 +14,9 @@ const ADD_JOB = 'ADD_JOBS'
 const SELECT_JOB = 'SELECT_JOB'
 const EDIT_JOB = 'EDIT_JOB'
 const DELETE_JOB = 'DELETE_JOB'
-export default function jobsReducer (
+export default function jobsReducer(
     state = defaultState,
-    action: { type: string, payload: IJob[] | IJob}
+    action: { type: string, payload: IJob[] | IJob }
 ) {
 
     switch (action.type) {
@@ -28,25 +28,25 @@ export default function jobsReducer (
             return {...state, selected: action.payload}
 
         case ADD_JOB:
-            return {...state, jobs: [...state.jobs, action.payload] }
+            return {...state, jobs: [...state.jobs, action.payload]}
 
         case EDIT_JOB:
 
             const newJobs = state.jobs.map(job => {
                 //@ts-ignore
-                if(job.id === action.payload.id){
+                if (job.id === action.payload.id) {
                     return action.payload
-                } else{
+                } else {
                     return job
                 }
 
             })
-            return {...state, jobs: newJobs }
+            return {...state, jobs: newJobs}
 
         case DELETE_JOB:
             //@ts-ignore
             const newJobs2 = [...state.jobs].filter(job => job.id !== action.payload.id)
-            return {...state, jobs: newJobs2 }
+            return {...state, jobs: newJobs2}
 
         default:
             return state

@@ -1,7 +1,6 @@
-import React, {ReactChild, FC, useEffect, useState} from 'react'
-import {Box, Button, Divider, Grid, Paper, Tab, Tabs, Typography, useTheme} from '@mui/material'
+import React, {FC, ReactChild, useState} from 'react'
+import {Grid, Tab, Tabs, useTheme} from '@mui/material'
 import Page from '@/components/Page/Page'
-import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import RadialBarSection from "@/layouts/RadialBarSection/RadialBarSection";
 import EventSection from "@/layouts/EventSection/EventSection";
 import LatenessSection from "@/layouts/LatenessSection/LatenessSection";
@@ -14,8 +13,6 @@ import {IState} from "@/types/types";
 import Calc from "@/utils/calcUtil";
 
 
-const {log} = console
-
 interface MainProps {
 
     children?: ReactChild,
@@ -23,6 +20,7 @@ interface MainProps {
 }
 
 const Main: FC<MainProps> = ({children}) => {
+
     const theme = useTheme()
 
     const [value, setValue] = useState<number>(0);
@@ -30,10 +28,10 @@ const Main: FC<MainProps> = ({children}) => {
     const statistic = useSelector((state: IState) => state.statistic.statistic)
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
-        log(value)
+
     };
 
-    function a11yProps(index: number) {
+    function tabProps(index: number) {
         return {
             id: `simple-tab-${index}`,
             'aria-controls': `simple-tabpanel-${index}`,
@@ -77,23 +75,31 @@ const Main: FC<MainProps> = ({children}) => {
                 scrollButtons="auto"
             >
 
-                <Tab label="День" {...a11yProps(1)}/>
-                <Tab label="Неделя" {...a11yProps(2)}/>
-                <Tab label="Месяц"{...a11yProps(3)} />
-                <Tab label="Квартал" {...a11yProps(4)}/>
-                <Tab label="Год" {...a11yProps(5)}/>
+                <Tab label="День" {...tabProps(1)}/>
+                <Tab label="Неделя" {...tabProps(2)}/>
+                <Tab label="Месяц"{...tabProps(3)} />
+                <Tab label="Квартал" {...tabProps(4)}/>
+                <Tab label="Год" {...tabProps(5)}/>
 
             </Tabs>
 
             <Grid container item xs={12} flexDirection={"column"}>
 
-                <Grid rowSpacing={{md: 0, xs: 2}} mb={{md: 0, xs: 2}} flexDirection={{md: 'row', xs: 'column'}} container flexWrap={"nowrap"}>
+                <Grid
+                    rowSpacing={{md: 0, xs: 2}}
+
+                    flexDirection={{md: 'row', xs: 'column'}}
+                    container
+                    flexWrap={"nowrap"}
+                    height={'90vh'}
+
+                >
 
                     <Grid
                         rowSpacing={{md: 0, xs: 2}}
                         container
                         item md={8} xs={12}
-
+                        height={'100%'}
                         flexDirection={'column'}
                         mr={{md: 2, xs: 0}}
                     >
@@ -101,7 +107,7 @@ const Main: FC<MainProps> = ({children}) => {
                         <DiagrammSection/>
 
                         <Grid
-                            minHeight={'60%'}
+                            height={'60%'}
                             flexDirection={{md: 'row', xs: 'column'}}
                             rowSpacing={{md: 0, xs: 2}}
                             container
@@ -119,11 +125,13 @@ const Main: FC<MainProps> = ({children}) => {
 
                 </Grid>
 
-                <Grid flexDirection={{md: 'row', xs: 'column'}} container mt={2} rowSpacing={{md: 0, xs: 2}} flexWrap={'nowrap'}>
+                <Grid flexDirection={{md: 'row', xs: 'column'}} container mt={2} rowSpacing={{md: 0, xs: 2}}
+                      flexWrap={'nowrap'}>
 
                     <LastIncidentsSection/>
 
-                    <Grid ml={{md: 2, xs: 0}} container item md={4} xs={12} flexDirection={"column"} flexWrap={'nowrap'}>
+                    <Grid ml={{md: 2, xs: 0}} container item md={4} xs={12} flexDirection={"column"}
+                          flexWrap={'nowrap'}>
 
                         <ProgramSection/>
                         <SitesSection/>

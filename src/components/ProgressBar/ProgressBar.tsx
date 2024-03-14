@@ -1,8 +1,6 @@
+import {FC} from 'react'
+import {Box} from '@mui/material'
 
-import {ReactChild, FC} from 'react'
-import {Box, useTheme} from '@mui/material'
-
-const {log} = console
 
 interface ProgressBarProps {
 
@@ -32,7 +30,7 @@ const ProgressBar: FC<ProgressBarProps> = ({progress, color}) => {
                     width: `${progress}%`,
                     height: '100%',
                     borderRadius: 20
-            }}/>
+                }}/>
         </Box>
     )
 }

@@ -1,8 +1,6 @@
-import {ReactChild, FC} from 'react'
+import {FC} from 'react'
 import {Box, useTheme} from '@mui/material'
-import styled from 'styled-components'
 
-const {log} = console
 
 interface VisuallyHiddenProps {
 

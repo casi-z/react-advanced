@@ -1,4 +1,4 @@
-import {IPerson, IProgram, IStatistic} from "@/types/types";
+import {IStatistic} from "@/types/types";
 
 const defaultState = {
 

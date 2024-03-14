@@ -1,12 +1,11 @@
 // @ts-nocheck
-import React, {ReactChild, FC} from 'react'
-import {Box, Grid, Paper, useTheme} from '@mui/material'
+import React, {FC, ReactChild} from 'react'
+import {Grid, Paper, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import Chart from "react-apexcharts";
 import {useSelector} from "react-redux";
 import {IState} from "@/types/types";
 
-const {log} = console
 
 interface DiagrammSectionProps {
 
@@ -78,7 +77,7 @@ const DiagrammSection: FC<DiagrammSectionProps> = ({children}) => {
 
     // @ts-ignore
     return (
-        <Grid height={'35%'} item mb={2}>
+        <Grid height={'30%'} item mb={3}>
             <Paper elevation={0}>
                 <SectionTitle>
                     Статистика рабочего времени

@@ -1,18 +1,15 @@
-import React, {SetStateAction} from "react";
-import {allAgreedWorkTime, allProductiveTime} from "@/data/fake/persons";
+import React from "react";
 
-export interface IMenuItem {
-    name: string,
-    href: string,
-}
 export interface IGlobalContext {
 
 }
+
 export interface IHTTPError {
     message: string
     status: number,
     errors: any[]
 }
+
 export interface IMainMenuItem {
     text: string,
     href: string,
@@ -20,24 +17,32 @@ export interface IMainMenuItem {
     page?: React.ReactChild,
 
 }
-export interface IRadialBarDataItem{
+
+export interface IRadialBarDataItem {
     name: string,
     color: string,
     procents: number,
     time: string
 }
-export interface IPerson {
+
+export interface IBirthDate{
+    day: number,
+    month: number,
+    year: number,
+}
+export interface IPersonData {
 
     id: number,
     surname: string,
     name: string,
     lastname: string,
+    birthDate: IBirthDate
     avatar: string,
     job: string,
     department: string,
 
     workTime: {
-        all?: ITime,
+
         productive: ITime,
         idle: ITime,
         distraction: ITime,
@@ -61,45 +66,74 @@ export interface IPerson {
     incidents: number,
 
 }
+
+export interface IPerson extends IPersonData{
+    fullName: string,
+    workTime:{
+        productive: ITime;
+        idle: ITime;
+        distraction: ITime;
+        all: ITime
+    }
+}
+
 export interface IDepartment {
     id: number,
     name: string,
 }
+
 export interface IJob {
     id: number,
     name: string,
 }
+
 export interface ISchedule {
     id: number,
     name: string,
 }
 
-
-export interface ITime{
+export interface ITime {
     hours: number,
     minutes: number,
     seconds: number,
 }
-export interface IProgram{
+
+export interface IProgramData {
+    id: number,
     name: string,
+    type: 'program' | 'site'
+    url: string
     legal: boolean,
     time: {
-        all?: ITime;
         productive: ITime,
         distraction: ITime,
     },
 
 }
-export interface ISite extends IProgram{
-    url: string,
+
+export interface IProgram extends IProgramData{
+
+    time: {
+        productive: ITime,
+        distraction: ITime,
+        all: ITime
+    },
 
 }
+
+export interface IProgramGroup{
+    id: number,
+    name: string,
+    parentId: number | null,
+}
+
 export interface IStatisticItem {
     name: string
     procents: number,
     color: string
     time: string,
 }
+
 export interface IStatistic {
     workTime: ITime,
     agreedWorkTime: ITime,
@@ -107,16 +141,19 @@ export interface IStatistic {
     idleTime: ITime,
     distractionTime: ITime,
 }
+
 export interface IState {
-    persons:{
+    persons: {
         persons: IPerson[] | [],
         selected: IPerson | null,
     },
     programs: {
         programs: IProgram[] | [],
+        selected: IProgram | null,
     },
-    sites: {
-        sites: ISite[] | [],
+    programGroups: {
+        programGroups: IProgramGroup[] | [],
+        selected: IProgramGroup | null,
     },
     departments: {
         departments: IDepartment[],
@@ -133,7 +170,10 @@ export interface IState {
     statistic: {
         statistic: IStatistic
     },
-    modal:{
+    modal: {
         open: string
     },
+    theme: {
+        mode: 'light' | 'dark'
+    }
 }

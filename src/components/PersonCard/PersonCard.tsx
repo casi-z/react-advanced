@@ -1,13 +1,12 @@
-import React, {ReactChild, FC, useEffect} from 'react'
-import {Avatar, Box, Chip, Divider, Grid, Typography, useTheme} from '@mui/material'
+import React, {FC} from 'react'
+import {Avatar, Grid, Typography, useTheme} from '@mui/material'
 import {useDispatch, useSelector} from "react-redux";
 import {selectPersonAction} from "@/store/personsReducer";
 import {IPerson, IState} from "@/types/types";
 import {setModalNameAction} from "@/store/modalReducer";
 import stringToColor from "@/utils/stringToColor";
-import {PERSON_MODAL} from "@/data/modalNames";
+import {PERSON_MODAL_NAME} from "@/data/modalNames";
 
-const {log} = console
 
 interface PersonCardProps {
 
@@ -37,7 +36,7 @@ const PersonCard: FC<PersonCardProps> = (
             const selectedPerson = persons.filter(person => person.name === data.name)[0]
 
             dispatch(selectPersonAction(selectedPerson))
-            dispatch(setModalNameAction(PERSON_MODAL))
+            dispatch(setModalNameAction(PERSON_MODAL_NAME))
         }
 
     }
@@ -52,8 +51,8 @@ const PersonCard: FC<PersonCardProps> = (
             flexWrap={"nowrap"}
             alignItems={"center"}
             pl={disablePadding ? 0 : 4}
-            pb={1}
-            pt={2}
+            pb={disablePadding ? 0 : 1}
+            pt={disablePadding ? 0 : 2}
 
         >
 

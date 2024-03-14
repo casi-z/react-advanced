@@ -1,29 +1,14 @@
-
-import React, {ReactChild, FC, useState} from 'react'
-import {
-    Avatar,
-    Box, Chip,
-    Grid,
-    Paper,
-    Tab,
-    Table, TableBody, TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Tabs,
-    Typography,
-    useTheme
-} from '@mui/material'
+import React, {FC, ReactChild, useState} from 'react'
+import {Chip, Tab, Tabs} from '@mui/material'
 import Page from "@/components/Page/Page";
 import StatisticSection from "@/layouts/StatisticSection/StatisticSection";
-import SectionTitle from "@/components/SectionTitle/SectionTitle";
-import PersonCard from "@/components/PersonCard/PersonCard";
 import Calc from "@/utils/calcUtil";
 import {IPerson, IState} from "@/types/types";
 import {useSelector} from "react-redux";
+import BasicTable from "@/layouts/BasicTable/BasicTable";
+import PersonCard from "@/components/PersonCard/PersonCard";
 import StackedProgressBar from "@/components/StackedProgressBar/StackedProgressBar";
 
-const {log} = console
 
 interface PersonsPageProps {
 
@@ -33,17 +18,14 @@ interface PersonsPageProps {
 
 const PersonsPage: FC<PersonsPageProps> = ({children}) => {
 
-    const theme = useTheme()
-
 
     const [value, setValue] = useState<number>(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
-        log(value)
     };
 
-    function a11yProps(index: number) {
+    function tabProps(index: number) {
         return {
             id: `simple-tab-${index}`,
             'aria-controls': `simple-tabpanel-${index}`,
@@ -81,119 +63,175 @@ const PersonsPage: FC<PersonsPageProps> = ({children}) => {
 
     ]
 
+    function createData(array: IPerson[]) {
+
+        return array.map(person => {
+
+            // @ts-ignore
+            const sumOfLateness = person.lateness.length > 0 ? person.lateness.reduce((acc, number) => acc + number, 0) : 0
+            // @ts-ignore
+            const sumOfEarlyLeaving = person.earlyLeaving.length > 0 ? person.earlyLeaving.reduce((acc, number) => acc + number, 0) : 0
+            // @ts-ignore
+            const sumOfAbsenteeism = person.absenteeism.length > 0 ? person.absenteeism.reduce((acc, number) => acc + number, 0) : 0
+
+            const stackedProgressBarData = [
+                {
+                    progress: Calc.procentsByTime(person.workTime.distraction, statistic.agreedWorkTime),
+                    color: 'rgb(253, 133, 138)',
+                },
+                {
+                    progress: Calc.procentsByTime(person.workTime.productive, statistic.agreedWorkTime),
+                    color: 'rgb(15, 232, 175)',
+                },
+            ]
+
+            return[
+
+                <PersonCard data={person}/>,
+
+                <StackedProgressBar data={stackedProgressBarData}/>,
+
+                `${person.workTime.all?.hours} ч. ${person.workTime.all?.minutes} мин`,
+
+                sumOfLateness,
+                sumOfEarlyLeaving,
+                sumOfAbsenteeism,
+
+                <Chip
+                    label={person.incidents}
+                    color={person.incidents > 0 ? 'error' : 'success'}
+                    variant="filled" size={'small'}
+                />
+
+
+
+
+
+            ]
+
+        })
+    }
 
     return (
         <Page>
+
             <Tabs value={value} onChange={handleChange}>
 
-                <Tab label="День" {...a11yProps(1)}/>
-                <Tab label="Неделя" {...a11yProps(2)}/>
-                <Tab label="Месяц"{...a11yProps(3)} />
-                <Tab label="Квартал" {...a11yProps(4)}/>
-                <Tab label="Год" {...a11yProps(5)}/>
+                <Tab label="День" {...tabProps(1)}/>
+                <Tab label="Неделя" {...tabProps(2)}/>
+                <Tab label="Месяц"{...tabProps(3)} />
+                <Tab label="Квартал" {...tabProps(4)}/>
+                <Tab label="Год" {...tabProps(5)}/>
 
             </Tabs>
             <StatisticSection data={statisticCardsData}/>
 
+            <BasicTable
+                title={'Статистика сотрудников'}
+                tableHead={['Сотрудник', 'Статистика', '', 'Опоздания', 'Прогулы', 'Ранний уход', 'Инцидентов']}
+                tableBody={createData(persons)}
+                height={68}
 
-            <Grid container mt={2}>
-                <Paper sx={{width: '100%', overflow: 'hidden'}}>
+            />
 
-                    <SectionTitle>Статистика сотрудников</SectionTitle>
+            {/*<Grid container mt={2}>*/}
+            {/*    <Paper sx={{width: '100%', overflow: 'hidden'}}>*/}
 
-                    <TableContainer>
-                        <Table
-                            sx={{
-                                tableLayout: {
-                                    md: 'fixed',
-                                    xs: 'auto'
-                                }
-                            }}
-                            stickyHeader
-                            aria-label="simple table"
-                        >
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Сотрудник</TableCell>
-                                    <TableCell align="right">Статистика</TableCell>
-                                    <TableCell align="right"></TableCell>
-                                    <TableCell align="right">Опоздания</TableCell>
-                                    <TableCell align="right">Прогулы</TableCell>
-                                    <TableCell align="right">Ранний уход</TableCell>
-                                    <TableCell align="right">Инцидентов</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {persons.map((row: IPerson) => {
+            {/*        <SectionTitle>Статистика сотрудников</SectionTitle>*/}
 
-                                    // @ts-ignore
-                                    const sumOfLateness = row.lateness.length > 0 ? row.lateness.reduce((acc, number) => acc + number, 0) : 0
-                                    // @ts-ignore
-                                    const sumOfEarlyLeaving = row.earlyLeaving.length > 0 ? row.earlyLeaving.reduce((acc, number) => acc + number, 0) : 0
-                                    // @ts-ignore
-                                    const sumOfAbsenteeism = row.absenteeism.length > 0 ? row.absenteeism.reduce((acc, number) => acc + number, 0) : 0
+            {/*        <TableContainer>*/}
+            {/*            <Table*/}
+            {/*                sx={{*/}
+            {/*                    tableLayout: {*/}
+            {/*                        md: 'fixed',*/}
+            {/*                        xs: 'auto'*/}
+            {/*                    }*/}
+            {/*                }}*/}
+            {/*                stickyHeader*/}
+            {/*                aria-label="simple table"*/}
+            {/*            >*/}
+            {/*                <TableHead>*/}
+            {/*                    <TableRow>*/}
+            {/*                        <TableCell>Сотрудник</TableCell>*/}
+            {/*                        <TableCell align="right">Статистика</TableCell>*/}
+            {/*                        <TableCell align="right"></TableCell>*/}
+            {/*                        <TableCell align="right">Опоздания</TableCell>*/}
+            {/*                        <TableCell align="right">Прогулы</TableCell>*/}
+            {/*                        <TableCell align="right">Ранний уход</TableCell>*/}
+            {/*                        <TableCell align="right">Инцидентов</TableCell>*/}
+            {/*                    </TableRow>*/}
+            {/*                </TableHead>*/}
+            {/*                <TableBody>*/}
+            {/*                    {persons.map((row: IPerson) => {*/}
 
-                                    const stackedProgressBarData = [
-                                        {
-                                            progress: Calc.procentsByTime(row.workTime.distraction, statistic.agreedWorkTime),
-                                            color: 'rgb(253, 133, 138)',
-                                        },
-                                        {
-                                            progress: Calc.procentsByTime(row.workTime.productive, statistic.agreedWorkTime),
-                                            color: 'rgb(15, 232, 175)',
-                                        },
-                                    ]
+            {/*// @ts-ignore*/}
+            {/*const sumOfLateness = row.lateness.length > 0 ? row.lateness.reduce((acc, number) => acc + number, 0) : 0*/}
+            {/*// @ts-ignore*/}
+            {/*const sumOfEarlyLeaving = row.earlyLeaving.length > 0 ? row.earlyLeaving.reduce((acc, number) => acc + number, 0) : 0*/}
+            {/*// @ts-ignore*/}
+            {/*const sumOfAbsenteeism = row.absenteeism.length > 0 ? row.absenteeism.reduce((acc, number) => acc + number, 0) : 0*/}
 
-                                    return (
+            {/*const stackedProgressBarData = [*/}
+            {/*    {*/}
+            {/*        progress: Calc.procentsByTime(row.workTime.distraction, statistic.agreedWorkTime),*/}
+            {/*        color: 'rgb(253, 133, 138)',*/}
+            {/*    },*/}
+            {/*    {*/}
+            {/*        progress: Calc.procentsByTime(row.workTime.productive, statistic.agreedWorkTime),*/}
+            {/*        color: 'rgb(15, 232, 175)',*/}
+            {/*    },*/}
+            {/*]*/}
 
-                                        <TableRow
-                                            className={'table-row'}
-                                            key={row.name}
-                                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                        >
-                                            <TableCell component="th" scope="row">
+            {/*                        return (*/}
 
-                                                <PersonCard data={row}/>
+            {/*                            <TableRow*/}
+            {/*                                className={'table-row'}*/}
+            {/*                                key={row.name}*/}
+            {/*                                sx={{'&:last-child td, &:last-child th': {border: 0}}}*/}
+            {/*                            >*/}
+            {/*                                <TableCell component="th" scope="row">*/}
 
-                                            </TableCell>
+            {/*                                    <PersonCard data={row}/>*/}
 
-                                            <TableCell
-                                                align="right"
-                                            >
-                                                {row.workTime.all?.hours} ч. {row.workTime.all?.minutes} мин
+            {/*                                </TableCell>*/}
 
-                                            </TableCell>
+            {/*                                <TableCell*/}
+            {/*                                    align="right"*/}
+            {/*                                >*/}
+            {/*                                    {row.workTime.all?.hours} ч. {row.workTime.all?.minutes} мин*/}
 
-                                            <TableCell align={"center"}>
-                                                <StackedProgressBar data={stackedProgressBarData}/>
-                                            </TableCell>
+            {/*                                </TableCell>*/}
 
-                                            <TableCell align="right">{sumOfLateness} мин</TableCell>
+            {/*                                <TableCell align={"center"}>*/}
+            {/*                                    <StackedProgressBar data={stackedProgressBarData}/>*/}
+            {/*                                </TableCell>*/}
 
-                                            <TableCell align="right">{sumOfAbsenteeism} мин</TableCell>
+            {/*                                <TableCell align="right">{sumOfLateness} мин</TableCell>*/}
 
-                                            <TableCell align="right">{sumOfEarlyLeaving} мин</TableCell>
+            {/*                                <TableCell align="right">{sumOfAbsenteeism} мин</TableCell>*/}
 
-                                            <TableCell align="right">
+            {/*                                <TableCell align="right">{sumOfEarlyLeaving} мин</TableCell>*/}
 
-                                                <Chip
-                                                    label={row.incidents}
-                                                    color={row.incidents > 0 ? 'error' : 'success'}
-                                                    variant="filled" size={'small'}
-                                                />
+            {/*                                <TableCell align="right">*/}
 
-                                            </TableCell>
+                                                {/*<Chip*/}
+                                                {/*    label={row.incidents}*/}
+                                                {/*    color={row.incidents > 0 ? 'error' : 'success'}*/}
+                                                {/*    variant="filled" size={'small'}*/}
+                                                {/*/>*/}
 
-                                        </TableRow>
+            {/*                                </TableCell>*/}
 
-                                    )
-                                })}
+            {/*                            </TableRow>*/}
 
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </Paper>
-            </Grid>
+            {/*                        )*/}
+            {/*                    })}*/}
+
+            {/*                </TableBody>*/}
+            {/*            </Table>*/}
+            {/*        </TableContainer>*/}
+            {/*    </Paper>*/}
+            {/*</Grid>*/}
 
 
         </Page>

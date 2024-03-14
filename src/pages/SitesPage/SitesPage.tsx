@@ -1,12 +1,12 @@
-import React, {ReactChild, FC, useState} from 'react'
+import React, {FC, ReactChild, useState} from 'react'
 import {
-    Box,
     Grid,
     Paper,
     Tab,
     Table,
     TableBody,
-    TableCell, TableContainer,
+    TableCell,
+    TableContainer,
     TableHead,
     TableRow,
     Tabs,
@@ -21,7 +21,6 @@ import Calc from "@/utils/calcUtil";
 import {useSelector} from "react-redux";
 import {IState} from "@/types/types";
 
-const {log} = console
 
 interface SitesPageProps {
 
@@ -37,10 +36,9 @@ const SitesPage: FC<SitesPageProps> = ({children}) => {
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
-        log(value)
     };
 
-    function a11yProps(index: number) {
+    function tabProps(index: number) {
         return {
             id: `simple-tab-${index}`,
             'aria-controls': `simple-tabpanel-${index}`,
@@ -48,7 +46,8 @@ const SitesPage: FC<SitesPageProps> = ({children}) => {
     }
 
     const statistic = useSelector((state: IState) => state.statistic.statistic)
-    const sites = useSelector((state: IState) => state.sites.sites)
+    const programs = useSelector((state: IState) => state.programs.programs)
+    const sites = programs.filter(program => program.type === 'site')
 
     const statisticCardsData = [
         {
@@ -77,11 +76,11 @@ const SitesPage: FC<SitesPageProps> = ({children}) => {
 
             <Tabs value={value} onChange={handleChange}>
 
-                <Tab label="День" {...a11yProps(1)}/>
-                <Tab label="Неделя" {...a11yProps(2)}/>
-                <Tab label="Месяц"{...a11yProps(3)} />
-                <Tab label="Квартал" {...a11yProps(4)}/>
-                <Tab label="Год" {...a11yProps(5)}/>
+                <Tab label="День" {...tabProps(1)}/>
+                <Tab label="Неделя" {...tabProps(2)}/>
+                <Tab label="Месяц"{...tabProps(3)} />
+                <Tab label="Квартал" {...tabProps(4)}/>
+                <Tab label="Год" {...tabProps(5)}/>
 
             </Tabs>
 

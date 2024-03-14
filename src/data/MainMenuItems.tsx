@@ -25,6 +25,8 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import DepartmentsSettingsPage from "@/pages/DepartmentsSettingsPage/DepartmentsSettingsPage";
 import JobsSettingsPage from "@/pages/JobsSettingsPage/JobsSettingsPage";
 import SchedulesSettingsPage from "@/pages/SchedulesSettingsPage/SchedulesSettingsPage";
+import ProgramsSettingsPage from "@/pages/ProgramsSettingsPage/ProgramsSettingsPage";
+import ProgramGroupsSettingsPage from "@/pages/ProgramGroupsSettingsPage/ProgramGroupsSettingsPage";
 
 const MainMenuItems = {
     statistic: [
@@ -118,8 +120,18 @@ const MainMenuItems = {
             page: <SchedulesSettingsPage/>
 
         },
-
-
+        {
+            text: 'программы',
+            href: 'programs',
+            icon: <TabIcon/>,
+            page: <ProgramsSettingsPage/>
+        },
+        {
+            text: 'группы программ',
+            href: 'program-groups',
+            icon: <TabIcon/>,
+            page: <ProgramGroupsSettingsPage/>
+        },
 
 
     ]

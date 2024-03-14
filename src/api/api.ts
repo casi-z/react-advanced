@@ -1,4 +1,3 @@
-import HttpError from "./HTTPError"
 import {API_BASE_URL} from "./constants"
 import axios from 'axios'
 

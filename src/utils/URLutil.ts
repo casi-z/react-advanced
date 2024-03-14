@@ -1,9 +1,26 @@
-class URLUtil {
+abstract class URLUtil {
     public static path(level?: number) {
 
         const pathName = window.location.pathname.slice(1)
 
-        if(pathName){
+        if (pathName) {
+            const pathArray = pathName.split('/')
+
+            if (level) {
+                return pathArray[level]
+            } else {
+                return pathArray
+            }
+        }
+        return undefined
+
+    }
+
+    public static hash(level?: number) {
+
+        const pathName = window.location.hash.slice(2)
+
+        if (pathName) {
             const pathArray = pathName.split('/')
 
             if (level) {

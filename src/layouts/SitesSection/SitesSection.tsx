@@ -1,15 +1,11 @@
-
-import React, {ReactChild, FC, useState} from 'react'
-import {Box, Button, Grid, Paper, Tab, useTheme} from '@mui/material'
+import React, {FC, ReactChild, useState} from 'react'
+import {Button, Grid, Paper, Tab, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
-import ItemCard from "@/components/ItemCard/ItemCard";
 import Sites from "@/layouts/Sites/Sites";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
 import {useSelector} from "react-redux";
 import {IState} from "@/types/types";
 
-
-const {log} = console
 
 interface SitesSectionProps {
 
@@ -21,7 +17,8 @@ const SitesSection: FC<SitesSectionProps> = ({children}) => {
 
     const theme = useTheme()
 
-    const sites = useSelector((state: IState) => state.sites.sites)
+    const programs = useSelector((state: IState) => state.programs.programs)
+    const sites = programs.filter(program => program.type === 'site')
 
     const [selectedTab, setSelectedTab] = useState('1');
     const handleChange = (event: React.SyntheticEvent, newSelectedTab: string) => {

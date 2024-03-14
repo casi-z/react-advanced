@@ -1,10 +1,8 @@
-import React, {ReactChild, FC} from 'react'
-import {Box, Grid, Paper, Typography, useTheme} from '@mui/material'
-import styled from 'styled-components'
+import React, {FC} from 'react'
+import {Grid, Paper, Typography, useTheme} from '@mui/material'
 import ProgressBar from "@/components/ProgressBar/ProgressBar";
 import {IStatisticItem} from "@/types/types";
 
-const {log} = console
 
 interface StatisticCardProps {
     data: IStatisticItem

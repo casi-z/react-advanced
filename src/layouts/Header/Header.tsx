@@ -1,8 +1,11 @@
-import React, {ReactChild, FC, useState, MouseEventHandler, useContext, useEffect, useRef} from 'react'
-import {Avatar, Box, Button, Container, Grid, Menu, MenuItem, Paper, useTheme,} from '@mui/material';
+import React, {FC, ReactChild, useRef, useState} from 'react'
+import {Button, Grid, Menu, MenuItem, Paper, useTheme,} from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import IconButton from "@mui/material/IconButton";
+import {DarkMode, LightMode} from "@mui/icons-material";
+import {useDispatch} from "react-redux";
+import {toggleThemeModeAction} from "@/store/themeReducer";
 
-const {log} = console
 
 interface HeaderProps {
 
@@ -16,12 +19,27 @@ const Header: FC<HeaderProps> = ({children}) => {
     const anchorEl = useRef<HTMLButtonElement | null>(null);
 
     const [open, setOpen] = useState<boolean>(false);
+
+    // const themeMode = useSelector((state: IState) => state.theme.mode)
+    const dispatch = useDispatch()
+
+    const theme = useTheme()
+
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
     };
+
+    function handleToggleThemeMode() {
+        dispatch(toggleThemeModeAction())
+        // if(themeMode === 'dark'){
+        //     dispatch(setThemeModeAction('light'))
+        // } else {
+        //     dispatch(setThemeModeAction('dark'))
+        // }
+    }
 
     return (
         <Paper elevation={0}>
@@ -35,6 +53,8 @@ const Header: FC<HeaderProps> = ({children}) => {
                     sx={{
                         color: 'text.primary',
                         borderLeft: '1px solid #eaeaea',
+                        borderRight: '1px solid #eaeaea',
+                        borderRadius: 0,
                     }}
                     endIcon={<KeyboardArrowDownIcon/>}
                     size={'large'}
@@ -47,6 +67,7 @@ const Header: FC<HeaderProps> = ({children}) => {
                 >
                     Демо Администратор
                 </Button>
+
                 <Menu
                     id="basic-menu"
                     anchorEl={anchorEl.current}
@@ -59,6 +80,14 @@ const Header: FC<HeaderProps> = ({children}) => {
                     <MenuItem onClick={handleClose}>Администрирование</MenuItem>
                     <MenuItem onClick={handleClose}>Выход</MenuItem>
                 </Menu>
+
+                <IconButton
+                    onClick={handleToggleThemeMode}
+
+                >
+                    {theme.palette.mode === 'light' ? <LightMode/> : <DarkMode/>}
+                </IconButton>
+
 
             </Grid>
         </Paper>

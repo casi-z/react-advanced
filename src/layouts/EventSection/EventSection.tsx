@@ -1,9 +1,7 @@
-
-import React, {ReactChild, FC} from 'react'
-import {Box, Button, Chip, Divider, Grid, Paper, Stack, useTheme} from '@mui/material'
+import React, {FC} from 'react'
+import {Button, Chip, Divider, Grid, Paper} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 
-const {log} = console
 
 interface EventSectionProps {
 
@@ -15,19 +13,22 @@ const EventSection: FC<EventSectionProps> = ({}) => {
     return (
         <Grid minHeight={'100%'} mr={{md: 2, xs: 0}} item xs={12} md={5}>
 
-            <Paper elevation={0}>
+            <Paper elevation={0} sx={{height: '100%'}}>
 
                 <SectionTitle>
                     Статистика событий
                 </SectionTitle>
 
                 <Grid
-
+                    sx={{ overflowY: 'auto'}}
+                    height={'81%'}
                     rowSpacing={3}
                     flexDirection={'column'}
+                    flexWrap={'nowrap'}
                     container
                     item
-                    xs={8}
+                    xs={12}
+                    mt={0}
                     pl={3}
                     pt={3}
                     pb={3}
@@ -45,15 +46,14 @@ const EventSection: FC<EventSectionProps> = ({}) => {
                         <Chip label="Прогул: 1" color="error" variant="filled" size={'small'}/>
                     </Grid>
 
-
                 </Grid>
 
                 <Divider/>
 
-                <Button fullWidth>
+
+                <Button size={'large'} fullWidth>
                     Подробная статистика
                 </Button>
-
             </Paper>
 
         </Grid>

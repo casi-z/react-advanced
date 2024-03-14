@@ -13,8 +13,6 @@ const root = ReactDOM.createRoot(
 );
 
 
-
-
 root.render(
     <ReduxProvider store={store}>
         <ThemeProvider>

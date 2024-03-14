@@ -1,11 +1,6 @@
-import React, {ReactChild, FC} from 'react'
-import {Box, useTheme} from '@mui/material'
-import styled from 'styled-components'
+import React, {FC} from 'react'
 import Chart from "react-apexcharts";
 import {IRadialBarDataItem} from "@/types/types";
-
-const {log} = console
-
 
 
 interface RadialBarProps {
@@ -34,7 +29,6 @@ const RadialBar: FC<RadialBarProps> = ({data}) => {
 
 
     };
-
 
 
     return (

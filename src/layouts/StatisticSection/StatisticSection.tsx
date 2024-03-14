@@ -1,20 +1,19 @@
-import React, { ReactChild, FC } from 'react'
-import {Box, Grid, useTheme} from '@mui/material'
+import React, {FC} from 'react'
+import {Grid, useTheme} from '@mui/material'
 import StatisticCard from "@/components/StatisticCard/StatisticCard";
 import {IStatisticItem} from "@/types/types";
 
-const { log } = console
 
 interface StatisticSectionProps {
-   
-   data: IStatisticItem[]
-   
+
+    data: IStatisticItem[]
+
 }
 
-const StatisticSection: FC<StatisticSectionProps> = ({ data }) => {
-const theme = useTheme()
+const StatisticSection: FC<StatisticSectionProps> = ({data}) => {
+    const theme = useTheme()
 
-    return(
+    return (
         <Grid container spacing={2} flexDirection={{md: 'row', xs: 'column'}}>
 
             {data.map((item, index) =>

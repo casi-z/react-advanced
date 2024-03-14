@@ -1,9 +1,8 @@
-import React, {ReactChild, FC, useState, useEffect} from 'react'
-import {Box, useTheme} from '@mui/material'
+import React, {FC, useEffect, useState} from 'react'
+import {useTheme} from '@mui/material'
 import ItemCard from "@/components/ItemCard/ItemCard";
 import {IProgram, ISite} from "@/types/types";
 
-const {log} = console
 
 interface SitesProps {
 
@@ -18,17 +17,17 @@ const Sites: FC<SitesProps> = ({get, data}) => {
 
     const [filteredSites, setFilteredSites] = useState<ISite[] | IProgram[]>([]);
 
-    function sortByTime(data: ISite[] | IProgram[]){
+    function sortByTime(data: ISite[] | IProgram[]) {
 
         setFilteredSites(data.sort((a, b) => {
 
             // @ts-ignore
-            if(a.time.all?.hours > a.time.all?.hours){
+            if (a.time.all?.hours > a.time.all?.hours) {
                 return -1
             }
 
             // @ts-ignore
-            if(a.time.all?.hours < a.time.all?.hours){
+            if (a.time.all?.hours < a.time.all?.hours) {
                 return 1
             }
 

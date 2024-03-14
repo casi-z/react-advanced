@@ -1,7 +1,6 @@
-import {ReactChild, FC} from 'react'
-import {Box, useTheme} from '@mui/material'
+import {FC} from 'react'
+import {Box} from '@mui/material'
 
-const {log} = console
 
 interface IStackedProgressBarData {
 
@@ -17,7 +16,6 @@ interface StackedProgressBarProps {
 }
 
 const StackedProgressBar: FC<StackedProgressBarProps> = ({data}) => {
-
 
 
     return (
@@ -43,7 +41,6 @@ const StackedProgressBar: FC<StackedProgressBarProps> = ({data}) => {
                     }}
                     key={index}
                 />
-
             )}
 
         </Box>

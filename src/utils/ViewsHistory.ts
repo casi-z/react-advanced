@@ -1,7 +1,7 @@
 class ViewsHistory {
 
     public getHistory() {
-        if(localStorage.getItem('viewsHistory')){
+        if (localStorage.getItem('viewsHistory')) {
             //@ts-ignore
             return JSON.parse(localStorage.getItem('viewsHistory'))
         } else {
@@ -33,5 +33,6 @@ class ViewsHistory {
 
     }
 }
+
 const viewsHistory = new ViewsHistory()
 export default viewsHistory

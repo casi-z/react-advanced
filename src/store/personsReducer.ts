@@ -1,5 +1,4 @@
 import {IPerson} from "@/types/types";
-import {log} from "@craco/craco/dist/lib/logger";
 
 const defaultState = {
 
@@ -14,9 +13,9 @@ const ADD_PERSON = 'ADD_PERSONS'
 const EDIT_PERSON = 'EDIT_PERSON'
 const DELETE_PERSON = 'DELETE_PERSON'
 
-export default function personsReducer (
+export default function personsReducer(
     state = defaultState,
-    action: { type: string, payload: IPerson | IPerson[] | null}
+    action: { type: string, payload: IPerson | IPerson[] | null }
 ) {
 
     switch (action.type) {
@@ -26,27 +25,27 @@ export default function personsReducer (
 
         case SELECT_PERSON:
             return {...state, selected: action.payload}
-        
+
         case ADD_PERSON:
-            return {...state, persons: [...state.persons, action.payload] }
+            return {...state, persons: [...state.persons, action.payload]}
 
         case EDIT_PERSON:
 
             const newPersons = state.persons.map(person => {
                 //@ts-ignore
-                if(person.id === action.payload.id){
+                if (person.id === action.payload.id) {
                     return action.payload
-                } else{
+                } else {
                     return person
                 }
 
             })
-            return {...state, persons: newPersons }
+            return {...state, persons: newPersons}
 
         case DELETE_PERSON:
             //@ts-ignore
             const newPersons2 = [...state.persons].filter(person => person.id !== action.payload.id)
-            return {...state, persons: newPersons2 }
+            return {...state, persons: newPersons2}
 
 
         default:

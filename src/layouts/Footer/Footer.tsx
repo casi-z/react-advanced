@@ -1,9 +1,7 @@
-import {ReactChild, FC} from 'react'
+import {FC, ReactChild} from 'react'
 
-import {Box, Button, Divider, IconButton, Input, Link, useTheme} from '@mui/material';
-import TelegramIcon from '@mui/icons-material/Telegram';
+import {Box} from '@mui/material';
 
-const {log} = console
 
 interface FooterProps {
 
@@ -13,7 +11,6 @@ interface FooterProps {
 }
 
 const Footer: FC<FooterProps> = ({children, className}) => {
-
 
 
     return (

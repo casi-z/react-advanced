@@ -1,25 +1,20 @@
-import { ReactChild, FC } from 'react'
-import { Box, useTheme } from '@mui/material'
-import styled from 'styled-components'
+import {FC, ReactChild} from 'react'
 
-const { log } = console
 
 interface MainTabsProps {
-   
-   children?: ReactChild,
-   
+
+    children?: ReactChild,
+
 }
 
 
-const MainTabs: FC<MainTabsProps> = ({ children }) => {
+const MainTabs: FC<MainTabsProps> = ({children}) => {
 
 
+    return (
+        <>
 
-
-    return(
-       <>
-          
-       </>
+        </>
     )
 }
 export default MainTabs

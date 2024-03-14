@@ -1,11 +1,10 @@
-
-import React, {ReactChild, FC} from 'react'
-import {Box, Button, Divider, Grid, Paper, useTheme} from '@mui/material'
+import React, {FC, ReactChild} from 'react'
+import {Button, Divider, Grid, Paper} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import PersonCard from "@/components/PersonCard/PersonCard";
-import {persons} from "@/data/fake/persons";
+import {useSelector} from "react-redux";
+import {IState} from "@/types/types";
 
-const {log} = console
 
 interface LatenessSectionProps {
 
@@ -14,7 +13,8 @@ interface LatenessSectionProps {
 }
 
 const LatenessSection: FC<LatenessSectionProps> = ({children}) => {
-    const theme = useTheme()
+
+    const persons = useSelector((state: IState) => state.persons.persons)
 
     const latecomePersons = persons.filter(person => person.lateness.length !== 0)
 
@@ -22,44 +22,39 @@ const LatenessSection: FC<LatenessSectionProps> = ({children}) => {
 
         <Grid height={'100%'} item xs={12} md={7}>
 
-            <Paper elevation={0}>
-                <SectionTitle>Опоздания</SectionTitle>
-                <Divider/>
-            </Paper>
+            <Paper elevation={0} sx={{height: '100%'}}>
 
-            <Paper elevation={0} sx={{maxHeight: '100%'}}>
+                <SectionTitle>Опоздания</SectionTitle>
 
 
                 <Grid
-                    container
-                    spacing={2}
-                    pl={2}
-                    pb={2}
+                    sx={{overflowY: 'auto'}}
+                    height={'81%'}
+                    item
+                    xs={12}
                 >
-                    {latecomePersons.map(person => (<>
+                    {latecomePersons.map((person, index) => (
 
-                        <PersonCard
-                            data={person}
-                        />
-                        <Divider/>
+                        <React.Fragment key={index}>
 
-                    </>))}
+                            <PersonCard
+                                data={person}
+                            />
+                            <Divider/>
 
+                        </React.Fragment>
+
+                    ))}
                 </Grid>
+
 
                 <Divider/>
 
 
+                <Button size={'large'} fullWidth>
+                    Подробная статистика
+                </Button>
 
-            </Paper>
-
-            <Paper elevation={0}>
-
-                <Grid item xs={12}>
-                    <Button fullWidth>
-                        Подробная статистика
-                    </Button>
-                </Grid>
             </Paper>
 
         </Grid>

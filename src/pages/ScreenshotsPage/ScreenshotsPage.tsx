@@ -1,24 +1,22 @@
-import { ReactChild, FC } from 'react'
-import { Box, useTheme } from '@mui/material'
+import {FC, ReactChild} from 'react'
+import {useTheme} from '@mui/material'
 import Page from "@/components/Page/Page";
+import ScreenshotsSection from "@/layouts/ScreenshotsSection/ScreenshotsSection";
 
-const { log } = console
 
 interface ScreenshotsPageProps {
-   
-   children?: ReactChild,
-   
+
+    children?: ReactChild,
+
 }
 
-const ScreenshotsPage: FC<ScreenshotsPageProps> = ({ children }) => {
-const theme = useTheme()
+const ScreenshotsPage: FC<ScreenshotsPageProps> = ({children}) => {
+    const theme = useTheme()
 
-    return(
-      <Box className="ScreenshotsPage">
-          <Page>
-
-          </Page>
-      </Box>
+    return (
+        <Page>
+            <ScreenshotsSection/>
+        </Page>
     )
 }
 export default ScreenshotsPage

@@ -1,23 +1,9 @@
-import React, {ReactChild, FC} from 'react'
-import {
-    Avatar,
-    Box,
-    Card,
-    CardActionArea,
-    CardContent,
-    CardMedia, Divider,
-    Grid,
-    Paper,
-    Typography,
-    useTheme
-} from '@mui/material'
-import styled from 'styled-components'
+import React, {FC} from 'react'
+import {Box, Grid, Paper, Typography} from '@mui/material'
 import {IRadialBarDataItem} from "@/types/types";
 
-const {log} = console
 
-interface LegendCardProps extends IRadialBarDataItem{
-
+interface LegendCardProps extends IRadialBarDataItem {
 
 
 }
@@ -27,7 +13,7 @@ const LegendCard: FC<LegendCardProps> = ({name, time, procents, color}) => {
 
 
     return (<>
-        <Paper elevation={0} >
+        <Paper elevation={0}>
 
             <Grid
                 container

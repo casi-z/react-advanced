@@ -1,11 +1,12 @@
-import {IPerson, IProgram, ITime} from "@/types/types";
+import {IPersonData, ITime} from "@/types/types";
 
-export const persons = calcAllHours([
+export const persons: IPersonData[] = [
     {
         id: 1,
         surname: 'Фролов',
         name: 'Василий',
         lastname: 'Сергеевич',
+        birthDate: {day: 1, month: 1, year: 1970},
         avatar: '',
         job: 'Маркетолог',
         department: 'Отдел маркетинга',
@@ -35,6 +36,7 @@ export const persons = calcAllHours([
         surname: 'Кобзева',
         name: 'Екатерина',
         lastname: 'Александровна',
+        birthDate: {day: 1, month: 1, year: 1970},
         avatar: '',
         job: 'Дизайнер',
         department: 'Отдел дизайна',
@@ -67,6 +69,7 @@ export const persons = calcAllHours([
         surname: 'Коновалов',
         name: 'Владимир',
         lastname: 'Дмитриевич',
+        birthDate: {day: 1, month: 1, year: 1970},
         avatar: '',
         job: 'Разработчик',
         department: 'Отдел разработки',
@@ -99,6 +102,7 @@ export const persons = calcAllHours([
         surname: 'Кравченко',
         name: 'Евгений',
         lastname: 'Викторович',
+        birthDate: {day: 1, month: 1, year: 1970},
         avatar: '',
         job: 'Менеджер по продажам',
         department: 'Отдел продаж',
@@ -129,6 +133,7 @@ export const persons = calcAllHours([
         surname: 'Кудрявцева',
         name: 'Евгения',
         lastname: 'Викторовна',
+        birthDate: {day: 1, month: 1, year: 1970},
         avatar: '',
         job: 'Бухгалтер',
         department: 'Бухгалтерия',
@@ -161,6 +166,7 @@ export const persons = calcAllHours([
         surname: 'Мулатов',
         name: 'Константин',
         lastname: 'Евгеньевич',
+        birthDate: {day: 1, month: 1, year: 1970},
         avatar: '',
         job: 'Начальник отдела кадров',
         department: 'Отдел персонала',
@@ -189,6 +195,7 @@ export const persons = calcAllHours([
         surname: 'Поляков',
         name: 'Виктор',
         lastname: 'Дмитриевич',
+        birthDate: {day: 1, month: 1, year: 1970},
         avatar: '',
         job: 'Разработчик',
         department: 'Отдел разработки',
@@ -217,6 +224,7 @@ export const persons = calcAllHours([
         surname: 'Фролов',
         name: 'Василий',
         lastname: 'Сергеевич',
+        birthDate: {day: 1, month: 1, year: 1970},
         avatar: '',
         job: 'SEO-специалист',
         department: 'Отдел продвижения',
@@ -245,6 +253,7 @@ export const persons = calcAllHours([
         surname: 'Фрязев',
         name: 'Виталий',
         lastname: 'Сергеевич',
+        birthDate: {day: 1, month: 1, year: 1970},
         avatar: '',
         job: 'Менеджер по продажам',
         department: 'Отдел маркетинга',
@@ -275,6 +284,7 @@ export const persons = calcAllHours([
         surname: 'Шалина',
         name: 'Светлана',
         lastname: 'Викторовна',
+        birthDate: {day: 1, month: 1, year: 1970},
         avatar: '',
         job: 'Дизайнер',
         department: 'Отдел дизайна',
@@ -300,7 +310,7 @@ export const persons = calcAllHours([
     },
 
 
-])
+]
 export const allAgreedWorkTime: ITime = {hours: 0, minutes: 0, seconds: 0};
 
 export const allWorkTime: ITime = {hours: 0, minutes: 0, seconds: 0}
@@ -308,58 +318,34 @@ export const allProductiveTime: ITime = {hours: 0, minutes: 0, seconds: 0}
 export const allIdleTime: ITime = {hours: 0, minutes: 0, seconds: 0}
 export const allDistractionTime: ITime = {hours: 0, minutes: 0, seconds: 0}
 
-function calcAllHours(array: IPerson[]) {
-
-    return array.map(element => {
-
-        const productiveTime = element.workTime.productive
-        const distractionTime = element.workTime.distraction
-        const idleTime = element.workTime.idle
-
-
-        return {
-            ...element, workTime: {
-                ...element.workTime,
-                all: {
-                    hours: productiveTime.hours + distractionTime.hours + idleTime.hours,
-                    // @ts-ignore
-                    minutes: productiveTime.minutes + distractionTime.minutes + idleTime.minutes,
-                    // @ts-ignore
-                    seconds: productiveTime.seconds + distractionTime.seconds + idleTime.seconds,
-                }
-            }
-        }
-
-    })
-
-}
-
-//@ts-ignore
-persons.forEach((person: IPerson) => {
-    //@ts-ignore
-    allWorkTime.hours += person.workTime.all.hours
-    //@ts-ignore
-    allWorkTime.minutes += person.workTime.all.minutes
-    //@ts-ignore
-    allWorkTime.seconds += person.workTime.all.seconds
-
-
-    allProductiveTime.hours += person.workTime.productive.hours
-    allProductiveTime.minutes += person.workTime.productive.minutes
-    allProductiveTime.seconds += person.workTime.productive.seconds
-
-    allIdleTime.hours += person.workTime.idle.hours
-    allIdleTime.minutes += person.workTime.idle.minutes
-    allIdleTime.seconds += person.workTime.idle.seconds
-
-    allDistractionTime.hours += person.workTime.distraction.hours
-    allDistractionTime.minutes += person.workTime.distraction.minutes
-    allDistractionTime.seconds += person.workTime.distraction.seconds
-
-
-    allAgreedWorkTime.hours += person.agreedWorkTime.hours
-    allAgreedWorkTime.minutes += person.agreedWorkTime.minutes
-    allAgreedWorkTime.seconds += person.agreedWorkTime.seconds
-
-})
+//
+//
+// //@ts-ignore
+// persons.forEach((person: IPerson) => {
+//     //@ts-ignore
+//     allWorkTime.hours += person.workTime.all.hours
+//     //@ts-ignore
+//     allWorkTime.minutes += person.workTime.all.minutes
+//     //@ts-ignore
+//     allWorkTime.seconds += person.workTime.all.seconds
+//
+//
+//     allProductiveTime.hours += person.workTime.productive.hours
+//     allProductiveTime.minutes += person.workTime.productive.minutes
+//     allProductiveTime.seconds += person.workTime.productive.seconds
+//
+//     allIdleTime.hours += person.workTime.idle.hours
+//     allIdleTime.minutes += person.workTime.idle.minutes
+//     allIdleTime.seconds += person.workTime.idle.seconds
+//
+//     allDistractionTime.hours += person.workTime.distraction.hours
+//     allDistractionTime.minutes += person.workTime.distraction.minutes
+//     allDistractionTime.seconds += person.workTime.distraction.seconds
+//
+//
+//     allAgreedWorkTime.hours += person.agreedWorkTime.hours
+//     allAgreedWorkTime.minutes += person.agreedWorkTime.minutes
+//     allAgreedWorkTime.seconds += person.agreedWorkTime.seconds
+//
+// })
 

@@ -1,23 +1,26 @@
-import {ReactChild, FC, useEffect, useState} from 'react'
+import {FC, ReactChild, useState} from 'react'
 import {
-    CssBaseline,
-    Divider, Drawer,
-    Grid,
+    Divider,
+    Drawer,
     List,
     ListItem,
     ListItemButton,
     ListItemIcon,
-    ListItemText, ListSubheader, Paper, styled, SwipeableDrawer, Typography, useMediaQuery,
+    ListItemText,
+    ListSubheader,
+    Paper,
+    styled,
+    SwipeableDrawer,
+    Typography,
+    useMediaQuery,
     useTheme
 } from '@mui/material'
 import URLUtil from "@/utils/URLutil";
 import mainMenuItems from "@/data/MainMenuItems";
 import {IMainMenuItem, IState} from "@/types/types";
 import {grey} from "@mui/material/colors";
-import Global from "@mui/styled-engine-sc/GlobalStyles";
 import {useSelector} from "react-redux";
 
-const {log} = console
 
 interface MainMenuProps {
 
@@ -60,86 +63,89 @@ const MainMenu: FC<MainMenuProps> = ({children}) => {
     const mobileVersion = useMediaQuery(theme.breakpoints.down('md'));
     const isModalOpen = useSelector((state: IState) => state.modal.open !== '')
 
+
+
     const MainMenuBody = (
 
 
-            <List
-                sx={{overflowY: 'auto'}}
-                subheader={
-                    <ListSubheader component="div">
-                        Статистика
-                    </ListSubheader>
-                }
 
-            >
-                {mainMenuItems.statistic.map((item, index) => (
-
-                    <ListItem
-                        sx={{
-                            background: URLUtil.path(1) === item.href ? '#f4faff' : '',
-                            borderLeft: '4px solid transparent',
-                            borderColor: URLUtil.path(1) === item.href ? theme.palette.primary.main : '',
-
-                        }}
-                        key={index}
-                        disablePadding
-                    >
-
-                        <ListItemButton href={`/statistic/${item.href}`}>
-
-                            <ListItemIcon>
-                                {item.icon}
-                            </ListItemIcon>
-
-                            <ListItemText sx={{textTransform: 'capitalize'}} primary={item.text}/>
-
-                        </ListItemButton>
-
-                    </ListItem>
-                ))}
-
-                <Divider/>
-
+        <List
+            sx={{overflowY: 'auto'}}
+            subheader={
                 <ListSubheader component="div">
-                    Настройка
+                    Статистика
                 </ListSubheader>
+            }
 
-                {mainMenuItems.settings.map((item: IMainMenuItem, index) => (
+        >
+            {mainMenuItems.statistic.map((item, index) => (
 
-                    <ListItem
-                        sx={{
-                            background: URLUtil.path(1) === item.href ? '#f4faff' : '',
-                            borderLeft: '4px solid transparent',
-                            borderColor: URLUtil.path(1) === item.href ? theme.palette.primary.main : '',
+                <ListItem
+                    sx={{
+                        background: URLUtil.hash(1) === item.href ? theme.palette.primary.light : '',
+                        borderLeft: '4px solid transparent',
+                        borderColor: URLUtil.hash(1) === item.href ? theme.palette.primary.main : '',
 
-                        }}
-                        key={index}
-                        disablePadding
-                    >
+                    }}
+                    key={index}
+                    disablePadding
+                >
 
-                        <ListItemButton href={`/settings/${item.href}`}>
+                    <ListItemButton href={`/#/statistic/${item.href}`}>
 
-                            <ListItemIcon color={URLUtil.path(1) === item.href ? theme.palette.primary.main : 'inherit'}>
-                                {item.icon}
-                            </ListItemIcon>
+                        <ListItemIcon>
+                            {item.icon}
+                        </ListItemIcon>
 
-                            <ListItemText
-                                sx={{
-                                    textTransform: 'capitalize',
-                                    color: URLUtil.path(1) === item.href ? theme.palette.primary.main : 'inherit',
+                        <ListItemText sx={{textTransform: 'capitalize'}} primary={item.text}/>
+
+                    </ListItemButton>
+
+                </ListItem>
+            ))}
+
+            <Divider/>
+
+            <ListSubheader component="div">
+                Настройка
+            </ListSubheader>
+
+            {mainMenuItems.settings.map((item: IMainMenuItem, index) => (
+
+                <ListItem
+                    sx={{
+                        background: URLUtil.hash(1) === item.href ? theme.palette.primary.light : '',
+                        borderLeft: '4px solid transparent',
+                        borderColor: URLUtil.hash(1) === item.href ? theme.palette.primary.main : '',
+
+                    }}
+                    key={index}
+                    disablePadding
+                >
+
+                    <ListItemButton href={`/#/settings/${item.href}`}>
+
+                        <ListItemIcon color={URLUtil.hash(1) === item.href ? theme.palette.primary.light : 'inherit'}>
+                            {item.icon}
+                        </ListItemIcon>
+
+                        <ListItemText
+                            sx={{
+                                textTransform: 'capitalize',
+                                color: URLUtil.hash(1) === item.href ? theme.palette.primary.light : 'inherit',
                             }}
-                                primary={item.text}
-                            />
+                            primary={item.text}
+                        />
 
-                        </ListItemButton>
+                    </ListItemButton>
 
-                    </ListItem>
-                ))}
-            </List>
+                </ListItem>
+            ))}
+        </List>
 
     )
 
-    if(mobileVersion && !isModalOpen){
+    if (mobileVersion && !isModalOpen) {
 
         return (
 
@@ -190,7 +196,7 @@ const MainMenu: FC<MainMenuProps> = ({children}) => {
             </Root>
         )
 
-    } else if(!mobileVersion) {
+    } else if (!mobileVersion) {
 
         return (
             <Drawer variant="permanent">

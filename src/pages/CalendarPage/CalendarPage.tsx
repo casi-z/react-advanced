@@ -1,25 +1,23 @@
-
-import { ReactChild, FC } from 'react'
-import { Box, useTheme } from '@mui/material'
+import {FC, ReactChild} from 'react'
+import {Box} from '@mui/material'
 import Page from "@/components/Page/Page";
 
-const { log } = console
 
 interface CalendarPageProps {
-   
-   children?: ReactChild,
-   
+
+    children?: ReactChild,
+
 }
 
-const CalendarPage: FC<CalendarPageProps> = ({ children }) => {
+const CalendarPage: FC<CalendarPageProps> = ({children}) => {
 
 
-    return(
-      <Box className="CalendarPage">
-         <Page>
+    return (
+        <Box className="CalendarPage">
+            <Page>
 
-         </Page>
-      </Box>
+            </Page>
+        </Box>
     )
 }
 export default CalendarPage

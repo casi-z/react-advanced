@@ -1,13 +1,11 @@
-import React, {ReactChild, FC, useState} from 'react'
-import {Box, Button, Divider, Grid, Paper, Tab, useTheme} from '@mui/material'
+import React, {FC, ReactChild, useState} from 'react'
+import {Button, Grid, Paper, Tab} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
 import Sites from "@/layouts/Sites/Sites";
 import {useSelector} from "react-redux";
 import {IState} from "@/types/types";
 
-
-const {log} = console
 
 interface ProgramSectionProps {
 
@@ -16,7 +14,6 @@ interface ProgramSectionProps {
 }
 
 const ProgramSection: FC<ProgramSectionProps> = ({children}) => {
-    const theme = useTheme()
 
     const [selectedTab, setSelectedTab] = useState('1');
     const handleChange = (event: React.SyntheticEvent, newSelectedTab: string) => {
@@ -24,65 +21,63 @@ const ProgramSection: FC<ProgramSectionProps> = ({children}) => {
     };
 
     const programs = useSelector((state: IState) => state.programs.programs)
+    const onlyPrograms = programs.filter(program => program.type === 'program')
 
     return (
-        <Grid mb={2} sx={{overflowY: 'scroll', height: '50%'}} flexGrow={0} container item>
+        <Grid mb={2} sx={{height: '50%'}} flexGrow={0} container>
 
             <Paper elevation={0}>
 
-                <Grid container>
+                <TabContext value={selectedTab}>
 
-                    <TabContext value={selectedTab}>
+                    <SectionTitle
 
-                        <SectionTitle
+                        tabs={
+                            <TabList onChange={handleChange}>
 
-                            tabs={
-                                <TabList onChange={handleChange}>
+                                <Tab label="Популярные" value="1"/>
+                                <Tab label="Запрещённые" value="2"/>
 
-                                    <Tab label="Популярные" value="1"/>
-                                    <Tab label="Запрещённые" value="2"/>
+                            </TabList>
+                        }
+                    >
 
-                                </TabList>
-                            }
-                        >
+                        Программы
 
-                            Программы
+                    </SectionTitle>
 
-                        </SectionTitle>
+                    <Grid container item xs={12}>
 
-                        <Grid container item xs={12}>
+                        <TabPanel sx={{padding: 0}} value="1">
 
-                            <TabPanel sx={{padding: 0}} value="1">
+                            <Grid height={'100%'} container item xs={12}>
 
-                                <Grid height={'100%'} container item xs={12}>
-
-                                    <Sites data={programs} get={"popular"}/>
+                                <Sites data={onlyPrograms} get={"popular"}/>
 
 
-                                </Grid>
+                            </Grid>
 
-                            </TabPanel>
+                        </TabPanel>
 
-                            <TabPanel sx={{padding: 0}} value="2">
+                        <TabPanel sx={{padding: 0}} value="2">
 
-                                <Grid height={'100%'} container item xs={12}>
+                            <Grid height={'100%'} container item xs={12}>
 
-                                    <Sites data={programs} get={"illegal"}/>
+                                <Sites data={onlyPrograms} get={"illegal"}/>
 
-                                </Grid>
+                            </Grid>
 
-                            </TabPanel>
+                        </TabPanel>
 
 
-                        </Grid>
-                    </TabContext>
+                    </Grid>
+                </TabContext>
 
-                </Grid>
 
-                <Button fullWidth>
-                    Все сайты
-                </Button>
+            </Paper>
 
+            <Paper elevation={0} square>
+                <Button size={'large'} fullWidth>Подробная статистика</Button>
             </Paper>
 
         </Grid>

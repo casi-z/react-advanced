@@ -1,18 +1,9 @@
-import {
-    FC,
-    useState,
-    useEffect
-} from 'react'
+import {FC, useEffect, useState} from 'react'
 
-import {
-    Box,
-    styled,
-    useTheme
-} from '@mui/material'
+import {Box, styled, useTheme} from '@mui/material'
 
 import './Cursor.css' //Файл отключает стандартный курсор везде
 
-const { log } = console
 
 /*
  Этот компонент добавляет кастомный курсор
@@ -91,7 +82,7 @@ const Cursor: FC = () => {
 
             } else {
 
-                if(target.className !== 'Cursor'){
+                if (target.className !== 'Cursor') {
 
                     setCursorParams(prevState => {
 
@@ -106,7 +97,7 @@ const Cursor: FC = () => {
 
     useEffect(() => {
 
-        if (isCursorVisible){
+        if (isCursorVisible) {
             cursorMove()
         }
 

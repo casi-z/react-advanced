@@ -1,17 +1,16 @@
-import React, {ReactChild, FC, useState, useEffect} from 'react'
+import React, {FC, ReactChild, useState} from 'react'
 import {
-    Box,
-    Chip,
     Grid,
     Paper,
     Tab,
     Table,
     TableBody,
-    TableCell, TableContainer,
+    TableCell,
+    TableContainer,
     TableHead,
     TableRow,
-    Tabs, Typography,
-    useTheme
+    Tabs,
+    Typography
 } from '@mui/material'
 import Page from "@/components/Page/Page";
 import StatisticSection from "@/layouts/StatisticSection/StatisticSection";
@@ -22,7 +21,6 @@ import Calc from "@/utils/calcUtil";
 import {useSelector} from "react-redux";
 import {IState} from "@/types/types";
 
-const {log} = console
 
 interface ProgramsPageProps {
 
@@ -37,10 +35,10 @@ const ProgramsPage: FC<ProgramsPageProps> = ({children}) => {
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
-        log(value)
+
     };
 
-    function a11yProps(index: number) {
+    function tabProps(index: number) {
         return {
             id: `simple-tab-${index}`,
             'aria-controls': `simple-tabpanel-${index}`,
@@ -49,11 +47,8 @@ const ProgramsPage: FC<ProgramsPageProps> = ({children}) => {
 
     const statistic = useSelector((state: IState) => state.statistic.statistic)
     const programs = useSelector((state: IState) => state.programs.programs)
+    const onlyPrograms = programs.filter(program => program.type === 'program')
 
-
-    useEffect(() => {
-        log(statistic)
-    }, [statistic]);
     const statisticCardsData = [
         {
             name: 'Отработано',
@@ -86,11 +81,11 @@ const ProgramsPage: FC<ProgramsPageProps> = ({children}) => {
         <Page>
             <Tabs value={value} onChange={handleChange}>
 
-                <Tab label="День" {...a11yProps(1)}/>
-                <Tab label="Неделя" {...a11yProps(2)}/>
-                <Tab label="Месяц"{...a11yProps(3)} />
-                <Tab label="Квартал" {...a11yProps(4)}/>
-                <Tab label="Год" {...a11yProps(5)}/>
+                <Tab label="День" {...tabProps(1)}/>
+                <Tab label="Неделя" {...tabProps(2)}/>
+                <Tab label="Месяц"{...tabProps(3)} />
+                <Tab label="Квартал" {...tabProps(4)}/>
+                <Tab label="Год" {...tabProps(5)}/>
 
             </Tabs>
             <StatisticSection data={statisticCardsData}/>
@@ -137,7 +132,7 @@ const ProgramsPage: FC<ProgramsPageProps> = ({children}) => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {programs.map(row => {
+                                    {onlyPrograms.map(row => {
 
                                         const stackedProgressBarData = [
                                             {
@@ -195,7 +190,7 @@ const ProgramsPage: FC<ProgramsPageProps> = ({children}) => {
                             <Grid container item height={'50%'} xs={12}>
 
                                 <SectionTitle>Популярные</SectionTitle>
-                                <Sites data={programs} get={"popular"}/>
+                                <Sites data={onlyPrograms} get={"popular"}/>
 
                             </Grid>
 
@@ -210,7 +205,7 @@ const ProgramsPage: FC<ProgramsPageProps> = ({children}) => {
                             <Grid container item height={'50%'} xs={12}>
 
                                 <SectionTitle>Запрещённые</SectionTitle>
-                                <Sites data={programs} get={"illegal"}/>
+                                <Sites data={onlyPrograms} get={"illegal"}/>
 
                             </Grid>
 
