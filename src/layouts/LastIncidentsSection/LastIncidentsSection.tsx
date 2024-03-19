@@ -17,13 +17,22 @@ const LastIncidentsSection: FC<LastIncidentsSectionProps> = ({children}) => {
     const persons = useSelector((state: IState) => state.persons.persons)
 
     return (
-        <Grid container flexDirection={'column'} item xs={12} md={8}>
+        <Grid height={'100%'} container flexDirection={'column'} item xs={12} md={8} mt={{md: 0, xs: 2}}>
 
-            <Paper elevation={0}>
+            <Paper elevation={0} sx={{height: '100%', overflow: 'hidden'}}>
 
                 <SectionTitle>Последние инциденты</SectionTitle>
 
-                <Grid item overflow={'auto'} xs={12}>
+                <Grid
+                    item
+                    sx={{
+                        overflowY: 'auto',
+                        height: '90%',
+                        overflowX: {xs: 'scroll', md: 'hidden'}
+                    }}
+                    xs={12}
+                >
+
                     {persons.map((person, index) => {
 
                         let stateType;
@@ -67,10 +76,14 @@ const LastIncidentsSection: FC<LastIncidentsSectionProps> = ({children}) => {
                         )
                     })}
                 </Grid>
+                <Divider/>
                 <Button fullWidth>
                     Все инциденты
                 </Button>
+
             </Paper>
+
+
 
         </Grid>
     )

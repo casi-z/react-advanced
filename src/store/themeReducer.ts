@@ -19,7 +19,7 @@ export default function themeReducer(
             return {...state, mode: action.payload}
 
         case TOGGLE_THEME_MODE:
-            localStorage.setItem('themeMode', state.mode)
+            localStorage.setItem('themeMode', state.mode === 'dark' ? 'light' : 'dark')
             return {...state, mode: state.mode === 'dark' ? 'light' : 'dark'}
 
 

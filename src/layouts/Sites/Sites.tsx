@@ -1,13 +1,13 @@
 import React, {FC, useEffect, useState} from 'react'
 import {useTheme} from '@mui/material'
 import ItemCard from "@/components/ItemCard/ItemCard";
-import {IProgram, ISite} from "@/types/types";
+import {IProgram} from "@/types/types";
 
 
 interface SitesProps {
 
     get?: 'popular' | 'illegal',
-    data: ISite[] | IProgram[]
+    data: IProgram[]
 
 }
 
@@ -15,9 +15,9 @@ const Sites: FC<SitesProps> = ({get, data}) => {
     const theme = useTheme()
 
 
-    const [filteredSites, setFilteredSites] = useState<ISite[] | IProgram[]>([]);
+    const [filteredSites, setFilteredSites] = useState<IProgram[]>([]);
 
-    function sortByTime(data: ISite[] | IProgram[]) {
+    function sortByTime(data: IProgram[]) {
 
         setFilteredSites(data.sort((a, b) => {
 
@@ -59,8 +59,9 @@ const Sites: FC<SitesProps> = ({get, data}) => {
     return (
         <>
             {filteredSites.map((site, index) => (
-
-                <ItemCard key={index} title={site.name} info={`${site.time.all?.hours} ч.`}/>
+                <>
+                    <ItemCard key={index} title={site.name} info={site.time.all?.toString(1)}/>
+                </>
             ))}
 
         </>

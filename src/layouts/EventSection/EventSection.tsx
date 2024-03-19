@@ -11,7 +11,7 @@ interface EventSectionProps {
 const EventSection: FC<EventSectionProps> = ({}) => {
 
     return (
-        <Grid minHeight={'100%'} mr={{md: 2, xs: 0}} item xs={12} md={5}>
+        <Grid height={'100%'} mr={{md: 2, xs: 0}} item xs={12} md={5}>
 
             <Paper elevation={0} sx={{height: '100%'}}>
 
@@ -21,7 +21,7 @@ const EventSection: FC<EventSectionProps> = ({}) => {
 
                 <Grid
                     sx={{ overflowY: 'auto'}}
-                    height={'81%'}
+                    height={'82.4%'}
                     rowSpacing={3}
                     flexDirection={'column'}
                     flexWrap={'nowrap'}

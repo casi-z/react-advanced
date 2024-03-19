@@ -1,5 +1,5 @@
 import React, {FC, ReactChild, useState} from 'react'
-import {Button, Grid, Paper, Tab, useTheme} from '@mui/material'
+import {Button, Divider, Grid, Paper, Tab, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import Sites from "@/layouts/Sites/Sites";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
@@ -25,66 +25,54 @@ const SitesSection: FC<SitesSectionProps> = ({children}) => {
         setSelectedTab(newSelectedTab);
     };
     return (
-        <Grid sx={{overflowY: 'scroll'}} container height={'50%'}>
-
-            <Paper elevation={0}>
-
-                <Grid container>
-
-                    <TabContext value={selectedTab}>
-
-                        <SectionTitle
-
-                            tabs={
-                                <TabList onChange={handleChange}>
-
-                                    <Tab label="Популярные" value="1"/>
-                                    <Tab label="Запрещённые" value="2"/>
-
-                                </TabList>
-                            }
-                        >
-
-                            Сайты
-
-                        </SectionTitle>
-
-                        <Grid container item xs={12}>
-
-                            <TabPanel sx={{padding: 0}} value="1">
-
-                                <Grid height={'100%'} container item xs={12}>
-
-                                    <Sites data={sites} get={"popular"}/>
 
 
-                                </Grid>
+        <Paper elevation={0} sx={{height: '49.25%', mt: {md: 0, xs: 2}}}>
 
-                            </TabPanel>
+            <Grid container height={'92%'} flexDirection={'column'} flexWrap={'nowrap'}>
 
-                            <TabPanel sx={{padding: 0}} value="2">
+                <TabContext value={selectedTab}>
 
-                                <Grid height={'100%'} container item xs={12}>
+                    <SectionTitle
 
-                                    <Sites data={sites} get={"illegal"}/>
+                        tabs={
+                            <TabList onChange={handleChange}>
 
-                                </Grid>
+                                <Tab label="Популярные" value="1"/>
+                                <Tab label="Запрещённые" value="2"/>
 
-                            </TabPanel>
+                            </TabList>
+                        }
+                    >
+
+                        Сайты
+
+                    </SectionTitle>
 
 
-                        </Grid>
-                    </TabContext>
+                    <TabPanel sx={{padding: 0, overflowY: 'auto'}} value="1">
 
-                </Grid>
+                        <Sites data={sites} get={"popular"}/>
 
-                <Button fullWidth>
-                    Все сайты
-                </Button>
+                    </TabPanel>
 
-            </Paper>
+                    <TabPanel sx={{padding: 0, overflowY: 'auto'}} value="2">
 
-        </Grid>
+                        <Sites data={sites} get={"illegal"}/>
+
+                    </TabPanel>
+
+
+                </TabContext>
+
+            </Grid>
+            <Divider/>
+            <Button fullWidth>
+                Все сайты
+            </Button>
+
+        </Paper>
+
     )
 }
 export default SitesSection

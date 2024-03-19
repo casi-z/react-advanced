@@ -1,5 +1,5 @@
 import React, {FC, ReactChild, useState} from 'react'
-import {Button, Grid, Paper, Tab} from '@mui/material'
+import {Button, Divider, Grid, Paper, Tab} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
 import Sites from "@/layouts/Sites/Sites";
@@ -24,9 +24,9 @@ const ProgramSection: FC<ProgramSectionProps> = ({children}) => {
     const onlyPrograms = programs.filter(program => program.type === 'program')
 
     return (
-        <Grid mb={2} sx={{height: '50%'}} flexGrow={0} container>
+        <Paper elevation={0} sx={{height: '49.25%'}}>
 
-            <Paper elevation={0}>
+            <Grid container height={'92%'} flexDirection={'column'} flexWrap={'nowrap'}>
 
                 <TabContext value={selectedTab}>
 
@@ -46,41 +46,29 @@ const ProgramSection: FC<ProgramSectionProps> = ({children}) => {
 
                     </SectionTitle>
 
-                    <Grid container item xs={12}>
 
-                        <TabPanel sx={{padding: 0}} value="1">
+                    <TabPanel sx={{padding: 0, overflowY: 'auto'}} value="1">
 
-                            <Grid height={'100%'} container item xs={12}>
+                        <Sites data={programs} get={"popular"}/>
 
-                                <Sites data={onlyPrograms} get={"popular"}/>
+                    </TabPanel>
 
+                    <TabPanel sx={{padding: 0, overflowY: 'auto'}} value="2">
 
-                            </Grid>
+                        <Sites data={programs} get={"illegal"}/>
 
-                        </TabPanel>
-
-                        <TabPanel sx={{padding: 0}} value="2">
-
-                            <Grid height={'100%'} container item xs={12}>
-
-                                <Sites data={onlyPrograms} get={"illegal"}/>
-
-                            </Grid>
-
-                        </TabPanel>
+                    </TabPanel>
 
 
-                    </Grid>
                 </TabContext>
 
+            </Grid>
+            <Divider/>
+            <Button fullWidth>
+                Все сайты
+            </Button>
 
-            </Paper>
-
-            <Paper elevation={0} square>
-                <Button size={'large'} fullWidth>Подробная статистика</Button>
-            </Paper>
-
-        </Grid>
+        </Paper>
     )
 }
 export default ProgramSection

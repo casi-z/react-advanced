@@ -1,5 +1,5 @@
 import {FC, ReactChild} from 'react'
-import {useTheme} from '@mui/material'
+import {Grid, useTheme} from '@mui/material'
 import Page from "@/components/Page/Page";
 import ScreenshotsSection from "@/layouts/ScreenshotsSection/ScreenshotsSection";
 
@@ -15,7 +15,9 @@ const ScreenshotsPage: FC<ScreenshotsPageProps> = ({children}) => {
 
     return (
         <Page>
-            <ScreenshotsSection/>
+            <Grid item xs={12} mt={2}>
+                <ScreenshotsSection/>
+            </Grid>
         </Page>
     )
 }

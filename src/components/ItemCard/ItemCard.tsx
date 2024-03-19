@@ -16,6 +16,7 @@ const ItemCard: FC<ItemCardProps> = ({title, info}) => {
 
 
     return (<>
+        <Divider/>
         <Grid
             container
             item
@@ -34,7 +35,7 @@ const ItemCard: FC<ItemCardProps> = ({title, info}) => {
             </Typography>
 
         </Grid>
-        <Divider/>
+
     </>)
 }
 export default ItemCard

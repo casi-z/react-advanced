@@ -54,19 +54,19 @@ const SitesPage: FC<SitesPageProps> = ({children}) => {
             name: 'Отработано',
             procents: Calc.procentsByTime(statistic.workTime, statistic.agreedWorkTime),
             color: 'rgb(240, 183, 52)',
-            time: `${statistic.workTime.hours} ч. ${statistic.workTime.minutes} мин. ${statistic.workTime.seconds} сек.`,
+            time: statistic.workTime
         },
         {
             name: 'Продуктивно',
             procents: Calc.procentsByTime(statistic.productiveTime, statistic.workTime),
             color: 'rgb(15, 232, 175)',
-            time: `${statistic.productiveTime.hours} ч. ${statistic.productiveTime.minutes} мин. ${statistic.productiveTime.seconds} сек.`,
+            time: statistic.productiveTime
         },
         {
             name: 'Отвлечения',
             procents: Calc.procentsByTime(statistic.distractionTime, statistic.workTime),
             color: 'rgb(253, 133, 138)',
-            time: `${statistic.distractionTime.hours} ч. ${statistic.distractionTime.minutes} мин. ${statistic.distractionTime.seconds} сек.`,
+            time: statistic.distractionTime
         },
 
     ]
@@ -141,7 +141,7 @@ const SitesPage: FC<SitesPageProps> = ({children}) => {
 
                                             </TableCell>
 
-                                            <TableCell align="right">{row.time.all?.hours} ч.</TableCell>
+                                            <TableCell align="right">{row.time.all?.toString(2)}</TableCell>
 
                                             <TableCell align="right">
 

@@ -6,6 +6,7 @@ import BasicTable from "@/layouts/BasicTable/BasicTable";
 import {IPerson, IState} from "@/types/types";
 import {useSelector} from "react-redux";
 import PersonCard from "@/components/PersonCard/PersonCard";
+import {Grid} from "@mui/material";
 
 
 interface ReportPageProps {
@@ -26,7 +27,7 @@ const ReportPage: FC<ReportPageProps> = ({children}) => {
 
     const week = ['пн 11.03', 'вт 12.03', 'ср 13.03', 'чт 14.03', 'пт 15.03', 'сб 16.03', 'вс 17.03',]
 
-    function handleSearch(searchValue: string){
+    function handleSearch(searchValue: string) {
         setSearch(searchValue)
     }
 
@@ -58,33 +59,35 @@ const ReportPage: FC<ReportPageProps> = ({children}) => {
     }
 
     useEffect(() => {
-        if(search){
+        if (search) {
             setDataArray(persons.filter(person => person.fullName.toUpperCase().includes(search.toUpperCase())))
-        } else{
+        } else {
             setDataArray(persons)
         }
 
     }, [persons, search]);
     return (
         <Page>
-            <BasicTable
-                title={'Табель'}
-                tableHead={['Сотрудник', ...week, 'За неделю', 'Отпусков', 'Больничных', 'Прогулов', 'Инцидентов']}
-                tableBody={createData(dataArray)}
-                size="small"
-                height={82}
-                onSearchChange={handleSearch}
-                searchValue={search}
-                sx={{
-                    '.ContentTableCell': {
-                        padding: 0,
-                        borderLeft: '1px solid #eaeaea'
-                    },
-                    '.ContentTableRow': {
-                        padding: 0,
-                    }
-                }}
-            />
+            <Grid item xs={12} mt={2}>
+                <BasicTable
+                    title={'Табель'}
+                    tableHead={['Сотрудник', ...week, 'За неделю', 'Отпусков', 'Больничных', 'Прогулов', 'Инцидентов']}
+                    tableBody={createData(dataArray)}
+                    size="small"
+                    height={82}
+                    onSearchChange={handleSearch}
+                    searchValue={search}
+                    sx={{
+                        '.ContentTableCell': {
+                            padding: 0,
+                            borderLeft: '1px solid #eaeaea'
+                        },
+                        '.ContentTableRow': {
+                            padding: 0,
+                        }
+                    }}
+                />
+            </Grid>
         </Page>
     )
 }

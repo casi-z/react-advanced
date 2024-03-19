@@ -27,6 +27,7 @@ import JobsSettingsPage from "@/pages/JobsSettingsPage/JobsSettingsPage";
 import SchedulesSettingsPage from "@/pages/SchedulesSettingsPage/SchedulesSettingsPage";
 import ProgramsSettingsPage from "@/pages/ProgramsSettingsPage/ProgramsSettingsPage";
 import ProgramGroupsSettingsPage from "@/pages/ProgramGroupsSettingsPage/ProgramGroupsSettingsPage";
+import {GridView} from "@mui/icons-material";
 
 const MainMenuItems = {
     statistic: [
@@ -129,7 +130,7 @@ const MainMenuItems = {
         {
             text: 'группы программ',
             href: 'program-groups',
-            icon: <TabIcon/>,
+            icon: <GridView/>,
             page: <ProgramGroupsSettingsPage/>
         },
 

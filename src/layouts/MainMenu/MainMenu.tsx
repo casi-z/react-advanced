@@ -1,5 +1,6 @@
 import {FC, ReactChild, useState} from 'react'
 import {
+    Button,
     Divider,
     Drawer,
     List,
@@ -25,10 +26,11 @@ import {useSelector} from "react-redux";
 interface MainMenuProps {
 
     children?: ReactChild,
+    width: number
 
 }
 
-const MainMenu: FC<MainMenuProps> = ({children}) => {
+const MainMenu: FC<MainMenuProps> = ({children, width}) => {
     const theme = useTheme()
 
     const [open, setOpen] = useState<boolean>(false);
@@ -64,10 +66,7 @@ const MainMenu: FC<MainMenuProps> = ({children}) => {
     const isModalOpen = useSelector((state: IState) => state.modal.open !== '')
 
 
-
     const MainMenuBody = (
-
-
 
         <List
             sx={{overflowY: 'auto'}}
@@ -199,10 +198,38 @@ const MainMenu: FC<MainMenuProps> = ({children}) => {
     } else if (!mobileVersion) {
 
         return (
-            <Drawer variant="permanent">
-                <Typography sx={{p: 1.5, color: 'text.secondary'}} fontSize={30} textAlign={'center'} component={'h1'}>
-                    SAG Visor
-                </Typography>
+            <Drawer
+                sx={{
+                    width: width,
+                    flexShrink: 0,
+                    '& .MuiDrawer-paper': {
+                        width: width,
+                        boxSizing: 'border-box',
+                    },
+                }}
+                variant="permanent"
+            >
+
+
+                <Button
+                    href={'/#/statistic/main'}
+                    sx={{
+                        p: 0,
+                        borderRadius: 0,
+                        borderWidth: 0
+                    }}
+                >
+                    <Typography
+                        sx={{p: 1.5, color: 'text.secondary'}}
+                        fontSize={30}
+                        textAlign={'center'}
+                        component={'h1'}
+                        textTransform={'none'}
+                    >
+                        SAG Visor
+                    </Typography>
+                </Button>
+
                 <Divider/>
                 {MainMenuBody}
             </Drawer>

@@ -36,7 +36,7 @@ const StatisticCard: FC<StatisticCardProps> = ({data}) => {
                 <ProgressBar progress={data.procents} color={data.color}/>
                 <Grid item pt={2}>
                     <Typography variant="body1">
-                        {data.time}
+                        {data.time.toString()}
                     </Typography>
                 </Grid>
             </Grid>

@@ -29,7 +29,7 @@ const LatenessSection: FC<LatenessSectionProps> = ({children}) => {
 
                 <Grid
                     sx={{overflowY: 'auto'}}
-                    height={'81%'}
+                    height={'82.4%'}
                     item
                     xs={12}
                 >

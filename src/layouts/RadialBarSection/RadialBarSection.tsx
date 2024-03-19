@@ -17,34 +17,48 @@ const RadialBarSection: FC<RadialBarSectionProps> = ({radialBarData}) => {
     return (
         <Grid height={'100%'} item xs={12} md={4}>
 
-            <Paper sx={{height: '95%'}} elevation={0}>
+            <Paper sx={{height: '93%'}} elevation={0}>
 
                 <SectionTitle>
                     Статистика рабочего времени
                 </SectionTitle>
 
-                <RadialBar data={radialBarData}/>
+                <Grid
+                    height={'90%'}
+                    container
+                    flexDirection={'column'}
+                    justifyContent={'space-between'}
+                    flexWrap={'nowrap'}
+                >
 
-                {radialBarData.map((element, index) => (
+                    <Grid justifyContent={"center"} container>
+                        <RadialBar data={radialBarData}/>
+                    </Grid>
 
-                    <React.Fragment key={index}>
+                    <Grid container flexDirection={"column"} justifyContent={"flex-end"}>
+                        {radialBarData.map((element, index) => (
 
-                        <LegendCard
+                            <React.Fragment key={index}>
+                                <Divider/>
+                                <LegendCard
 
-                            color={element.color}
-                            name={element.name}
-                            time={element.time}
-                            procents={element.procents}
-                        />
-                        <Divider/>
-                    </React.Fragment>
+                                    color={element.color}
+                                    name={element.name}
+                                    time={element.time}
+                                    procents={element.procents}
+                                />
 
-                ))}
+                            </React.Fragment>
+
+                        ))}
+                    </Grid>
+                </Grid>
 
 
 
             </Paper>
             <Paper elevation={0} square sx={{height: '5%'}}>
+                <Divider/>
                 <Button size={'large'} fullWidth>Подробная статистика</Button>
             </Paper>
 

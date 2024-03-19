@@ -1,12 +1,13 @@
 import {IPerson, IStatistic} from "@/types/types";
+import Time from "@/ux/Time";
 
 export default class Statistic implements IStatistic{
-    public agreedWorkTime = {hours: 0, minutes: 0, seconds: 0};
+    public agreedWorkTime = new Time({hours: 0, minutes: 0, seconds: 0})
 
-    public workTime = {hours: 0, minutes: 0, seconds: 0}
-    public productiveTime = {hours: 0, minutes: 0, seconds: 0}
-    public idleTime = {hours: 0, minutes: 0, seconds: 0}
-    public distractionTime = {hours: 0, minutes: 0, seconds: 0}
+    public workTime = new Time({hours: 0, minutes: 0, seconds: 0})
+    public productiveTime = new Time({hours: 0, minutes: 0, seconds: 0})
+    public idleTime = new Time({hours: 0, minutes: 0, seconds: 0})
+    public distractionTime = new Time({hours: 0, minutes: 0, seconds: 0})
     
     constructor(persons: IPerson[]){
         persons.forEach(person => {

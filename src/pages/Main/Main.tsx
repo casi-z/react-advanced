@@ -1,4 +1,4 @@
-import React, {FC, ReactChild, useState} from 'react'
+import React, {FC, useState} from 'react'
 import {Grid, Tab, Tabs, useTheme} from '@mui/material'
 import Page from '@/components/Page/Page'
 import RadialBarSection from "@/layouts/RadialBarSection/RadialBarSection";
@@ -15,11 +15,9 @@ import Calc from "@/utils/calcUtil";
 
 interface MainProps {
 
-    children?: ReactChild,
-
 }
 
-const Main: FC<MainProps> = ({children}) => {
+const Main: FC<MainProps> = () => {
 
     const theme = useTheme()
 
@@ -43,25 +41,25 @@ const Main: FC<MainProps> = ({children}) => {
             name: 'Отработано',
             procents: Calc.procentsByTime(statistic.workTime, statistic.agreedWorkTime),
             color: 'rgb(240, 183, 52)',
-            time: `${statistic.workTime.hours} ч. ${statistic.workTime.minutes} мин. ${statistic.workTime.seconds} сек.`,
+            time: statistic.workTime.toString()
         },
         {
             name: 'Простой',
             color: 'rgba(190,190,190,0.85)',
             procents: Calc.procentsByTime(statistic.idleTime, statistic.workTime),
-            time: `${statistic.idleTime.hours} ч. ${statistic.idleTime.minutes} мин. ${statistic.idleTime.seconds} сек.`,
+            time: statistic.idleTime.toString()
         },
         {
             name: 'Продуктивно',
             procents: Calc.procentsByTime(statistic.productiveTime, statistic.workTime),
             color: 'rgb(15, 232, 175)',
-            time: `${statistic.productiveTime.hours} ч. ${statistic.productiveTime.minutes} мин. ${statistic.productiveTime.seconds} сек.`,
+            time: statistic.productiveTime.toString()
         },
         {
             name: 'Отвлечения',
             procents: Calc.procentsByTime(statistic.distractionTime, statistic.workTime),
             color: 'rgb(253, 133, 138)',
-            time: `${statistic.distractionTime.hours} ч. ${statistic.distractionTime.minutes} мин. ${statistic.distractionTime.seconds} сек.`,
+            time: statistic.distractionTime.toString()
         },
     ]
 
@@ -91,7 +89,7 @@ const Main: FC<MainProps> = ({children}) => {
                     flexDirection={{md: 'row', xs: 'column'}}
                     container
                     flexWrap={"nowrap"}
-                    height={'90vh'}
+                    height={{md: '90vh', xs: 'auto'}}
 
                 >
 
@@ -107,7 +105,7 @@ const Main: FC<MainProps> = ({children}) => {
                         <DiagrammSection/>
 
                         <Grid
-                            height={'60%'}
+                            height={'65.5%'}
                             flexDirection={{md: 'row', xs: 'column'}}
                             rowSpacing={{md: 0, xs: 2}}
                             container
@@ -125,13 +123,29 @@ const Main: FC<MainProps> = ({children}) => {
 
                 </Grid>
 
-                <Grid flexDirection={{md: 'row', xs: 'column'}} container mt={2} rowSpacing={{md: 0, xs: 2}}
-                      flexWrap={'nowrap'}>
+                <Grid
+                    flexDirection={{md: 'row', xs: 'column'}}
+                    container
+                    mt={2}
+                    rowSpacing={{md: 0, xs: 2}}
+                    flexWrap={'nowrap'}
+                    height={{md: '100vh', xs: 'auto'}}
+                >
 
                     <LastIncidentsSection/>
 
-                    <Grid ml={{md: 2, xs: 0}} container item md={4} xs={12} flexDirection={"column"}
-                          flexWrap={'nowrap'}>
+                    <Grid
+                        ml={{md: 2, xs: 0}}
+                        container
+                        item
+                        md={4}
+                        xs={12}
+                        justifyContent={'space-between'}
+                        flexDirection={"column"}
+                        flexWrap={'nowrap'}
+                        height={'100%'}
+
+                    >
 
                         <ProgramSection/>
                         <SitesSection/>

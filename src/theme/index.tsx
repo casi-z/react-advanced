@@ -34,6 +34,7 @@ const ThemeProvider: FC<ThemeProviderProps> = ({children}) => {
                         secondary: {
                             light: '#F49137',
                             main: 'rgb(245, 246, 248)',
+                            dark: 'rgb(235, 239, 242)'
 
 
                         },
@@ -52,7 +53,7 @@ const ThemeProvider: FC<ThemeProviderProps> = ({children}) => {
                         secondary: {
                             light: '#F49137',
                             main: 'rgb(43, 45, 48)',
-
+                            dark: 'rgb(68,68,68)'
 
                         },
 

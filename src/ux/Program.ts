@@ -1,4 +1,5 @@
 import {IProgram, IProgramData} from "@/types/types";
+import Time from "@/ux/Time";
 
 export default class Program implements IProgram {
     public id;
@@ -14,7 +15,13 @@ export default class Program implements IProgram {
         this.type = type
         this.url = url
         this.legal = legal
-        this.time = {...time, all: this.calcAllTime(time)}
+        this.time = {
+
+            productive: new Time(time.productive),
+            distraction: new Time(time.distraction),
+            all: new Time(this.calcAllTime(time))
+
+        }
     }
 
     private calcAllTime(timeData: any) {

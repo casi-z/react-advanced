@@ -1,7 +1,6 @@
 import {FC, ReactChild, ReactNode, useEffect} from 'react'
 import Header from '../../layouts/Header/Header'
 import {Grid} from '@mui/material';
-import MainMenu from "@/layouts/MainMenu/MainMenu";
 import PersonModal from "@/layouts/PersonModal/PersonModal";
 import PersonAddModal from "@/layouts/PersonAddModal/PersonAddModal";
 import DepartmentAddModal from "@/layouts/DepartmentAddModal/DepartmentAddModal";
@@ -19,6 +18,8 @@ interface PageProps {
 }
 
 const Page: FC<PageProps> = ({children, title}) => {
+
+    const drawerWidth = 290
 
     useEffect(() => {
 
@@ -40,17 +41,23 @@ const Page: FC<PageProps> = ({children, title}) => {
             <ProgramAddModal/>
             <ProgramGroupAddModal/>
 
-            <Header/>
+            <Header drawerWidth={drawerWidth}/>
 
-            <Grid container justifyContent={'flex-end'}>
 
-                <MainMenu/>
 
-                <Grid maxHeight={'none'} overflow={'hidden'} item pb={{md: 2, xs: 10}} md={10} mt={2} xs={12}>
+                <Grid
+                    maxHeight={'none'}
+                    overflow={'hidden'}
+                    item
+                    ml={{xs: 0, md: `${drawerWidth + 20}px`}}
+                    pb={{md: 2, xs: 10}}
+                    md={10}
+                    mt={5}
+                    xs={12}>
+
                     {children}
                 </Grid>
 
-            </Grid>
 
 
         </>

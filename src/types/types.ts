@@ -92,10 +92,14 @@ export interface ISchedule {
     name: string,
 }
 
-export interface ITime {
+export interface ITimeData {
     hours: number,
     minutes: number,
     seconds: number,
+}
+
+export interface ITime extends ITimeData{
+    toString: (level?: 1 | 2) => string
 }
 
 export interface IProgramData {
@@ -131,7 +135,7 @@ export interface IStatisticItem {
     name: string
     procents: number,
     color: string
-    time: string,
+    time: ITime,
 }
 
 export interface IStatistic {

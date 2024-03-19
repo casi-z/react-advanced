@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, {FC, ReactChild} from 'react'
-import {Grid, Paper, useTheme} from '@mui/material'
+import {Grid, Paper, useMediaQuery, useTheme} from '@mui/material'
 import SectionTitle from "@/components/SectionTitle/SectionTitle";
 import Chart from "react-apexcharts";
 import {useSelector} from "react-redux";
@@ -15,6 +15,7 @@ interface DiagrammSectionProps {
 
 const DiagrammSection: FC<DiagrammSectionProps> = ({children}) => {
     const theme = useTheme()
+    const mobileVersion = useMediaQuery(theme.breakpoints.down('md'))
 
     const {statistic} = useSelector((state: IState) => state)
     // @ts-ignore
@@ -33,7 +34,17 @@ const DiagrammSection: FC<DiagrammSectionProps> = ({children}) => {
 
                 },
             },
+            yaxis: {
+                labels: {
+                    show: false,
+                }
+            },
             xaxis: {
+                labels: {
+                    style: {
+                        colors: theme.palette.text.primary
+                    }
+                },
                 categories: [
                     '8ч',
                     '9ч',
@@ -50,10 +61,17 @@ const DiagrammSection: FC<DiagrammSectionProps> = ({children}) => {
                 opacity: 1
             },
             legend: {
+                show: !mobileVersion,
+                labels: {
+                    colors: theme.palette.text.primary
+
+                },
+
                 position: 'right',
                 offsetX: 0,
                 offsetY: 50
             },
+
         },
         series: [
             {
@@ -77,7 +95,17 @@ const DiagrammSection: FC<DiagrammSectionProps> = ({children}) => {
 
     // @ts-ignore
     return (
-        <Grid height={'30%'} item mb={3}>
+        <Grid
+            sx={{
+                '.apexcharts-tooltip': {
+                    background: theme.palette.background.paper,
+                    color: theme.palette.text.primary,
+                },
+            }}
+            height={'30%'}
+            item
+            mb={3}
+        >
             <Paper elevation={0}>
                 <SectionTitle>
                     Статистика рабочего времени

@@ -35,6 +35,8 @@ const RadialBar: FC<RadialBarProps> = ({data}) => {
         // @ts-ignore
         <Chart
             // @ts-ignore
+            width={300}
+            height={300}
             options={diagram.options}
             series={diagram.series}
             type="radialBar"

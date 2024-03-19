@@ -1,4 +1,5 @@
 import {IPerson, IPersonData} from "@/types/types";
+import Time from "@/ux/Time";
 
 export default class Person implements IPerson {
     public id;
@@ -45,7 +46,14 @@ export default class Person implements IPerson {
         this.avatar = avatar
         this.job = job
         this.department = department
-        this.workTime = {...workTime, all: this.calcAllWorkTime(workTime)}
+        this.workTime = {
+
+            productive: new Time(workTime.productive),
+            distraction: new Time(workTime.distraction),
+            idle: new Time(workTime.idle),
+            all: new Time(this.calcAllWorkTime(workTime))
+
+        }
         this.agreedWorkTime = agreedWorkTime
         this.state = state
         this.lateness = lateness
