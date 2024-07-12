@@ -1,17 +1,8 @@
-import React, {FC, useState} from 'react'
-import {Grid, Tab, Tabs, useTheme} from '@mui/material'
+import React, {FC, lazy, Suspense, useState} from 'react'
+import Typewriter from 'typewriter-effect'
 import Page from '@/components/Page/Page'
-import RadialBarSection from "@/layouts/RadialBarSection/RadialBarSection";
-import EventSection from "@/layouts/EventSection/EventSection";
-import LatenessSection from "@/layouts/LatenessSection/LatenessSection";
-import DiagrammSection from "@/layouts/DiagrammSection/DiagrammSection";
-import LastIncidentsSection from "@/layouts/LastIncidentsSection/LastIncidentsSection";
-import ProgramSection from "@/layouts/ProgramSection/ProgramSection";
-import SitesSection from "@/layouts/SitesSection/SitesSection";
-import {useSelector} from "react-redux";
-import {IState} from "@/types/types";
-import Calc from "@/utils/calcUtil";
-
+import {Box, Grid, styled, Typography} from "@mui/material";
+import {SwiperSlide} from "swiper/react";
 
 interface MainProps {
 
@@ -19,142 +10,122 @@ interface MainProps {
 
 const Main: FC<MainProps> = () => {
 
-    const theme = useTheme()
 
-    const [value, setValue] = useState<number>(0);
+    // @ts-ignore
+    const LazyRenderCanvas = lazy(() => import('../../components/RenderCanvas'))
 
-    const statistic = useSelector((state: IState) => state.statistic.statistic)
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
+    const Box3D = styled(Box)(({theme}) => ({
+        height: '100vh'
+    }))
 
-    };
 
-    function tabProps(index: number) {
-        return {
-            id: `simple-tab-${index}`,
-            'aria-controls': `simple-tabpanel-${index}`,
-        };
-    }
+    const BoxWriter = styled(Box)(({theme}) => ({
+        position: 'absolute',
+        fontSize: '48px',
+        zIndex: 10,
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        top: '50%',
+        // left: '40%'
+    }))
 
-    const radialBarData = [
-        {
-            name: 'Отработано',
-            procents: Calc.procentsByTime(statistic.workTime, statistic.agreedWorkTime),
-            color: 'rgb(240, 183, 52)',
-            time: statistic.workTime.toString()
-        },
-        {
-            name: 'Простой',
-            color: 'rgba(190,190,190,0.85)',
-            procents: Calc.procentsByTime(statistic.idleTime, statistic.workTime),
-            time: statistic.idleTime.toString()
-        },
-        {
-            name: 'Продуктивно',
-            procents: Calc.procentsByTime(statistic.productiveTime, statistic.workTime),
-            color: 'rgb(15, 232, 175)',
-            time: statistic.productiveTime.toString()
-        },
-        {
-            name: 'Отвлечения',
-            procents: Calc.procentsByTime(statistic.distractionTime, statistic.workTime),
-            color: 'rgb(253, 133, 138)',
-            time: statistic.distractionTime.toString()
-        },
-    ]
+    const [state, setState] = useState({
+        isLoading: false,
+        isError: false
+    })
+    const [skills, setSkills] = useState([])
 
+    // const repos = makeRemoteRepos()
+    // const readme = makeDownloadReadMe()
+    //
+    // const getReposContents = async (name) => {
+    //     await repos.getReposContents(name)
+    //         .then(data => {
+    //             if (data.some(repo => repo.name === 'README.md')) {
+    //                 readme.download(name)
+    //                     .then(text => {
+    //                         if (text.includes('<img')) {
+    //                             getImages(text)
+    //                         } else {
+    //                             console.log(`${name} - YES, IMG - NO`)
+    //                         }
+    //                     })
+    //                     .catch(error => console.log(error))
+    //
+    //             } else {
+    //                 console.log(`${name} - NO`)
+    //             }
+    //         })
+    //         .catch(error => console.log(error))
+    // }
+    //
+    // const getImages = (content) => {
+    //     const indTagImg = content.indexOf('<img')
+    //     if (indTagImg !== -1) {
+    //         const imgList = content.substring(indTagImg)
+    //         imgList.split('<img').forEach(img => {
+    //             const pathImg = img.substring(img.indexOf('https'), img.indexOf('.svg') + 4)
+    //             const name = img.substring(img.indexOf('title="') + 7, img.indexOf('" width='))
+    //             if (name) {
+    //                 if (!skills.some(tech => tech.name === name)) {
+    //                     setSkills([...skills, {name, img: pathImg}])
+    //                 }
+    //             }
+    //         })
+    //     }
+    // }
+    //
+    // useEffect(() => {
+    //     setState({...state, isLoading: true})
+    //     repos.getAll()
+    //         .then(data => {
+    //             data.forEach(item => {
+    //                 if (item.name !== 'mymspuz') {
+    //                     getReposContents(item.name)
+    //                 }
+    //             })
+    //             setState({...state, isLoading: false})
+    //         })
+    //         .catch(error => console.log(error))
+    // }, [])
+
+    // @ts-ignore
+    // @ts-ignore
     return (
         <Page>
-
-            <Tabs
-                value={value}
-                onChange={handleChange}
-                variant="scrollable"
-                scrollButtons="auto"
-            >
-
-                <Tab label="День" {...tabProps(1)}/>
-                <Tab label="Неделя" {...tabProps(2)}/>
-                <Tab label="Месяц"{...tabProps(3)} />
-                <Tab label="Квартал" {...tabProps(4)}/>
-                <Tab label="Год" {...tabProps(5)}/>
-
-            </Tabs>
-
-            <Grid container item xs={12} flexDirection={"column"}>
-
-                <Grid
-                    rowSpacing={{md: 0, xs: 2}}
-
-                    flexDirection={{md: 'row', xs: 'column'}}
-                    container
-                    flexWrap={"nowrap"}
-                    height={{md: '90vh', xs: 'auto'}}
-
-                >
-
-                    <Grid
-                        rowSpacing={{md: 0, xs: 2}}
-                        container
-                        item md={8} xs={12}
-                        height={'100%'}
-                        flexDirection={'column'}
-                        mr={{md: 2, xs: 0}}
-                    >
-
-                        <DiagrammSection/>
-
-                        <Grid
-                            height={'65.5%'}
-                            flexDirection={{md: 'row', xs: 'column'}}
-                            rowSpacing={{md: 0, xs: 2}}
-                            container
-                            flexWrap={'nowrap'}
-                        >
-
-                            <EventSection/>
-                            <LatenessSection/>
-
-                        </Grid>
-
-                    </Grid>
-
-                    <RadialBarSection radialBarData={radialBarData}/>
+            <SwiperSlide>
+                <Grid item xs={12} sx={{height: '100%', position: 'relative'}}>
+                    <BoxWriter>
+                        <span>
+                            <Typewriter
+                              options={{cursor: '_'}}
+                              onInit={(tw) => {
+                                  tw
+                                      .pauseFor(100)
+                                      .typeString('I defe')
+                                      .pauseFor(50)
+                                      .deleteChars(2)
+                                      .typeString('veloper Pyth')
+                                      .pauseFor(100)
+                                      .deleteChars(4)
+                                      .typeString('JS')
+                                      .start()
+                              }}
+                            />
+                        </span>
+                    </BoxWriter>
+                    <Box3D>
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <LazyRenderCanvas/>
+                        </Suspense>
+                    </Box3D>
 
                 </Grid>
-
-                <Grid
-                    flexDirection={{md: 'row', xs: 'column'}}
-                    container
-                    mt={2}
-                    rowSpacing={{md: 0, xs: 2}}
-                    flexWrap={'nowrap'}
-                    height={{md: '100vh', xs: 'auto'}}
-                >
-
-                    <LastIncidentsSection/>
-
-                    <Grid
-                        ml={{md: 2, xs: 0}}
-                        container
-                        item
-                        md={4}
-                        xs={12}
-                        justifyContent={'space-between'}
-                        flexDirection={"column"}
-                        flexWrap={'nowrap'}
-                        height={'100%'}
-
-                    >
-
-                        <ProgramSection/>
-                        <SitesSection/>
-
-                    </Grid>
-
-                </Grid>
-
-            </Grid>
+            </SwiperSlide>
+            <SwiperSlide style={{display: 'flex', }}>
+                <Typography variant={'h2'}>dfdfdf</Typography>
+            </SwiperSlide>
 
         </Page>
     )

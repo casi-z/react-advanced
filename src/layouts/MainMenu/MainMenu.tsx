@@ -16,7 +16,7 @@ import {
     useMediaQuery,
     useTheme
 } from '@mui/material'
-import URLUtil from "@/utils/URLutil";
+import URLUtil from "@/utils/URL";
 import mainMenuItems from "@/data/MainMenuItems";
 import {IMainMenuItem, IState} from "@/types/types";
 import {grey} from "@mui/material/colors";
@@ -226,7 +226,7 @@ const MainMenu: FC<MainMenuProps> = ({children, width}) => {
                         component={'h1'}
                         textTransform={'none'}
                     >
-                        SAG Visor
+                        React Advanced
                     </Typography>
                 </Button>
 

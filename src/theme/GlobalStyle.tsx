@@ -32,13 +32,34 @@ const GlobalStyle = () => {
                     scrollBehavior: 'smooth',
                     fontFamily: `'Open Sans'`,
                     width: '100%',
-                    minHeight: '100%',
+                    // minHeight: '100%',
                     background: theme.palette.secondary.main
                 },
 
                 '#root': {
-                    overflowX: 'hidden',
+                    overflow: 'hidden',
+                    width: '100%',
+                    height: '100%',
+                    position: 'fixed',
+                    top: 0,
+                    left: 0
+                },
+                '.swiper-pagination': {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 12
+                },
+                '.swiper-pagination-bullet': {
+                    background: '#36c650',
+                    width: 12,
+                    height: 12,
+                    borderRadius: 0,
+                    marginBottom: 12,
+                    transform: 'rotate(45deg)'
+
                 }
+
+
 
             }}
         />

@@ -1,5 +1,4 @@
-import {HashRouter, Navigate, Route, Routes} from 'react-router-dom'
-import mainMenuItems from "@/data/MainMenuItems";
+import {HashRouter, Route, Routes} from 'react-router-dom'
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {persons as fakePersons,} from "@/data/fake/persons";
@@ -19,6 +18,7 @@ import Program from "@/ux/Program";
 import programGroups from "@/data/fake/programGroups";
 import {setProgramGroupsAction} from "@/store/programGroupsReducer";
 import {useTheme} from '@mui/material'
+import Main from "@/pages/Main/Main";
 
 
 function App() {
@@ -55,22 +55,8 @@ function App() {
         <HashRouter>
             <Routes>
 
-                <Route index element={<Navigate to="/statistic/main"/>}/>
+                <Route index element={<Main />}/>
 
-                <Route path="statistic">
-                    {mainMenuItems.statistic.map((item, index) =>
-                        <Route key={index} path={item.href} element={item.page}/>
-                    )}
-                </Route>
-
-                <Route path="settings">
-                    {mainMenuItems.settings.map((item, index) =>
-                        <Route key={index} path={item.href} element={item.page}/>
-                    )}
-                </Route>
-
-                {/* Перекидываю на ошибку 404 при неправильном url */}
-                {/*<Route path="*" element={<Navigate to="/error?code=404"/>}/>*/}
 
             </Routes>
         </HashRouter>

@@ -1,6 +1,6 @@
-class ViewsHistory {
+abstract class ViewsHistory {
 
-    public getHistory() {
+    public static getHistory() {
         if (localStorage.getItem('viewsHistory')) {
             //@ts-ignore
             return JSON.parse(localStorage.getItem('viewsHistory'))
@@ -10,7 +10,7 @@ class ViewsHistory {
 
     }
 
-    public init() {
+    public static init() {
         if (!this.getHistory()) {
 
             localStorage.setItem('viewsHistory', JSON.stringify([]))
@@ -19,11 +19,11 @@ class ViewsHistory {
 
     }
 
-    public exist(id: number) {
+    public static exist(id: number) {
         return this.getHistory().indexOf(id) > -1
     }
 
-    public add(id: number) {
+    public static add(id: number) {
 
         if (!this.exist(id)) {
             //@ts-ignore
@@ -34,5 +34,4 @@ class ViewsHistory {
     }
 }
 
-const viewsHistory = new ViewsHistory()
-export default viewsHistory
+export default ViewsHistory
